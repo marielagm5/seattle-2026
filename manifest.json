@@ -1,0 +1,26 @@
+{
+  "name": "Road Trip Seattle & Canadá 2026",
+  "short_name": "Road Trip",
+  "description": "Itinerario del viaje familiar Seattle–Canadá, agosto 2026",
+  "start_url": "/seattle-2026/",
+  "scope": "/seattle-2026/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#09131D",
+  "background_color": "#09131D",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
