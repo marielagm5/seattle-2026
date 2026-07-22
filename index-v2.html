@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+  >
+
+  <title>Road Trip · Día 1</title>
+
+  <meta name="theme-color" content="#09131D">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #09131D;
+      --surface: #111D2A;
+      --surface-2: #172534;
+      --surface-soft: rgba(255,255,255,0.055);
+      --border: rgba(255,255,255,0.1);
+      --white: #F4F7F9;
+      --muted: #91A1AF;
+      --coral: #FF7B54;
+      --gold: #FFB830;
+      --mint: #3ECFB2;
+      --sky: #5BA4D4;
+      --red: #FF6565;
+      --safe-top: env(safe-area-inset-top);
+      --safe-bottom: env(safe-area-inset-bottom);
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--white);
+      font-family: "Sora", sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      padding-bottom: calc(92px + var(--safe-bottom));
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* ─────────────────────────────
+       APP
+       ───────────────────────────── */
+
+    .app {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .loading,
+    .error {
+      margin: 24px 16px;
+      padding: 20px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      line-height: 1.55;
+    }
+
+    .error {
+      color: #FF9B9B;
+      border-color: rgba(255,101,101,0.25);
+      background: rgba(255,101,101,0.08);
+    }
+
+    /* ─────────────────────────────
+       HEADER COMPACTO
+       ───────────────────────────── */
+
+    .day-header {
+      position: relative;
+      min-height: 236px;
+      overflow: hidden;
+      border-radius: 0 0 30px 30px;
+      background: var(--surface);
+    }
+
+    .day-header-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.55) saturate(1.05);
+    }
+
+    .day-header-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(9,19,29,0.18),
+          rgba(9,19,29,0.4) 42%,
+          rgba(9,19,29,0.98) 100%
+        );
+    }
+
+    .header-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding:
+        calc(14px + var(--safe-top))
+        16px
+        0;
+    }
+
+    .header-icon-button {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.32);
+      color: white;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+    }
+
+    .day-counter {
+      padding: 9px 14px;
+      border-radius: 22px;
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-family: "Space Mono", monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.86);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-copy {
+      position: absolute;
+      z-index: 2;
+      left: 18px;
+      right: 18px;
+      bottom: 19px;
+    }
+
+    .day-number {
+      display: inline-block;
+      margin-bottom: 7px;
+      font-family: "Space Mono", monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.4px;
+      color: var(--coral);
+      text-transform: uppercase;
+    }
+
+    .day-date {
+      margin-bottom: 5px;
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.84);
+    }
+
+    .day-title {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.04;
+      letter-spacing: -1px;
+    }
+
+    /* ─────────────────────────────
+       RESUMEN DEL DÍA
+       ───────────────────────────── */
+
+    .summary {
+      padding: 16px 16px 0;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .summary-card {
+      min-width: 0;
+      padding: 14px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .summary-card.full {
+      grid-column: 1 / -1;
+    }
+
+    .summary-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 10px;
+      border-radius: 13px;
+      background: rgba(255,255,255,0.07);
+      font-size: 19px;
+    }
+
+    .summary-label {
+      margin-bottom: 5px;
+      font-family: "Space Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .summary-value {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--white);
+    }
+
+    .summary-value.small {
+      font-size: 14px;
+      color: #D5DEE5;
+    }
+
+    /* ─────────────────────────────
+       ALERTA
+       ───────────────────────────── */
+
+    .alert-container {
+      padding: 12px 16px 0;
+    }
+
+    .alert-card {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,101,101,0.08);
+      border: 1px solid rgba(255,101,101,0.2);
+    }
+
+    .alert-symbol {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 13px;
+      background: rgba(255,101,101,0.12);
+      font-size: 19px;
+    }
+
+    .alert-copy strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .alert-copy p {
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    /* ─────────────────────────────
+       SIGUIENTE
+       ───────────────────────────── */
+
+    .next-container {
+      padding: 12px 16px 0;
+    }
+
+    .next-card {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 20px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,123,84,0.16),
+          rgba(255,255,255,0.055)
+        );
+      border: 1px solid rgba(255,123,84,0.22);
+      cursor: pointer;
+    }
+
+    .next-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 16px;
+      background: rgba(255,123,84,0.16);
+      font-size: 22px;
+    }
+
+    .next-content {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .next-label {
+      margin-bottom: 3px;
+      font-family: "Space Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+      color: var(--coral);
+    }
+
+    .next-name {
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .next-status {
+      margin-top: 3px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .next-arrow {
+      color: var(--coral);
+      font-size: 23px;
+    }
+
+    /* ─────────────────────────────
+       ITINERARIO
+       ───────────────────────────── */
+
+    .itinerary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      padding: 22px 16px 12px;
+    }
+
+    .itinerary-header h2 {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .itinerary-header span {
+      font-family: "Space Mono", monospace;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .itinerary-list {
+      padding: 0 16px 20px;
+    }
+
+    /* Actividad */
+    .activity {
+      margin-bottom: 12px;
+      border-radius: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .activity:active {
+      transform: scale(0.985);
+      background: var(--surface-2);
+    }
+
+    .activity.done {
+      opacity: 0.48;
+    }
+
+    .activity.skipped {
+      opacity: 0.3;
+    }
+
+    .activity-main {
+      display: grid;
+      grid-template-columns: 1fr 82px;
+      gap: 13px;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .activity-content {
+      min-width: 0;
+    }
+
+    .activity-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .activity-time {
+      font-family: "Space Mono", monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .activity-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-family: "Space Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+    }
+
+    .c-coral .activity-tag {
+      color: var(--coral);
+      background: rgba(255,123,84,0.14);
+    }
+
+    .c-gold .activity-tag {
+      color: var(--gold);
+      background: rgba(255,184,48,0.14);
+    }
+
+    .c-mint .activity-tag {
+      color: var(--mint);
+      background: rgba(62,207,178,0.14);
+    }
+
+    .c-sky .activity-tag {
+      color: var(--sky);
+      background: rgba(91,164,212,0.14);
+    }
+
+    .activity-title {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.26;
+    }
+
+    .activity-description {
+      margin-top: 5px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--muted);
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .activity-media {
+      position: relative;
+    }
+
+    .activity-image {
+      width: 82px;
+      height: 82px;
+      display: block;
+      object-fit: cover;
+      border-radius: 17px;
+      background: var(--surface-2);
+    }
+
+    .activity-chevron {
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(9,19,29,0.86);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 18px;
+    }
+
+    /* Traslado */
+    .transit {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      margin: 0 8px 12px;
+      padding: 10px 12px;
+      border-left: 2px solid rgba(91,164,212,0.4);
+    }
+
+    .transit-icon {
+      flex: 0 0 auto;
+      font-size: 17px;
+    }
+
+    .transit-content strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #B9DEF5;
+    }
+
+    .transit-content p {
+      font-size: 12px;
+      line-height: 1.42;
+      color: var(--muted);
+    }
+
+    /* Hospedaje */
+    .hotel-section {
+      margin-top: 20px;
+    }
+
+    .hotel-heading {
+      margin-bottom: 10px;
+      font-family: "Space Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hotel-card {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+      padding: 15px;
+      border-radius: 20px;
+      background: rgba(91,164,212,0.08);
+      border: 1px solid rgba(91,164,212,0.2);
+    }
+
+    .hotel-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 15px;
+      background: rgba(91,164,212,0.14);
+      font-size: 21px;
+    }
+
+    .hotel-content {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .hotel-content strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .hotel-content p {
+      margin-top: 4px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .hotel-map-button {
+      margin-top: 11px;
+      padding: 9px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(91,164,212,0.3);
+      background: rgba(91,164,212,0.12);
+      color: #B9DEF5;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* ─────────────────────────────
+       BOTTOM BAR
+       ───────────────────────────── */
+
+    .bottom-bar {
+      position: fixed;
+      z-index: 50;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+      padding:
+        11px
+        16px
+        calc(11px + var(--safe-bottom));
+      background: rgba(9,19,29,0.92);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+    }
+
+    .bottom-button {
+      min-height: 48px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .bottom-button.primary {
+      background: var(--coral);
+      border-color: var(--coral);
+    }
+
+    .bottom-button:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .bottom-day {
+      text-align: center;
+      font-family: "Space Mono", monospace;
+      font-size: 10px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .bottom-day strong {
+      display: block;
+      font-size: 14px;
+      color: var(--white);
+    }
+
+    /* ─────────────────────────────
+       FULLSCREEN DETAIL
+       ───────────────────────────── */
+
+    .detail-view {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      background: var(--bg);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(.32,.72,0,1);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .detail-view.open {
+      transform: translateX(0);
+    }
+
+    .detail-hero {
+      position: relative;
+      min-height: 355px;
+      overflow: hidden;
+    }
+
+    .detail-hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.16),
+          rgba(9,19,29,0.2) 38%,
+          rgba(9,19,29,0.98) 100%
+        );
+    }
+
+    .detail-top {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding:
+        calc(14px + var(--safe-top))
+        16px
+        0;
+    }
+
+    .detail-back,
+    .detail-share {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.36);
+      color: white;
+      font-size: 19px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+    }
+
+    .detail-position {
+      padding: 9px 13px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0,0,0,0.36);
+      font-family: "Space Mono", monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.86);
+      backdrop-filter: blur(12px);
+    }
+
+    .detail-heading {
+      position: absolute;
+      z-index: 2;
+      left: 19px;
+      right: 19px;
+      bottom: 23px;
+    }
+
+    .detail-time {
+      margin-bottom: 9px;
+      font-family: "Space Mono", monospace;
+      font-size: 13px;
+      color: rgba(255,255,255,0.84);
+    }
+
+    .detail-tag {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 5px 9px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.14);
+      font-family: "Space Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .detail-title {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.8px;
+    }
+
+    .detail-description {
+      margin-top: 7px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.76);
+    }
+
+    .detail-content {
+      padding:
+        19px
+        16px
+        calc(112px + var(--safe-bottom));
+    }
+
+    .detail-actions {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 9px;
+      margin-bottom: 25px;
+    }
+
+    .detail-action {
+      min-height: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 7px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    .detail-action.maps {
+      background: var(--sky);
+      border-color: var(--sky);
+    }
+
+    .detail-action.done {
+      color: var(--mint);
+      border-color: rgba(62,207,178,0.28);
+      background: rgba(62,207,178,0.08);
+    }
+
+    .detail-action span:first-child {
+      font-size: 20px;
+    }
+
+    .detail-action span:last-child {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .detail-section {
+      margin-bottom: 25px;
+    }
+
+    .detail-section-label {
+      margin-bottom: 10px;
+      font-family: "Space Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .detail-box {
+      padding: 15px;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .address-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .address-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 13px;
+      background: var(--surface-2);
+      font-size: 19px;
+    }
+
+    .address-main {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .address-sub {
+      margin-top: 4px;
+      font-family: "Space Mono", monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .task-item {
+      display: flex;
+      gap: 11px;
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .task-bullet {
+      width: 7px;
+      height: 7px;
+      flex: 0 0 auto;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .price-box {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: var(--gold);
+      border-color: rgba(255,184,48,0.2);
+      background: rgba(255,184,48,0.07);
+    }
+
+    .price-main {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .detail-alert {
+      display: flex;
+      gap: 11px;
+      color: #FF9B9B;
+      background: rgba(255,101,101,0.07);
+      border-color: rgba(255,101,101,0.2);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .detail-navigation {
+      position: fixed;
+      z-index: 110;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+      padding:
+        11px
+        16px
+        calc(11px + var(--safe-bottom));
+      background: rgba(9,19,29,0.94);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+    }
+
+    /* Escritorio: mostrar como app centrada */
+    @media (min-width: 700px) {
+      .app,
+      .bottom-bar,
+      .detail-view,
+      .detail-navigation {
+        max-width: 460px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .bottom-bar,
+      .detail-navigation {
+        left: 50%;
+        right: auto;
+        width: 460px;
+        transform: translateX(-50%);
+      }
+
+      body {
+        background:
+          radial-gradient(
+            circle at 50% 0,
+            rgba(91,164,212,0.13),
+            transparent 42%
+          ),
+          var(--bg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app" id="app">
+    <div class="loading">⏳ Cargando Día 1...</div>
+  </main>
+
+  <section class="detail-view" id="detailView">
+    <div id="detailContent"></div>
+  </section>
+
+  <script>
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbxRjW3k_a-b7btvbmVVbdarfJIUSf4Q3erwqGJf0V6PnFFnOjg1WryzXJmh2Lqywlq6Jg/exec";
+
+    const CURRENT_DAY = 1;
+
+    let rows = [];
+    let meta = {};
+    let currentDetailOrder = null;
+
+    function escapeHTML(value) {
+      return String(value == null ? "" : value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function rowType(row) {
+      return String(row.tipo || "stop").toLowerCase();
+    }
+
+    function stateKey(order, state) {
+      return `roadtrip_day_${CURRENT_DAY}_${order}_${state}`;
+    }
+
+    function isDone(row) {
+      return localStorage.getItem(
+        stateKey(row.orden, "done")
+      ) === "1";
+    }
+
+    function isSkipped(row) {
+      return localStorage.getItem(
+        stateKey(row.orden, "skipped")
+      ) === "1";
+    }
+
+    function toggleDone(order) {
+      const row = getRow(order);
+      if (!row) return;
+
+      const doneKey = stateKey(order, "done");
+      const skipKey = stateKey(order, "skipped");
+
+      if (localStorage.getItem(doneKey) === "1") {
+        localStorage.removeItem(doneKey);
+      } else {
+        localStorage.setItem(doneKey, "1");
+        localStorage.removeItem(skipKey);
+      }
+
+      render();
+
+      if (currentDetailOrder != null) {
+        openDetail(currentDetailOrder);
+      }
+    }
+
+    function toggleSkipped(order) {
+      const row = getRow(order);
+      if (!row) return;
+
+      const skippedKey = stateKey(order, "skipped");
+      const doneKey = stateKey(order, "done");
+
+      if (localStorage.getItem(skippedKey) === "1") {
+        localStorage.removeItem(skippedKey);
+      } else {
+        localStorage.setItem(skippedKey, "1");
+        localStorage.removeItem(doneKey);
+      }
+
+      render();
+
+      if (currentDetailOrder != null) {
+        openDetail(currentDetailOrder);
+      }
+    }
+
+    function getRow(order) {
+      return rows.find(
+        row => String(row.orden) === String(order)
+      );
+    }
+
+    function getStops() {
+      return rows.filter(row => rowType(row) === "stop");
+    }
+
+    function getNight() {
+      return rows.find(row => rowType(row) === "night");
+    }
+
+    function parseTime(value) {
+      const match = String(value || "")
+        .match(/(\d{1,2}):(\d{2})/);
+
+      if (!match) {
+        return {
+          display: value || "Horario flexible",
+          minutes: null
+        };
+      }
+
+      let hour = Number(match[1]);
+      const minutes = Number(match[2]);
+      const suffix = hour >= 12 ? "p.m." : "a.m.";
+
+      hour = hour % 12 || 12;
+
+      return {
+        display:
+          `${hour}:${String(minutes).padStart(2, "0")} ${suffix}`,
+        minutes:
+          Number(match[1]) * 60 + minutes
+      };
+    }
+
+    function currentMinutes() {
+      const now = new Date();
+      return now.getHours() * 60 + now.getMinutes();
+    }
+
+    function getNextStop() {
+      const pending = getStops().filter(
+        row => !isDone(row) && !isSkipped(row)
+      );
+
+      const now = currentMinutes();
+
+      for (const row of pending) {
+        const end = parseTime(row.hora_fin).minutes;
+        const start = parseTime(row.hora_inicio).minutes;
+        const reference = end ?? start;
+
+        if (reference != null && reference >= now) {
+          return row;
+        }
+      }
+
+      return pending[0] || null;
+    }
+
+    function getTimeStatus(row) {
+      const start = parseTime(row.hora_inicio).minutes;
+      const end = parseTime(row.hora_fin).minutes;
+      const now = currentMinutes();
+
+      if (start == null) {
+        return "Horario flexible";
+      }
+
+      if (now < start) {
+        return `Faltan aproximadamente ${start - now} min`;
+      }
+
+      if (end != null && now > end) {
+        return `Terminó hace aproximadamente ${now - end} min`;
+      }
+
+      return "Corresponde realizarla ahora";
+    }
+
+    function splitTasks(value) {
+      if (!value) return [];
+
+      return String(value)
+        .split("|")
+        .map(item => item.trim())
+        .filter(Boolean);
+    }
+
+    function heroImage() {
+      const next = getNextStop();
+
+      if (next && next.imagen) {
+        return next.imagen;
+      }
+
+      const firstImage = getStops().find(row => row.imagen);
+
+      return firstImage
+        ? firstImage.imagen
+        : "https://images.unsplash.com/photo-1502175353174-a7a70e73b362?w=1000&q=80";
+    }
+
+    function weatherText() {
+      const weatherRow = rows.find(
+        row => row.weather_display
+      );
+
+      return weatherRow
+        ? weatherRow.weather_display
+        : "Disponible cerca de la fecha del viaje";
+    }
+
+    function budgetText() {
+      const totals = {};
+
+      rows.forEach(row => {
+        const currency =
+          String(row.moneda || "").toUpperCase();
+
+        const amount =
+          Number(
+            String(row.precio_monto || "")
+              .replace(",", ".")
+          );
+
+        if (!currency || !amount || Number.isNaN(amount)) {
+          return;
+        }
+
+        totals[currency] =
+          (totals[currency] || 0) + amount;
+      });
+
+      const currencies = Object.keys(totals);
+
+      if (!currencies.length) {
+        return "Sin costos fijos capturados";
+      }
+
+      return currencies
+        .map(
+          currency =>
+            `$${Math.round(
+              totals[currency]
+            ).toLocaleString("es-MX")} ${currency}`
+        )
+        .join(" · ");
+    }
+
+    function formatDate(value) {
+      const match = String(value || "")
+        .match(/(\d{4})-(\d{2})-(\d{2})/);
+
+      if (!match) {
+        return "Lunes 10 de agosto";
+      }
+
+      const date = new Date(
+        Number(match[1]),
+        Number(match[2]) - 1,
+        Number(match[3])
+      );
+
+      return new Intl.DateTimeFormat(
+        "es-MX",
+        {
+          weekday: "long",
+          day: "numeric",
+          month: "long"
+        }
+      ).format(date);
+    }
+
+    function mapsURL(row) {
+      const query =
+        row.maps_query ||
+        row.direccion ||
+        row.nombre ||
+        "";
+
+      return (
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(query)
+      );
+    }
+
+    function openMaps(order) {
+      const row = getRow(order);
+
+      if (row) {
+        window.open(mapsURL(row), "_blank");
+      }
+    }
+
+    function getFirstAlert() {
+      return rows.find(row => row.alerta);
+    }
+
+    function render() {
+      const next = getNextStop();
+      const night = getNight();
+      const firstAlert = getFirstAlert();
+      const stops = getStops();
+
+      let html = "";
+
+      html += `
+        <header class="day-header">
+          <img
+            class="day-header-image"
+            src="${escapeHTML(heroImage())}"
+            alt=""
+          >
+
+          <div class="day-header-overlay"></div>
+
+          <div class="header-top">
+            <button
+              class="header-icon-button"
+              type="button"
+              disabled
+              aria-label="Día anterior"
+              style="opacity:.35"
+            >
+              ‹
+            </button>
+
+            <div class="day-counter">
+              Día 1 de 9
+            </div>
+
+            <button
+              class="header-icon-button"
+              type="button"
+              onclick="loadData()"
+              aria-label="Actualizar"
+            >
+              ↻
+            </button>
+          </div>
+
+          <div class="header-copy">
+            <span class="day-number">Día 1</span>
+
+            <div class="day-date">
+              ${escapeHTML(formatDate(meta.fecha))}
+            </div>
+
+            <h1 class="day-title">
+              ${escapeHTML(
+                meta.ciudad || "Llegada / SeaTac"
+              )}
+            </h1>
+          </div>
+        </header>
+      `;
+
+      html += `
+        <section class="summary">
+          <div class="summary-grid">
+
+            <article class="summary-card">
+              <div class="summary-icon">🌤️</div>
+              <div class="summary-label">Clima</div>
+              <div class="summary-value small">
+                ${escapeHTML(weatherText())}
+              </div>
+            </article>
+
+            <article class="summary-card">
+              <div class="summary-icon">💸</div>
+              <div class="summary-label">Presupuesto</div>
+              <div class="summary-value small">
+                ${escapeHTML(budgetText())}
+              </div>
+            </article>
+
+            <article class="summary-card full">
+              <div class="summary-label">
+                Dónde dormimos
+              </div>
+
+              <div class="summary-value">
+                ${
+                  night
+                    ? escapeHTML(night.nombre || "")
+                    : "Holiday Inn Express Sea-Tac"
+                }
+              </div>
+            </article>
+
+          </div>
+        </section>
+      `;
+
+      if (firstAlert) {
+        html += `
+          <section class="alert-container">
+            <article class="alert-card">
+              <div class="alert-symbol">⚠️</div>
+
+              <div class="alert-copy">
+                <strong>Importante hoy</strong>
+
+                <p>
+                  ${escapeHTML(firstAlert.alerta)}
+                </p>
+              </div>
+            </article>
+          </section>
+        `;
+      }
+
+      if (next) {
+        html += `
+          <section class="next-container">
+            <article
+              class="next-card"
+              onclick="openDetail('${escapeHTML(next.orden)}')"
+            >
+              <div class="next-icon">
+                ${escapeHTML(next.emoji || "📍")}
+              </div>
+
+              <div class="next-content">
+                <div class="next-label">
+                  Sigue
+                </div>
+
+                <div class="next-name">
+                  ${escapeHTML(next.nombre)}
+                </div>
+
+                <div class="next-status">
+                  ${escapeHTML(getTimeStatus(next))}
+                </div>
+              </div>
+
+              <div class="next-arrow">›</div>
+            </article>
+          </section>
+        `;
+      }
+
+      html += `
+        <div class="itinerary-header">
+          <h2>Itinerario</h2>
+
+          <span>
+            ${stops.length} actividades
+          </span>
+        </div>
+
+        <section class="itinerary-list">
+      `;
+
+      rows.forEach(row => {
+        const type = rowType(row);
+
+        if (type === "transit") {
+          html += renderTransit(row);
+          return;
+        }
+
+        if (type === "night") {
+          return;
+        }
+
+        html += renderActivity(row);
+      });
+
+      if (night) {
+        html += renderHotel(night);
+      }
+
+      html += "</section>";
+
+      html += `
+        <nav class="bottom-bar">
+          <button
+            class="bottom-button"
+            disabled
+          >
+            ← Día anterior
+          </button>
+
+          <div class="bottom-day">
+            <strong>Día 1</strong>
+            de 9
+          </div>
+
+          <button
+            class="bottom-button primary"
+            onclick="alert('En el prototipo solo estamos probando el Día 1')"
+          >
+            Día 2 →
+          </button>
+        </nav>
+      `;
+
+      document.getElementById("app").innerHTML = html;
+    }
+
+    function renderActivity(row) {
+      const time = parseTime(row.hora_inicio).display;
+      const color = row.color || "c-coral";
+
+      let classes = `activity ${color}`;
+
+      if (isDone(row)) {
+        classes += " done";
+      }
+
+      if (isSkipped(row)) {
+        classes += " skipped";
+      }
+
+      const fallback =
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=300&q=70";
+
+      return `
+        <article
+          class="${classes}"
+          onclick="openDetail('${escapeHTML(row.orden)}')"
+        >
+          <div class="activity-main">
+
+            <div class="activity-content">
+
+              <div class="activity-meta">
+
+                <span class="activity-time">
+                  ${escapeHTML(time)}
+                </span>
+
+                <span class="activity-tag">
+                  ${escapeHTML(row.emoji || "•")}
+                  ${escapeHTML(row.categoria || "Parada")}
+                </span>
+
+              </div>
+
+              <div class="activity-title">
+                ${escapeHTML(row.nombre || "")}
+              </div>
+
+              <div class="activity-description">
+                ${escapeHTML(row.descripcion || "")}
+              </div>
+
+            </div>
+
+            <div class="activity-media">
+              <img
+                class="activity-image"
+                src="${escapeHTML(row.imagen || fallback)}"
+                alt=""
+              >
+
+              <span class="activity-chevron">›</span>
+            </div>
+
+          </div>
+        </article>
+      `;
+    }
+
+    function renderTransit(row) {
+      return `
+        <div class="transit">
+          <div class="transit-icon">
+            ${escapeHTML(row.emoji || "🚗")}
+          </div>
+
+          <div class="transit-content">
+            <strong>
+              ${escapeHTML(
+                row.nombre ||
+                row.duracion ||
+                "Traslado"
+              )}
+            </strong>
+
+            ${
+              row.descripcion
+                ? `<p>${escapeHTML(row.descripcion)}</p>`
+                : ""
+            }
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHotel(row) {
+      return `
+        <section class="hotel-section">
+          <div class="hotel-heading">
+            Dónde dormimos
+          </div>
+
+          <article class="hotel-card">
+            <div class="hotel-icon">
+              ${escapeHTML(row.emoji || "🏨")}
+            </div>
+
+            <div class="hotel-content">
+              <strong>
+                ${escapeHTML(
+                  row.nombre ||
+                  "Alojamiento del día"
+                )}
+              </strong>
+
+              <p>
+                ${escapeHTML(
+                  row.descripcion ||
+                  row.direccion ||
+                  ""
+                )}
+              </p>
+
+              <button
+                class="hotel-map-button"
+                type="button"
+                onclick="openMaps('${escapeHTML(row.orden)}')"
+              >
+                Abrir en Maps
+              </button>
+            </div>
+          </article>
+        </section>
+      `;
+    }
+
+    function openDetail(order) {
+      const row = getRow(order);
+
+      if (!row) return;
+
+      currentDetailOrder = order;
+
+      const stops = getStops();
+      const index = stops.findIndex(
+        item => String(item.orden) === String(order)
+      );
+
+      const previous = index > 0
+        ? stops[index - 1]
+        : null;
+
+      const next = index < stops.length - 1
+        ? stops[index + 1]
+        : null;
+
+      const start =
+        parseTime(row.hora_inicio).display;
+
+      const end = row.hora_fin
+        ? parseTime(row.hora_fin).display
+        : "";
+
+      const taskItems = splitTasks(row.que_hacer);
+
+      const fallback =
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1000&q=80";
+
+      let html = `
+        <div class="detail-hero">
+          <img
+            class="detail-hero-image"
+            src="${escapeHTML(row.imagen || fallback)}"
+            alt=""
+          >
+
+          <div class="detail-hero-overlay"></div>
+
+          <div class="detail-top">
+            <button
+              class="detail-back"
+              onclick="closeDetail()"
+              aria-label="Regresar"
+            >
+              ←
+            </button>
+
+            <div class="detail-position">
+              ${index + 1} de ${stops.length}
+            </div>
+
+            <button
+              class="detail-share"
+              onclick="shareActivity('${escapeHTML(row.orden)}')"
+              aria-label="Compartir"
+            >
+              ↗
+            </button>
+          </div>
+
+          <div class="detail-heading">
+            <div class="detail-time">
+              ${escapeHTML(start)}
+              ${end ? ` – ${escapeHTML(end)}` : ""}
+            </div>
+
+            <div class="detail-tag">
+              ${escapeHTML(row.emoji || "•")}
+              ${escapeHTML(row.categoria || "Parada")}
+            </div>
+
+            <h2 class="detail-title">
+              ${escapeHTML(row.nombre || "")}
+            </h2>
+
+            ${
+              row.descripcion
+                ? `
+                  <p class="detail-description">
+                    ${escapeHTML(row.descripcion)}
+                  </p>
+                `
+                : ""
+            }
+          </div>
+        </div>
+
+        <div class="detail-content">
+
+          <div class="detail-actions">
+
+            <button
+              class="detail-action maps"
+              onclick="openMaps('${escapeHTML(row.orden)}')"
+            >
+              <span>🗺️</span>
+              <span>Abrir Maps</span>
+            </button>
+
+            <button
+              class="detail-action done"
+              onclick="toggleDone('${escapeHTML(row.orden)}')"
+            >
+              <span>${isDone(row) ? "↩️" : "✅"}</span>
+              <span>${isDone(row) ? "Deshacer" : "Hecho"}</span>
+            </button>
+
+            <button
+              class="detail-action"
+              onclick="toggleSkipped('${escapeHTML(row.orden)}')"
+            >
+              <span>${isSkipped(row) ? "↩️" : "⏭️"}</span>
+              <span>${isSkipped(row) ? "No saltar" : "Saltar"}</span>
+            </button>
+
+          </div>
+      `;
+
+      if (row.direccion) {
+        html += `
+          <section class="detail-section">
+            <div class="detail-section-label">
+              Dirección
+            </div>
+
+            <div
+              class="detail-box address-row"
+              onclick="openMaps('${escapeHTML(row.orden)}')"
+            >
+              <div class="address-icon">📍</div>
+
+              <div>
+                <div class="address-main">
+                  ${escapeHTML(row.direccion)}
+                </div>
+
+                ${
+                  row.maps_query
+                    ? `
+                      <div class="address-sub">
+                        ${escapeHTML(row.maps_query)}
+                      </div>
+                    `
+                    : ""
+                }
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      if (taskItems.length) {
+        html += `
+          <section class="detail-section">
+            <div class="detail-section-label">
+              Qué hacer aquí
+            </div>
+
+            <div class="task-list">
+        `;
+
+        taskItems.forEach(task => {
+          html += `
+            <div class="task-item">
+              <span class="task-bullet"></span>
+              <span>${escapeHTML(task)}</span>
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+          </section>
+        `;
+      }
+
+      const price =
+        row.precio_display ||
+        row.precio ||
+        "";
+
+      if (price) {
+        html += `
+          <section class="detail-section">
+            <div class="detail-section-label">
+              Precio
+            </div>
+
+            <div class="detail-box price-box">
+              <span>💰</span>
+
+              <div class="price-main">
+                ${escapeHTML(price)}
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      if (row.alerta) {
+        html += `
+          <section class="detail-section">
+            <div class="detail-section-label">
+              Importante
+            </div>
+
+            <div class="detail-box detail-alert">
+              <span>⚠️</span>
+              <span>${escapeHTML(row.alerta)}</span>
+            </div>
+          </section>
+        `;
+      }
+
+      html += `
+        </div>
+
+        <nav class="detail-navigation">
+
+          <button
+            class="bottom-button"
+            ${previous
+              ? `onclick="openDetail('${escapeHTML(previous.orden)}')"`
+              : "disabled"}
+          >
+            ← Anterior
+          </button>
+
+          <div class="bottom-day">
+            <strong>${index + 1} / ${stops.length}</strong>
+            actividades
+          </div>
+
+          <button
+            class="bottom-button primary"
+            ${
+              next
+                ? `onclick="openDetail('${escapeHTML(next.orden)}')"`
+                : `onclick="closeDetail()"`
+            }
+          >
+            ${next ? "Siguiente →" : "Cerrar ✓"}
+          </button>
+
+        </nav>
+      `;
+
+      document.getElementById("detailContent").innerHTML = html;
+      document.getElementById("detailView").classList.add("open");
+      document.getElementById("detailView").scrollTop = 0;
+
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDetail() {
+      currentDetailOrder = null;
+
+      document
+        .getElementById("detailView")
+        .classList.remove("open");
+
+      document.body.style.overflow = "";
+    }
+
+    function shareActivity(order) {
+      const row = getRow(order);
+
+      if (!row) return;
+
+      const text = [
+        row.nombre || "Actividad del viaje",
+        row.hora_inicio
+          ? `Hora: ${parseTime(row.hora_inicio).display}`
+          : "",
+        row.direccion || ""
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      if (navigator.share) {
+        navigator.share({
+          title: row.nombre || "Actividad",
+          text,
+          url: mapsURL(row)
+        }).catch(() => {});
+      } else {
+        navigator.clipboard
+          .writeText(`${text}\n${mapsURL(row)}`)
+          .then(() => {
+            alert("Información copiada.");
+          })
+          .catch(() => {
+            alert(text);
+          });
+      }
+    }
+
+    function loadData() {
+      document.getElementById("app").innerHTML =
+        `<div class="loading">⏳ Cargando Día 1...</div>`;
+
+      fetch(`${API_URL}?format=json&day=${CURRENT_DAY}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(
+              `Error HTTP ${response.status}`
+            );
+          }
+
+          return response.json();
+        })
+        .then(data => {
+          rows = Array.isArray(data?.rows)
+            ? data.rows
+            : [];
+
+          meta = data?.meta || {};
+
+          if (!rows.length) {
+            throw new Error(
+              "El API no devolvió actividades para el Día 1."
+            );
+          }
+
+          render();
+        })
+        .catch(error => {
+          document.getElementById("app").innerHTML = `
+            <div class="error">
+              <strong>No se pudo cargar el Día 1.</strong>
+              <br><br>
+              ${escapeHTML(error.message)}
+            </div>
+          `;
+        });
+    }
+
+    loadData();
+  </script>
+
+</body>
+</html>
