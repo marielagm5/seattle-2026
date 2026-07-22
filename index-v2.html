@@ -23,7 +23,9 @@
   >
 
   <style>
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -33,8 +35,8 @@
       --bg: #09131D;
       --surface: #111D2A;
       --surface-2: #172534;
-      --surface-soft: rgba(255,255,255,0.055);
-      --border: rgba(255,255,255,0.1);
+      --surface-soft: rgba(255, 255, 255, 0.055);
+      --border: rgba(255, 255, 255, 0.1);
       --white: #F4F7F9;
       --muted: #91A1AF;
       --coral: #FF7B54;
@@ -64,6 +66,12 @@
       font: inherit;
     }
 
+    button,
+    article,
+    .detail-box {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     /* ─────────────────────────────
        APP
        ───────────────────────────── */
@@ -85,12 +93,12 @@
 
     .error {
       color: #FF9B9B;
-      border-color: rgba(255,101,101,0.25);
-      background: rgba(255,101,101,0.08);
+      border-color: rgba(255, 101, 101, 0.25);
+      background: rgba(255, 101, 101, 0.08);
     }
 
     /* ─────────────────────────────
-       HEADER COMPACTO
+       HEADER
        ───────────────────────────── */
 
     .day-header {
@@ -116,9 +124,9 @@
       background:
         linear-gradient(
           to bottom,
-          rgba(9,19,29,0.18),
-          rgba(9,19,29,0.4) 42%,
-          rgba(9,19,29,0.98) 100%
+          rgba(9, 19, 29, 0.18),
+          rgba(9, 19, 29, 0.4) 42%,
+          rgba(9, 19, 29, 0.98) 100%
         );
     }
 
@@ -140,22 +148,24 @@
       display: grid;
       place-items: center;
       border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.32);
       color: white;
       cursor: pointer;
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .day-counter {
       padding: 9px 14px;
       border-radius: 22px;
-      background: rgba(0,0,0,0.32);
-      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid rgba(255, 255, 255, 0.16);
       font-family: "Space Mono", monospace;
       font-size: 11px;
-      color: rgba(255,255,255,0.86);
+      color: rgba(255, 255, 255, 0.86);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .header-copy {
@@ -181,7 +191,8 @@
       margin-bottom: 5px;
       font-size: 16px;
       font-weight: 600;
-      color: rgba(255,255,255,0.84);
+      color: rgba(255, 255, 255, 0.84);
+      text-transform: capitalize;
     }
 
     .day-title {
@@ -192,7 +203,7 @@
     }
 
     /* ─────────────────────────────
-       RESUMEN DEL DÍA
+       RESUMEN
        ───────────────────────────── */
 
     .summary {
@@ -224,7 +235,7 @@
       place-items: center;
       margin-bottom: 10px;
       border-radius: 13px;
-      background: rgba(255,255,255,0.07);
+      background: rgba(255, 255, 255, 0.07);
       font-size: 19px;
     }
 
@@ -263,8 +274,8 @@
       align-items: flex-start;
       padding: 14px;
       border-radius: 18px;
-      background: rgba(255,101,101,0.08);
-      border: 1px solid rgba(255,101,101,0.2);
+      background: rgba(255, 101, 101, 0.08);
+      border: 1px solid rgba(255, 101, 101, 0.2);
     }
 
     .alert-symbol {
@@ -274,7 +285,7 @@
       place-items: center;
       flex: 0 0 auto;
       border-radius: 13px;
-      background: rgba(255,101,101,0.12);
+      background: rgba(255, 101, 101, 0.12);
       font-size: 19px;
     }
 
@@ -307,10 +318,10 @@
       background:
         linear-gradient(
           135deg,
-          rgba(255,123,84,0.16),
-          rgba(255,255,255,0.055)
+          rgba(255, 123, 84, 0.16),
+          rgba(255, 255, 255, 0.055)
         );
-      border: 1px solid rgba(255,123,84,0.22);
+      border: 1px solid rgba(255, 123, 84, 0.22);
       cursor: pointer;
     }
 
@@ -321,7 +332,7 @@
       place-items: center;
       flex: 0 0 auto;
       border-radius: 16px;
-      background: rgba(255,123,84,0.16);
+      background: rgba(255, 123, 84, 0.16);
       font-size: 22px;
     }
 
@@ -383,7 +394,6 @@
       padding: 0 16px 20px;
     }
 
-    /* Actividad */
     .activity {
       margin-bottom: 12px;
       border-radius: 22px;
@@ -394,7 +404,6 @@
       transition:
         transform 0.15s ease,
         background 0.15s ease;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .activity:active {
@@ -451,22 +460,22 @@
 
     .c-coral .activity-tag {
       color: var(--coral);
-      background: rgba(255,123,84,0.14);
+      background: rgba(255, 123, 84, 0.14);
     }
 
     .c-gold .activity-tag {
       color: var(--gold);
-      background: rgba(255,184,48,0.14);
+      background: rgba(255, 184, 48, 0.14);
     }
 
     .c-mint .activity-tag {
       color: var(--mint);
-      background: rgba(62,207,178,0.14);
+      background: rgba(62, 207, 178, 0.14);
     }
 
     .c-sky .activity-tag {
       color: var(--sky);
-      background: rgba(91,164,212,0.14);
+      background: rgba(91, 164, 212, 0.14);
     }
 
     .activity-title {
@@ -508,19 +517,20 @@
       display: grid;
       place-items: center;
       border-radius: 50%;
-      background: rgba(9,19,29,0.86);
-      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(9, 19, 29, 0.86);
+      border: 1px solid rgba(255, 255, 255, 0.16);
       font-size: 18px;
     }
 
-    /* Traslado */
+    /* TRASLADOS */
+
     .transit {
       display: flex;
       gap: 11px;
       align-items: flex-start;
       margin: 0 8px 12px;
       padding: 10px 12px;
-      border-left: 2px solid rgba(91,164,212,0.4);
+      border-left: 2px solid rgba(91, 164, 212, 0.4);
     }
 
     .transit-icon {
@@ -542,7 +552,8 @@
       color: var(--muted);
     }
 
-    /* Hospedaje */
+    /* HOSPEDAJE */
+
     .hotel-section {
       margin-top: 20px;
     }
@@ -562,8 +573,8 @@
       align-items: flex-start;
       padding: 15px;
       border-radius: 20px;
-      background: rgba(91,164,212,0.08);
-      border: 1px solid rgba(91,164,212,0.2);
+      background: rgba(91, 164, 212, 0.08);
+      border: 1px solid rgba(91, 164, 212, 0.2);
     }
 
     .hotel-icon {
@@ -573,7 +584,7 @@
       place-items: center;
       flex: 0 0 auto;
       border-radius: 15px;
-      background: rgba(91,164,212,0.14);
+      background: rgba(91, 164, 212, 0.14);
       font-size: 21px;
     }
 
@@ -599,8 +610,8 @@
       margin-top: 11px;
       padding: 9px 12px;
       border-radius: 18px;
-      border: 1px solid rgba(91,164,212,0.3);
-      background: rgba(91,164,212,0.12);
+      border: 1px solid rgba(91, 164, 212, 0.3);
+      background: rgba(91, 164, 212, 0.12);
       color: #B9DEF5;
       font-size: 12px;
       font-weight: 700;
@@ -608,7 +619,7 @@
     }
 
     /* ─────────────────────────────
-       BOTTOM BAR
+       BOTTOM BAR PRINCIPAL
        ───────────────────────────── */
 
     .bottom-bar {
@@ -625,19 +636,23 @@
         11px
         16px
         calc(11px + var(--safe-bottom));
-      background: rgba(9,19,29,0.92);
+      background: rgba(9, 19, 29, 0.94);
       border-top: 1px solid var(--border);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
     .bottom-button {
-      min-height: 48px;
-      border-radius: 24px;
+      min-width: 0;
+      min-height: 50px;
+      padding: 10px 12px;
+      border-radius: 25px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--white);
       font-size: 13px;
       font-weight: 700;
+      white-space: nowrap;
       cursor: pointer;
     }
 
@@ -647,26 +662,35 @@
     }
 
     .bottom-button:disabled {
-      opacity: 0.35;
+      opacity: 0.3;
       cursor: default;
     }
 
     .bottom-day {
+      min-width: 72px;
       text-align: center;
       font-family: "Space Mono", monospace;
-      font-size: 10px;
       color: var(--muted);
       white-space: nowrap;
     }
 
+    .bottom-day span {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
     .bottom-day strong {
       display: block;
-      font-size: 14px;
       color: var(--white);
+      font-size: 15px;
+      line-height: 1.2;
     }
 
     /* ─────────────────────────────
-       FULLSCREEN DETAIL
+       DETALLE FULLSCREEN
        ───────────────────────────── */
 
     .detail-view {
@@ -674,16 +698,28 @@
       z-index: 100;
       inset: 0;
       width: 100%;
-      height: 100%;
+      height: 100vh;
+      height: 100dvh;
       overflow-y: auto;
+      overflow-x: hidden;
       background: var(--bg);
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(.32,.72,0,1);
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transition:
+        opacity 0.22s ease,
+        visibility 0.22s ease;
+
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
     }
 
     .detail-view.open {
-      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
 
     .detail-hero {
@@ -706,9 +742,9 @@
       background:
         linear-gradient(
           to bottom,
-          rgba(0,0,0,0.16),
-          rgba(9,19,29,0.2) 38%,
-          rgba(9,19,29,0.98) 100%
+          rgba(0, 0, 0, 0.16),
+          rgba(9, 19, 29, 0.2) 38%,
+          rgba(9, 19, 29, 0.98) 100%
         );
     }
 
@@ -734,23 +770,25 @@
       display: grid;
       place-items: center;
       border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(0,0,0,0.36);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.36);
       color: white;
       font-size: 19px;
       cursor: pointer;
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .detail-position {
       padding: 9px 13px;
       border-radius: 22px;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(0,0,0,0.36);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.36);
       font-family: "Space Mono", monospace;
       font-size: 10px;
-      color: rgba(255,255,255,0.86);
+      color: rgba(255, 255, 255, 0.86);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .detail-heading {
@@ -765,7 +803,7 @@
       margin-bottom: 9px;
       font-family: "Space Mono", monospace;
       font-size: 13px;
-      color: rgba(255,255,255,0.84);
+      color: rgba(255, 255, 255, 0.84);
     }
 
     .detail-tag {
@@ -773,7 +811,7 @@
       margin-bottom: 10px;
       padding: 5px 9px;
       border-radius: 8px;
-      background: rgba(255,255,255,0.14);
+      background: rgba(255, 255, 255, 0.14);
       font-family: "Space Mono", monospace;
       font-size: 9px;
       letter-spacing: 1px;
@@ -791,32 +829,34 @@
       margin-top: 7px;
       font-size: 14px;
       line-height: 1.5;
-      color: rgba(255,255,255,0.76);
+      color: rgba(255, 255, 255, 0.76);
     }
 
     .detail-content {
       padding:
-        19px
+        22px
         16px
-        calc(112px + var(--safe-bottom));
+        calc(132px + var(--safe-bottom));
     }
+
+    /* ACCIONES */
 
     .detail-actions {
       display: grid;
       grid-template-columns: 1.2fr 1fr 1fr;
       gap: 9px;
-      margin-bottom: 25px;
+      margin-bottom: 28px;
     }
 
     .detail-action {
-      min-height: 60px;
+      min-height: 64px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 4px;
       padding: 10px 7px;
-      border-radius: 18px;
+      border-radius: 19px;
       border: 1px solid var(--border);
       background: var(--surface);
       color: var(--white);
@@ -826,12 +866,13 @@
     .detail-action.maps {
       background: var(--sky);
       border-color: var(--sky);
+      color: white;
     }
 
     .detail-action.done {
       color: var(--mint);
-      border-color: rgba(62,207,178,0.28);
-      background: rgba(62,207,178,0.08);
+      border-color: rgba(62, 207, 178, 0.28);
+      background: rgba(62, 207, 178, 0.08);
     }
 
     .detail-action span:first-child {
@@ -843,127 +884,228 @@
       font-weight: 700;
     }
 
+    /* SECCIONES */
+
     .detail-section {
-      margin-bottom: 25px;
+      margin-bottom: 28px;
     }
 
     .detail-section-label {
       margin-bottom: 10px;
       font-family: "Space Mono", monospace;
-      font-size: 9px;
+      font-size: 11px;
+      font-weight: 700;
       letter-spacing: 1.8px;
       text-transform: uppercase;
-      color: var(--muted);
+      color: #A7B5C1;
     }
 
     .detail-box {
-      padding: 15px;
-      border-radius: 18px;
+      padding: 16px;
+      border-radius: 20px;
       background: var(--surface);
       border: 1px solid var(--border);
     }
 
+    /* DIRECCIÓN */
+
     .address-row {
       display: flex;
-      gap: 12px;
+      gap: 13px;
       align-items: flex-start;
+      cursor: pointer;
     }
 
     .address-icon {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       display: grid;
       place-items: center;
       flex: 0 0 auto;
-      border-radius: 13px;
+      border-radius: 14px;
       background: var(--surface-2);
-      font-size: 19px;
+      font-size: 20px;
     }
 
     .address-main {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 700;
       line-height: 1.45;
     }
 
     .address-sub {
-      margin-top: 4px;
+      margin-top: 5px;
       font-family: "Space Mono", monospace;
       font-size: 11px;
       line-height: 1.5;
       color: var(--muted);
     }
 
+    .address-action {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--sky);
+    }
+
+    /* TAREAS AGRUPADAS */
+
     .task-list {
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 0;
+      padding: 4px 16px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
     }
 
     .task-item {
       display: flex;
-      gap: 11px;
-      padding: 13px 14px;
-      border-radius: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-size: 15px;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px 0;
+      font-size: 16px;
       line-height: 1.5;
+      color: var(--white);
+    }
+
+    .task-item + .task-item {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .task-bullet {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       flex: 0 0 auto;
-      margin-top: 7px;
+      margin-top: 8px;
       border-radius: 50%;
       background: var(--coral);
     }
 
+    .c-coral .task-bullet {
+      background: var(--coral);
+    }
+
+    .c-gold .task-bullet {
+      background: var(--gold);
+    }
+
+    .c-mint .task-bullet {
+      background: var(--mint);
+    }
+
+    .c-sky .task-bullet {
+      background: var(--sky);
+    }
+
+    /* PRECIO */
+
     .price-box {
       display: flex;
-      gap: 12px;
+      gap: 13px;
       align-items: center;
       color: var(--gold);
-      border-color: rgba(255,184,48,0.2);
-      background: rgba(255,184,48,0.07);
+      border-color: rgba(255, 184, 48, 0.2);
+      background: rgba(255, 184, 48, 0.07);
+    }
+
+    .price-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 14px;
+      background: rgba(255, 184, 48, 0.11);
+      font-size: 20px;
     }
 
     .price-main {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
     }
 
+    .price-secondary {
+      margin-top: 4px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    /* ALERTA */
+
     .detail-alert {
       display: flex;
-      gap: 11px;
+      gap: 12px;
       color: #FF9B9B;
-      background: rgba(255,101,101,0.07);
-      border-color: rgba(255,101,101,0.2);
+      background: rgba(255, 101, 101, 0.07);
+      border-color: rgba(255, 101, 101, 0.2);
       line-height: 1.5;
-      font-size: 14px;
+      font-size: 15px;
     }
+
+    .detail-alert-icon {
+      flex: 0 0 auto;
+      font-size: 21px;
+    }
+
+    /* NAVEGACIÓN FIJA DEL DETALLE */
 
     .detail-navigation {
       position: fixed;
-      z-index: 110;
+      z-index: 120;
       left: 0;
       right: 0;
       bottom: 0;
+      width: 100%;
+
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       gap: 10px;
       align-items: center;
+
       padding:
-        11px
+        12px
         16px
-        calc(11px + var(--safe-bottom));
-      background: rgba(9,19,29,0.94);
-      border-top: 1px solid var(--border);
-      backdrop-filter: blur(20px);
+        calc(12px + var(--safe-bottom));
+
+      background: rgba(9, 19, 29, 0.97);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+
+      box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.28);
     }
 
-    /* Escritorio: mostrar como app centrada */
+    .detail-navigation .bottom-button {
+      min-width: 0;
+      min-height: 54px;
+      padding: 10px 12px;
+      border-radius: 27px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .detail-navigation .bottom-button.primary {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: white;
+    }
+
+    .detail-navigation .bottom-button:disabled {
+      opacity: 0.28;
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.07);
+    }
+
+    /* ESCRITORIO */
+
     @media (min-width: 700px) {
       .app,
       .bottom-bar,
@@ -986,10 +1128,58 @@
         background:
           radial-gradient(
             circle at 50% 0,
-            rgba(91,164,212,0.13),
+            rgba(91, 164, 212, 0.13),
             transparent 42%
           ),
           var(--bg);
+      }
+    }
+
+    @media (max-width: 370px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-card.full {
+        grid-column: auto;
+      }
+
+      .activity-main {
+        grid-template-columns: 1fr 72px;
+        gap: 10px;
+      }
+
+      .activity-image {
+        width: 72px;
+        height: 72px;
+      }
+
+      .detail-title {
+        font-size: 28px;
+      }
+
+      .detail-actions {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .detail-action.maps {
+        grid-column: 1 / -1;
+      }
+
+      .detail-navigation {
+        padding-left: 10px;
+        padding-right: 10px;
+        gap: 7px;
+      }
+
+      .detail-navigation .bottom-button {
+        font-size: 12px;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      .bottom-day {
+        min-width: 62px;
       }
     }
   </style>
@@ -998,7 +1188,9 @@
 <body>
 
   <main class="app" id="app">
-    <div class="loading">⏳ Cargando Día 1...</div>
+    <div class="loading">
+      ⏳ Cargando Día 1...
+    </div>
   </main>
 
   <section class="detail-view" id="detailView">
@@ -1014,6 +1206,7 @@
     let rows = [];
     let meta = {};
     let currentDetailOrder = null;
+    let mainScrollPosition = 0;
 
     function escapeHTML(value) {
       return String(value == null ? "" : value)
@@ -1046,7 +1239,10 @@
 
     function toggleDone(order) {
       const row = getRow(order);
-      if (!row) return;
+
+      if (!row) {
+        return;
+      }
 
       const doneKey = stateKey(order, "done");
       const skipKey = stateKey(order, "skipped");
@@ -1061,13 +1257,16 @@
       render();
 
       if (currentDetailOrder != null) {
-        openDetail(currentDetailOrder);
+        openDetail(currentDetailOrder, false);
       }
     }
 
     function toggleSkipped(order) {
       const row = getRow(order);
-      if (!row) return;
+
+      if (!row) {
+        return;
+      }
 
       const skippedKey = stateKey(order, "skipped");
       const doneKey = stateKey(order, "done");
@@ -1082,7 +1281,7 @@
       render();
 
       if (currentDetailOrder != null) {
-        openDetail(currentDetailOrder);
+        openDetail(currentDetailOrder, false);
       }
     }
 
@@ -1093,11 +1292,15 @@
     }
 
     function getStops() {
-      return rows.filter(row => rowType(row) === "stop");
+      return rows.filter(
+        row => rowType(row) === "stop"
+      );
     }
 
     function getNight() {
-      return rows.find(row => rowType(row) === "night");
+      return rows.find(
+        row => rowType(row) === "night"
+      );
     }
 
     function parseTime(value) {
@@ -1111,38 +1314,57 @@
         };
       }
 
-      let hour = Number(match[1]);
+      const originalHour = Number(match[1]);
       const minutes = Number(match[2]);
-      const suffix = hour >= 12 ? "p.m." : "a.m.";
 
-      hour = hour % 12 || 12;
+      let displayHour = originalHour % 12 || 12;
+      const suffix =
+        originalHour >= 12
+          ? "p.m."
+          : "a.m.";
 
       return {
         display:
-          `${hour}:${String(minutes).padStart(2, "0")} ${suffix}`,
+          `${displayHour}:${String(minutes).padStart(2, "0")} ${suffix}`,
         minutes:
-          Number(match[1]) * 60 + minutes
+          originalHour * 60 + minutes
       };
     }
 
     function currentMinutes() {
       const now = new Date();
-      return now.getHours() * 60 + now.getMinutes();
+
+      return (
+        now.getHours() * 60 +
+        now.getMinutes()
+      );
     }
 
     function getNextStop() {
       const pending = getStops().filter(
-        row => !isDone(row) && !isSkipped(row)
+        row =>
+          !isDone(row) &&
+          !isSkipped(row)
       );
 
       const now = currentMinutes();
 
       for (const row of pending) {
-        const end = parseTime(row.hora_fin).minutes;
-        const start = parseTime(row.hora_inicio).minutes;
-        const reference = end ?? start;
+        const end =
+          parseTime(row.hora_fin).minutes;
 
-        if (reference != null && reference >= now) {
+        const start =
+          parseTime(row.hora_inicio).minutes;
+
+        const reference =
+          end !== null
+            ? end
+            : start;
+
+        if (
+          reference !== null &&
+          reference >= now
+        ) {
           return row;
         }
       }
@@ -1151,27 +1373,43 @@
     }
 
     function getTimeStatus(row) {
-      const start = parseTime(row.hora_inicio).minutes;
-      const end = parseTime(row.hora_fin).minutes;
-      const now = currentMinutes();
+      const start =
+        parseTime(row.hora_inicio).minutes;
 
-      if (start == null) {
+      const end =
+        parseTime(row.hora_fin).minutes;
+
+      const now =
+        currentMinutes();
+
+      if (start === null) {
         return "Horario flexible";
       }
 
       if (now < start) {
-        return `Faltan aproximadamente ${start - now} min`;
+        return (
+          `Faltan aproximadamente ` +
+          `${start - now} min`
+        );
       }
 
-      if (end != null && now > end) {
-        return `Terminó hace aproximadamente ${now - end} min`;
+      if (
+        end !== null &&
+        now > end
+      ) {
+        return (
+          `Terminó hace aproximadamente ` +
+          `${now - end} min`
+        );
       }
 
       return "Corresponde realizarla ahora";
     }
 
     function splitTasks(value) {
-      if (!value) return [];
+      if (!value) {
+        return [];
+      }
 
       return String(value)
         .split("|")
@@ -1182,11 +1420,17 @@
     function heroImage() {
       const next = getNextStop();
 
-      if (next && next.imagen) {
+      if (
+        next &&
+        next.imagen
+      ) {
         return next.imagen;
       }
 
-      const firstImage = getStops().find(row => row.imagen);
+      const firstImage =
+        getStops().find(
+          row => row.imagen
+        );
 
       return firstImage
         ? firstImage.imagen
@@ -1203,41 +1447,152 @@
         : "Disponible cerca de la fecha del viaje";
     }
 
+    function numberValue(value) {
+      if (
+        value === null ||
+        value === undefined ||
+        value === ""
+      ) {
+        return null;
+      }
+
+      const number = Number(
+        String(value)
+          .replace(",", ".")
+      );
+
+      return Number.isNaN(number)
+        ? null
+        : number;
+    }
+
+    function formatMoney(number) {
+      return Math.round(number)
+        .toLocaleString("es-MX");
+    }
+
+    function getCurrencyRate(currency) {
+      const exchange =
+        meta.exchange || {};
+
+      if (currency === "USD") {
+        return Number(
+          exchange.USD_MXN || 0
+        );
+      }
+
+      if (currency === "CAD") {
+        return Number(
+          exchange.CAD_MXN || 0
+        );
+      }
+
+      if (currency === "MXN") {
+        return 1;
+      }
+
+      return 0;
+    }
+
     function budgetText() {
       const totals = {};
+      const maximumTotals = {};
+
+      let totalMXNMinimum = 0;
+      let totalMXNMaximum = 0;
 
       rows.forEach(row => {
         const currency =
-          String(row.moneda || "").toUpperCase();
+          String(row.moneda || "")
+            .toUpperCase()
+            .trim();
 
-        const amount =
-          Number(
-            String(row.precio_monto || "")
-              .replace(",", ".")
-          );
+        const minimum =
+          numberValue(row.precio_monto);
 
-        if (!currency || !amount || Number.isNaN(amount)) {
+        const maximum =
+          numberValue(row.precio_monto_max);
+
+        if (
+          !currency ||
+          minimum === null ||
+          minimum === 0
+        ) {
           return;
         }
 
         totals[currency] =
-          (totals[currency] || 0) + amount;
+          (totals[currency] || 0) +
+          minimum;
+
+        maximumTotals[currency] =
+          (maximumTotals[currency] || 0) +
+          (
+            maximum !== null
+              ? maximum
+              : minimum
+          );
       });
 
-      const currencies = Object.keys(totals);
+      const currencies =
+        Object.keys(totals);
 
       if (!currencies.length) {
         return "Sin costos fijos capturados";
       }
 
-      return currencies
-        .map(
-          currency =>
-            `$${Math.round(
-              totals[currency]
-            ).toLocaleString("es-MX")} ${currency}`
-        )
-        .join(" · ");
+      const originalLines =
+        currencies.map(currency => {
+          const minimum =
+            totals[currency];
+
+          const maximum =
+            maximumTotals[currency];
+
+          const rate =
+            getCurrencyRate(currency);
+
+          if (rate) {
+            totalMXNMinimum +=
+              minimum * rate;
+
+            totalMXNMaximum +=
+              maximum * rate;
+          }
+
+          if (maximum > minimum) {
+            return (
+              `$${formatMoney(minimum)}` +
+              `–$${formatMoney(maximum)} ` +
+              currency
+            );
+          }
+
+          return (
+            `$${formatMoney(minimum)} ` +
+            currency
+          );
+        });
+
+      let mxnText = "";
+
+      if (totalMXNMinimum > 0) {
+        mxnText =
+          totalMXNMaximum >
+          totalMXNMinimum
+            ? (
+              ` · ≈ $${formatMoney(totalMXNMinimum)}` +
+              `–$${formatMoney(totalMXNMaximum)} MXN`
+            )
+            : (
+              ` · ≈ $${formatMoney(totalMXNMinimum)} MXN`
+            );
+      }
+
+      return (
+        originalLines.join(" · ") +
+        mxnText
+      );
     }
 
     function formatDate(value) {
@@ -1278,22 +1633,35 @@
     }
 
     function openMaps(order) {
-      const row = getRow(order);
+      const row =
+        getRow(order);
 
       if (row) {
-        window.open(mapsURL(row), "_blank");
+        window.open(
+          mapsURL(row),
+          "_blank"
+        );
       }
     }
 
     function getFirstAlert() {
-      return rows.find(row => row.alerta);
+      return rows.find(
+        row => row.alerta
+      );
     }
 
     function render() {
-      const next = getNextStop();
-      const night = getNight();
-      const firstAlert = getFirstAlert();
-      const stops = getStops();
+      const next =
+        getNextStop();
+
+      const night =
+        getNight();
+
+      const firstAlert =
+        getFirstAlert();
+
+      const stops =
+        getStops();
 
       let html = "";
 
@@ -1333,15 +1701,20 @@
           </div>
 
           <div class="header-copy">
-            <span class="day-number">Día 1</span>
+            <span class="day-number">
+              Día 1
+            </span>
 
             <div class="day-date">
-              ${escapeHTML(formatDate(meta.fecha))}
+              ${escapeHTML(
+                formatDate(meta.fecha)
+              )}
             </div>
 
             <h1 class="day-title">
               ${escapeHTML(
-                meta.ciudad || "Llegada / SeaTac"
+                meta.ciudad ||
+                "Llegada / SeaTac"
               )}
             </h1>
           </div>
@@ -1353,18 +1726,34 @@
           <div class="summary-grid">
 
             <article class="summary-card">
-              <div class="summary-icon">🌤️</div>
-              <div class="summary-label">Clima</div>
+              <div class="summary-icon">
+                🌤️
+              </div>
+
+              <div class="summary-label">
+                Clima
+              </div>
+
               <div class="summary-value small">
-                ${escapeHTML(weatherText())}
+                ${escapeHTML(
+                  weatherText()
+                )}
               </div>
             </article>
 
             <article class="summary-card">
-              <div class="summary-icon">💸</div>
-              <div class="summary-label">Presupuesto</div>
+              <div class="summary-icon">
+                💸
+              </div>
+
+              <div class="summary-label">
+                Presupuesto
+              </div>
+
               <div class="summary-value small">
-                ${escapeHTML(budgetText())}
+                ${escapeHTML(
+                  budgetText()
+                )}
               </div>
             </article>
 
@@ -1376,7 +1765,11 @@
               <div class="summary-value">
                 ${
                   night
-                    ? escapeHTML(night.nombre || "")
+                    ? escapeHTML(
+                      night.nombre ||
+                      night.direccion ||
+                      ""
+                    )
                     : "Holiday Inn Express Sea-Tac"
                 }
               </div>
@@ -1390,13 +1783,19 @@
         html += `
           <section class="alert-container">
             <article class="alert-card">
-              <div class="alert-symbol">⚠️</div>
+              <div class="alert-symbol">
+                ⚠️
+              </div>
 
               <div class="alert-copy">
-                <strong>Importante hoy</strong>
+                <strong>
+                  Importante hoy
+                </strong>
 
                 <p>
-                  ${escapeHTML(firstAlert.alerta)}
+                  ${escapeHTML(
+                    firstAlert.alerta
+                  )}
                 </p>
               </div>
             </article>
@@ -1412,7 +1811,9 @@
               onclick="openDetail('${escapeHTML(next.orden)}')"
             >
               <div class="next-icon">
-                ${escapeHTML(next.emoji || "📍")}
+                ${escapeHTML(
+                  next.emoji || "📍"
+                )}
               </div>
 
               <div class="next-content">
@@ -1421,15 +1822,21 @@
                 </div>
 
                 <div class="next-name">
-                  ${escapeHTML(next.nombre)}
+                  ${escapeHTML(
+                    next.nombre
+                  )}
                 </div>
 
                 <div class="next-status">
-                  ${escapeHTML(getTimeStatus(next))}
+                  ${escapeHTML(
+                    getTimeStatus(next)
+                  )}
                 </div>
               </div>
 
-              <div class="next-arrow">›</div>
+              <div class="next-arrow">
+                ›
+              </div>
             </article>
           </section>
         `;
@@ -1437,7 +1844,9 @@
 
       html += `
         <div class="itinerary-header">
-          <h2>Itinerario</h2>
+          <h2>
+            Itinerario
+          </h2>
 
           <span>
             ${stops.length} actividades
@@ -1448,10 +1857,13 @@
       `;
 
       rows.forEach(row => {
-        const type = rowType(row);
+        const type =
+          rowType(row);
 
         if (type === "transit") {
-          html += renderTransit(row);
+          html +=
+            renderTransit(row);
+
           return;
         }
 
@@ -1459,14 +1871,17 @@
           return;
         }
 
-        html += renderActivity(row);
+        html +=
+          renderActivity(row);
       });
 
       if (night) {
-        html += renderHotel(night);
+        html +=
+          renderHotel(night);
       }
 
-      html += "</section>";
+      html +=
+        "</section>";
 
       html += `
         <nav class="bottom-bar">
@@ -1478,34 +1893,45 @@
           </button>
 
           <div class="bottom-day">
-            <strong>Día 1</strong>
-            de 9
+            <span>Día</span>
+            <strong>1 de 9</strong>
           </div>
 
           <button
             class="bottom-button primary"
-            onclick="alert('En el prototipo solo estamos probando el Día 1')"
+            onclick="alert('En este prototipo solamente estamos probando el Día 1.')"
           >
             Día 2 →
           </button>
         </nav>
       `;
 
-      document.getElementById("app").innerHTML = html;
+      document.getElementById(
+        "app"
+      ).innerHTML = html;
     }
 
     function renderActivity(row) {
-      const time = parseTime(row.hora_inicio).display;
-      const color = row.color || "c-coral";
+      const time =
+        parseTime(
+          row.hora_inicio
+        ).display;
 
-      let classes = `activity ${color}`;
+      const color =
+        row.color ||
+        "c-coral";
+
+      let classes =
+        `activity ${color}`;
 
       if (isDone(row)) {
-        classes += " done";
+        classes +=
+          " done";
       }
 
       if (isSkipped(row)) {
-        classes += " skipped";
+        classes +=
+          " skipped";
       }
 
       const fallback =
@@ -1521,24 +1947,32 @@
             <div class="activity-content">
 
               <div class="activity-meta">
-
                 <span class="activity-time">
                   ${escapeHTML(time)}
                 </span>
 
                 <span class="activity-tag">
-                  ${escapeHTML(row.emoji || "•")}
-                  ${escapeHTML(row.categoria || "Parada")}
-                </span>
+                  ${escapeHTML(
+                    row.emoji || "•"
+                  )}
 
+                  ${escapeHTML(
+                    row.categoria ||
+                    "Parada"
+                  )}
+                </span>
               </div>
 
               <div class="activity-title">
-                ${escapeHTML(row.nombre || "")}
+                ${escapeHTML(
+                  row.nombre || ""
+                )}
               </div>
 
               <div class="activity-description">
-                ${escapeHTML(row.descripcion || "")}
+                ${escapeHTML(
+                  row.descripcion || ""
+                )}
               </div>
 
             </div>
@@ -1546,11 +1980,16 @@
             <div class="activity-media">
               <img
                 class="activity-image"
-                src="${escapeHTML(row.imagen || fallback)}"
+                src="${escapeHTML(
+                  row.imagen ||
+                  fallback
+                )}"
                 alt=""
               >
 
-              <span class="activity-chevron">›</span>
+              <span class="activity-chevron">
+                ›
+              </span>
             </div>
 
           </div>
@@ -1562,7 +2001,9 @@
       return `
         <div class="transit">
           <div class="transit-icon">
-            ${escapeHTML(row.emoji || "🚗")}
+            ${escapeHTML(
+              row.emoji || "🚗"
+            )}
           </div>
 
           <div class="transit-content">
@@ -1576,7 +2017,13 @@
 
             ${
               row.descripcion
-                ? `<p>${escapeHTML(row.descripcion)}</p>`
+                ? `
+                  <p>
+                    ${escapeHTML(
+                      row.descripcion
+                    )}
+                  </p>
+                `
                 : ""
             }
           </div>
@@ -1593,7 +2040,9 @@
 
           <article class="hotel-card">
             <div class="hotel-icon">
-              ${escapeHTML(row.emoji || "🏨")}
+              ${escapeHTML(
+                row.emoji || "🏨"
+              )}
             </div>
 
             <div class="hotel-content">
@@ -1625,43 +2074,130 @@
       `;
     }
 
-    function openDetail(order) {
-      const row = getRow(order);
+    function getPriceConversion(row) {
+      const minimum =
+        numberValue(
+          row.precio_monto
+        );
 
-      if (!row) return;
+      const maximum =
+        numberValue(
+          row.precio_monto_max
+        );
 
-      currentDetailOrder = order;
+      const currency =
+        String(
+          row.moneda || ""
+        )
+          .toUpperCase()
+          .trim();
 
-      const stops = getStops();
-      const index = stops.findIndex(
-        item => String(item.orden) === String(order)
+      const rate =
+        getCurrencyRate(currency);
+
+      if (
+        !rate ||
+        minimum === null
+      ) {
+        return "";
+      }
+
+      const mxnMinimum =
+        minimum * rate;
+
+      const mxnMaximum =
+        (
+          maximum !== null
+            ? maximum
+            : minimum
+        ) * rate;
+
+      if (
+        mxnMaximum >
+        mxnMinimum
+      ) {
+        return (
+          `Aprox. $${formatMoney(mxnMinimum)}` +
+          `–$${formatMoney(mxnMaximum)} MXN`
+        );
+      }
+
+      return (
+        `Aprox. $${formatMoney(mxnMinimum)} MXN`
       );
+    }
 
-      const previous = index > 0
-        ? stops[index - 1]
-        : null;
+    function openDetail(
+      order,
+      resetScroll = true
+    ) {
+      const row =
+        getRow(order);
 
-      const next = index < stops.length - 1
-        ? stops[index + 1]
-        : null;
+      if (!row) {
+        return;
+      }
+
+      currentDetailOrder =
+        order;
+
+      const stops =
+        getStops();
+
+      const index =
+        stops.findIndex(
+          item =>
+            String(item.orden) ===
+            String(order)
+        );
+
+      const previous =
+        index > 0
+          ? stops[index - 1]
+          : null;
+
+      const next =
+        index <
+        stops.length - 1
+          ? stops[index + 1]
+          : null;
 
       const start =
-        parseTime(row.hora_inicio).display;
+        parseTime(
+          row.hora_inicio
+        ).display;
 
-      const end = row.hora_fin
-        ? parseTime(row.hora_fin).display
-        : "";
+      const end =
+        row.hora_fin
+          ? parseTime(
+              row.hora_fin
+            ).display
+          : "";
 
-      const taskItems = splitTasks(row.que_hacer);
+      const taskItems =
+        splitTasks(
+          row.que_hacer
+        );
 
       const fallback =
         "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1000&q=80";
+
+      const price =
+        row.precio_display ||
+        row.precio ||
+        "";
+
+      const priceConversion =
+        getPriceConversion(row);
 
       let html = `
         <div class="detail-hero">
           <img
             class="detail-hero-image"
-            src="${escapeHTML(row.imagen || fallback)}"
+            src="${escapeHTML(
+              row.imagen ||
+              fallback
+            )}"
             alt=""
           >
 
@@ -1677,7 +2213,10 @@
             </button>
 
             <div class="detail-position">
-              ${index + 1} de ${stops.length}
+              Actividad
+              ${index + 1}
+              de
+              ${stops.length}
             </div>
 
             <button
@@ -1692,23 +2231,38 @@
           <div class="detail-heading">
             <div class="detail-time">
               ${escapeHTML(start)}
-              ${end ? ` – ${escapeHTML(end)}` : ""}
+
+              ${
+                end
+                  ? ` – ${escapeHTML(end)}`
+                  : ""
+              }
             </div>
 
             <div class="detail-tag">
-              ${escapeHTML(row.emoji || "•")}
-              ${escapeHTML(row.categoria || "Parada")}
+              ${escapeHTML(
+                row.emoji || "•"
+              )}
+
+              ${escapeHTML(
+                row.categoria ||
+                "Parada"
+              )}
             </div>
 
             <h2 class="detail-title">
-              ${escapeHTML(row.nombre || "")}
+              ${escapeHTML(
+                row.nombre || ""
+              )}
             </h2>
 
             ${
               row.descripcion
                 ? `
                   <p class="detail-description">
-                    ${escapeHTML(row.descripcion)}
+                    ${escapeHTML(
+                      row.descripcion
+                    )}
                   </p>
                 `
                 : ""
@@ -1732,16 +2286,26 @@
               class="detail-action done"
               onclick="toggleDone('${escapeHTML(row.orden)}')"
             >
-              <span>${isDone(row) ? "↩️" : "✅"}</span>
-              <span>${isDone(row) ? "Deshacer" : "Hecho"}</span>
+              <span>
+                ${isDone(row) ? "↩️" : "✅"}
+              </span>
+
+              <span>
+                ${isDone(row) ? "Deshacer" : "Hecho"}
+              </span>
             </button>
 
             <button
               class="detail-action"
               onclick="toggleSkipped('${escapeHTML(row.orden)}')"
             >
-              <span>${isSkipped(row) ? "↩️" : "⏭️"}</span>
-              <span>${isSkipped(row) ? "No saltar" : "Saltar"}</span>
+              <span>
+                ${isSkipped(row) ? "↩️" : "⏭️"}
+              </span>
+
+              <span>
+                ${isSkipped(row) ? "No saltar" : "Saltar"}
+              </span>
             </button>
 
           </div>
@@ -1758,22 +2322,32 @@
               class="detail-box address-row"
               onclick="openMaps('${escapeHTML(row.orden)}')"
             >
-              <div class="address-icon">📍</div>
+              <div class="address-icon">
+                📍
+              </div>
 
               <div>
                 <div class="address-main">
-                  ${escapeHTML(row.direccion)}
+                  ${escapeHTML(
+                    row.direccion
+                  )}
                 </div>
 
                 ${
                   row.maps_query
                     ? `
                       <div class="address-sub">
-                        ${escapeHTML(row.maps_query)}
+                        ${escapeHTML(
+                          row.maps_query
+                        )}
                       </div>
                     `
                     : ""
                 }
+
+                <div class="address-action">
+                  Abrir ubicación →
+                </div>
               </div>
             </div>
           </section>
@@ -1787,14 +2361,17 @@
               Qué hacer aquí
             </div>
 
-            <div class="task-list">
+            <div class="task-list ${escapeHTML(row.color || "c-coral")}">
         `;
 
         taskItems.forEach(task => {
           html += `
             <div class="task-item">
               <span class="task-bullet"></span>
-              <span>${escapeHTML(task)}</span>
+
+              <span>
+                ${escapeHTML(task)}
+              </span>
             </div>
           `;
         });
@@ -1805,11 +2382,6 @@
         `;
       }
 
-      const price =
-        row.precio_display ||
-        row.precio ||
-        "";
-
       if (price) {
         html += `
           <section class="detail-section">
@@ -1818,10 +2390,34 @@
             </div>
 
             <div class="detail-box price-box">
-              <span>💰</span>
+              <div class="price-icon">
+                💰
+              </div>
 
-              <div class="price-main">
-                ${escapeHTML(price)}
+              <div>
+                <div class="price-main">
+                  ${escapeHTML(price)}
+                </div>
+
+                ${
+                  priceConversion
+                    ? `
+                      <div class="price-secondary">
+                        ${escapeHTML(priceConversion)}
+                      </div>
+                    `
+                    : ""
+                }
+
+                ${
+                  row.precio_nota
+                    ? `
+                      <div class="price-secondary">
+                        ${escapeHTML(row.precio_nota)}
+                      </div>
+                    `
+                    : ""
+                }
               </div>
             </div>
           </section>
@@ -1836,8 +2432,15 @@
             </div>
 
             <div class="detail-box detail-alert">
-              <span>⚠️</span>
-              <span>${escapeHTML(row.alerta)}</span>
+              <span class="detail-alert-icon">
+                ⚠️
+              </span>
+
+              <span>
+                ${escapeHTML(
+                  row.alerta
+                )}
+              </span>
             </div>
           </section>
         `;
@@ -1850,16 +2453,21 @@
 
           <button
             class="bottom-button"
-            ${previous
-              ? `onclick="openDetail('${escapeHTML(previous.orden)}')"`
-              : "disabled"}
+            ${
+              previous
+                ? `onclick="openDetail('${escapeHTML(previous.orden)}')"`
+                : "disabled"
+            }
           >
             ← Anterior
           </button>
 
           <div class="bottom-day">
-            <strong>${index + 1} / ${stops.length}</strong>
-            actividades
+            <span>Actividad</span>
+
+            <strong>
+              ${index + 1} de ${stops.length}
+            </strong>
           </div>
 
           <button
@@ -1876,33 +2484,78 @@
         </nav>
       `;
 
-      document.getElementById("detailContent").innerHTML = html;
-      document.getElementById("detailView").classList.add("open");
-      document.getElementById("detailView").scrollTop = 0;
+      document.getElementById(
+        "detailContent"
+      ).innerHTML = html;
 
-      document.body.style.overflow = "hidden";
+      const detailView =
+        document.getElementById(
+          "detailView"
+        );
+
+      if (
+        !detailView.classList.contains(
+          "open"
+        )
+      ) {
+        mainScrollPosition =
+          window.scrollY;
+      }
+
+      detailView.classList.add(
+        "open"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+
+      if (resetScroll) {
+        detailView.scrollTop = 0;
+      }
     }
 
     function closeDetail() {
       currentDetailOrder = null;
 
-      document
-        .getElementById("detailView")
-        .classList.remove("open");
+      const detailView =
+        document.getElementById(
+          "detailView"
+        );
 
-      document.body.style.overflow = "";
+      detailView.classList.remove(
+        "open"
+      );
+
+      document.body.style.overflow =
+        "";
+
+      window.scrollTo(
+        0,
+        mainScrollPosition
+      );
     }
 
     function shareActivity(order) {
-      const row = getRow(order);
+      const row =
+        getRow(order);
 
-      if (!row) return;
+      if (!row) {
+        return;
+      }
 
       const text = [
-        row.nombre || "Actividad del viaje",
+        row.nombre ||
+          "Actividad del viaje",
+
         row.hora_inicio
-          ? `Hora: ${parseTime(row.hora_inicio).display}`
+          ? (
+            `Hora: ` +
+            parseTime(
+              row.hora_inicio
+            ).display
+          )
           : "",
+
         row.direccion || ""
       ]
         .filter(Boolean)
@@ -1910,27 +2563,45 @@
 
       if (navigator.share) {
         navigator.share({
-          title: row.nombre || "Actividad",
+          title:
+            row.nombre ||
+            "Actividad",
+
           text,
-          url: mapsURL(row)
+
+          url:
+            mapsURL(row)
         }).catch(() => {});
-      } else {
+      } else if (
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+      ) {
         navigator.clipboard
-          .writeText(`${text}\n${mapsURL(row)}`)
+          .writeText(
+            `${text}\n${mapsURL(row)}`
+          )
           .then(() => {
-            alert("Información copiada.");
+            alert(
+              "Información copiada."
+            );
           })
           .catch(() => {
             alert(text);
           });
+      } else {
+        alert(text);
       }
     }
 
     function loadData() {
-      document.getElementById("app").innerHTML =
+      document.getElementById(
+        "app"
+      ).innerHTML =
         `<div class="loading">⏳ Cargando Día 1...</div>`;
 
-      fetch(`${API_URL}?format=json&day=${CURRENT_DAY}`)
+      fetch(
+        `${API_URL}?format=json&day=${CURRENT_DAY}`
+      )
         .then(response => {
           if (!response.ok) {
             throw new Error(
@@ -1941,11 +2612,13 @@
           return response.json();
         })
         .then(data => {
-          rows = Array.isArray(data?.rows)
-            ? data.rows
-            : [];
+          rows =
+            Array.isArray(data?.rows)
+              ? data.rows
+              : [];
 
-          meta = data?.meta || {};
+          meta =
+            data?.meta || {};
 
           if (!rows.length) {
             throw new Error(
@@ -1956,11 +2629,19 @@
           render();
         })
         .catch(error => {
-          document.getElementById("app").innerHTML = `
+          document.getElementById(
+            "app"
+          ).innerHTML = `
             <div class="error">
-              <strong>No se pudo cargar el Día 1.</strong>
+              <strong>
+                No se pudo cargar el Día 1.
+              </strong>
+
               <br><br>
-              ${escapeHTML(error.message)}
+
+              ${escapeHTML(
+                error.message
+              )}
             </div>
           `;
         });
