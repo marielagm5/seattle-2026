@@ -10,11 +10,11 @@
 
   <title>Road Trip · Día 1</title>
 
-  <meta name="theme-color" content="#09131D">
+  <meta name="theme-color" content="#F6F5F2">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta
     name="apple-mobile-web-app-status-bar-style"
-    content="black-translucent"
+    content="default"
   >
 
   <link
@@ -31,38 +31,70 @@
       padding: 0;
     }
 
-:root {
-  --bg: #F4F1EC;
-  --surface: #FFFFFF;
-  --surface-2: #EEE8E1;
-  --surface-soft: rgba(75, 62, 53, 0.05);
-  --border: rgba(75, 62, 53, 0.12);
+    :root {
+      --bg: #F6F5F2;
+      --surface: #FFFFFF;
+      --surface-soft: #F0EEE9;
+      --surface-blue: #EDF5F9;
 
-  --white: #2F2A27;
-  --muted: #7E746D;
+      --text: #1E2428;
+      --text-soft: #4E5A62;
+      --muted: #7B858C;
+      --border: rgba(30, 36, 40, 0.10);
 
-  --coral: #E97D61;
-  --gold: #D9A441;
-  --mint: #4FAF96;
-  --sky: #6C9FBC;
-  --red: #D96B6B;
+      --primary: #457E9E;
+      --primary-soft: #DDECF4;
 
-  --safe-top: env(safe-area-inset-top);
-  --safe-bottom: env(safe-area-inset-bottom);
-}
+      --coral: #E77C60;
+      --coral-soft: #FBE7E1;
+
+      --gold: #C89537;
+      --gold-soft: #FFF3D9;
+
+      --mint: #439A83;
+      --mint-soft: #DFF2ED;
+
+      --red: #C95E5E;
+      --red-soft: #FCE8E8;
+
+      --shadow:
+        0 10px 30px rgba(45, 52, 57, 0.08);
+
+      --shadow-strong:
+        0 18px 44px rgba(45, 52, 57, 0.15);
+
+      --safe-top:
+        env(safe-area-inset-top);
+
+      --safe-bottom:
+        env(safe-area-inset-bottom);
+    }
 
     html,
     body {
       width: 100%;
       min-height: 100%;
-      background: var(--bg);
-      color: var(--white);
-      font-family: "Sora", sans-serif;
+
+      background:
+        radial-gradient(
+          circle at top right,
+          rgba(69, 126, 158, 0.10),
+          transparent 34%
+        ),
+        var(--bg);
+
+      color: var(--text);
+
+      font-family:
+        "Sora",
+        sans-serif;
+
       overflow-x: hidden;
     }
 
     body {
-      padding-bottom: calc(92px + var(--safe-bottom));
+      padding-bottom:
+        calc(94px + var(--safe-bottom));
     }
 
     button {
@@ -71,8 +103,17 @@
 
     button,
     article,
-    .detail-box {
+    .clickable {
       -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    article:focus-visible {
+      outline:
+        3px solid
+        rgba(69, 126, 158, 0.28);
+
+      outline-offset: 2px;
     }
 
     /* ─────────────────────────────
@@ -88,186 +129,351 @@
     .error {
       margin: 24px 16px;
       padding: 20px;
-      border-radius: 20px;
+
       background: var(--surface);
       border: 1px solid var(--border);
+      border-radius: 22px;
+
+      box-shadow: var(--shadow);
+
+      font-size: 16px;
       line-height: 1.55;
     }
 
     .error {
-      color: #FF9B9B;
-      border-color: rgba(255, 101, 101, 0.25);
-      background: rgba(255, 101, 101, 0.08);
+      color: var(--red);
+      background: var(--red-soft);
     }
 
     /* ─────────────────────────────
-       HEADER
+       HERO
        ───────────────────────────── */
 
-    .day-header {
+    .hero {
       position: relative;
-      min-height: 236px;
+
+      min-height: 300px;
+
       overflow: hidden;
-      border-radius: 0 0 30px 30px;
-      background: var(--surface);
+
+      border-radius:
+        0 0 32px 32px;
+
+      background: #CDD5D9;
+
+      box-shadow: var(--shadow-strong);
     }
 
-    .day-header-image {
+    .hero-image {
       position: absolute;
       inset: 0;
+
       width: 100%;
       height: 100%;
+
       object-fit: cover;
-      filter: brightness(0.55) saturate(1.05);
+
+      filter:
+        brightness(0.74)
+        saturate(0.96);
     }
 
-    .day-header-overlay {
+    .hero-overlay {
       position: absolute;
       inset: 0;
+
       background:
         linear-gradient(
           to bottom,
-          rgba(9, 19, 29, 0.18),
-          rgba(9, 19, 29, 0.4) 42%,
-          rgba(9, 19, 29, 0.98) 100%
+          rgba(16, 22, 26, 0.08),
+          rgba(16, 22, 26, 0.22) 38%,
+          rgba(16, 22, 26, 0.82) 100%
         );
     }
 
-    .header-top {
+    .hero-top {
       position: relative;
       z-index: 2;
+
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+
       padding:
         calc(14px + var(--safe-top))
-        16px
-        0;
+        16px 0;
     }
 
-    .header-icon-button {
-      width: 44px;
-      height: 44px;
+    .round-button {
+      width: 46px;
+      height: 46px;
+
       display: grid;
       place-items: center;
+
+      border: 1px solid rgba(255,255,255,0.55);
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(0, 0, 0, 0.32);
+
+      background: rgba(255,255,255,0.30);
+
       color: white;
+
+      font-size: 21px;
+
       cursor: pointer;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      box-shadow:
+        0 8px 20px rgba(0,0,0,0.12);
     }
 
-    .day-counter {
-      padding: 9px 14px;
-      border-radius: 22px;
-      background: rgba(0, 0, 0, 0.32);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      font-family: "Space Mono", monospace;
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.86);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
+    .hero-counter {
+      padding: 10px 15px;
 
-    .header-copy {
-      position: absolute;
-      z-index: 2;
-      left: 18px;
-      right: 18px;
-      bottom: 19px;
-    }
+      border: 1px solid rgba(255,255,255,0.48);
+      border-radius: 24px;
 
-    .day-number {
-      display: inline-block;
-      margin-bottom: 7px;
-      font-family: "Space Mono", monospace;
+      background: rgba(255,255,255,0.26);
+
+      color: white;
+
+      font-family:
+        "Space Mono",
+        monospace;
+
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 2.4px;
-      color: var(--coral);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .hero-content {
+      position: absolute;
+      z-index: 2;
+
+      left: 18px;
+      right: 18px;
+      bottom: 21px;
+    }
+
+    .hero-day {
+      display: inline-flex;
+
+      margin-bottom: 8px;
+      padding: 6px 10px;
+
+      border-radius: 10px;
+
+      background: var(--coral);
+
+      color: white;
+
+      font-family:
+        "Space Mono",
+        monospace;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: 1.7px;
       text-transform: uppercase;
     }
 
-    .day-date {
+    .hero-date {
       margin-bottom: 5px;
-      font-size: 16px;
+
+      color: rgba(255,255,255,0.88);
+
+      font-size: 17px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.84);
+
       text-transform: capitalize;
     }
 
-    .day-title {
-      font-size: 34px;
+    .hero-title {
+      color: white;
+
+      font-size: 35px;
       font-weight: 800;
-      line-height: 1.04;
+
+      line-height: 1.05;
       letter-spacing: -1px;
+
+      text-shadow:
+        0 8px 24px rgba(0,0,0,0.20);
     }
 
     /* ─────────────────────────────
-       RESUMEN
+       INFORMACIÓN RÁPIDA
        ───────────────────────────── */
 
-    .summary {
-      padding: 16px 16px 0;
+    .glance {
+      padding: 18px 16px 0;
     }
 
-    .summary-grid {
+    .glance-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
+
       gap: 10px;
     }
 
-    .summary-card {
+    .glance-card {
       min-width: 0;
-      padding: 14px;
-      border-radius: 20px;
-      background: var(--surface);
+
+      padding: 15px;
+
       border: 1px solid var(--border);
+      border-radius: 21px;
+
+      background: var(--surface);
+
+      box-shadow: var(--shadow);
     }
 
-    .summary-card.full {
-      grid-column: 1 / -1;
-    }
+    .glance-icon {
+      width: 42px;
+      height: 42px;
 
-    .summary-icon {
-      width: 38px;
-      height: 38px;
       display: grid;
       place-items: center;
-      margin-bottom: 10px;
-      border-radius: 13px;
-      background: rgba(255, 255, 255, 0.07);
-      font-size: 19px;
+
+      margin-bottom: 11px;
+
+      border-radius: 14px;
+
+      background: var(--surface-soft);
+
+      font-size: 21px;
     }
 
-    .summary-label {
+    .glance-label {
       margin-bottom: 5px;
-      font-family: "Space Mono", monospace;
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+
       color: var(--muted);
+
+      font-family:
+        "Space Mono",
+        monospace;
+
+      font-size: 10px;
+
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
     }
 
-    .summary-value {
+    .glance-value {
+      color: var(--text);
+
       font-size: 15px;
       font-weight: 700;
-      line-height: 1.4;
-      color: var(--white);
-    }
 
-    .summary-value.small {
-      font-size: 14px;
-      color: #D5DEE5;
+      line-height: 1.4;
     }
 
     /* ─────────────────────────────
-       ALERTA
+       SIGUIENTE ACTIVIDAD
        ───────────────────────────── */
 
-    .alert-container {
+    .next-section {
+      padding: 12px 16px 0;
+    }
+
+    .next-card {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr) auto;
+
+      gap: 13px;
+      align-items: center;
+
+      padding: 16px;
+
+      border:
+        1px solid
+        rgba(69, 126, 158, 0.24);
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary-soft),
+          #FFFFFF
+        );
+
+      box-shadow: var(--shadow);
+
+      cursor: pointer;
+    }
+
+    .next-icon {
+      width: 54px;
+      height: 54px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 18px;
+
+      background:
+        rgba(69, 126, 158, 0.14);
+
+      font-size: 25px;
+    }
+
+    .next-content {
+      min-width: 0;
+    }
+
+    .next-label {
+      margin-bottom: 4px;
+
+      color: var(--primary);
+
+      font-family:
+        "Space Mono",
+        monospace;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .next-name {
+      color: var(--text);
+
+      font-size: 18px;
+      font-weight: 800;
+
+      line-height: 1.25;
+    }
+
+    .next-status {
+      margin-top: 4px;
+
+      color: var(--text-soft);
+
+      font-size: 14px;
+
+      line-height: 1.35;
+    }
+
+    .next-chevron {
+      color: var(--primary);
+
+      font-size: 27px;
+    }
+
+    /* ─────────────────────────────
+       ALERTA COMPACTA
+       ───────────────────────────── */
+
+    .alert-section {
       padding: 12px 16px 0;
     }
 
@@ -275,162 +481,137 @@
       display: flex;
       gap: 12px;
       align-items: flex-start;
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255, 101, 101, 0.08);
-      border: 1px solid rgba(255, 101, 101, 0.2);
+
+      padding: 14px 15px;
+
+      border:
+        1px solid
+        rgba(201, 94, 94, 0.20);
+
+      border-radius: 19px;
+
+      background: var(--red-soft);
     }
 
-    .alert-symbol {
-      width: 38px;
-      height: 38px;
+    .alert-icon {
+      width: 39px;
+      height: 39px;
+
       display: grid;
       place-items: center;
+
       flex: 0 0 auto;
+
       border-radius: 13px;
-      background: rgba(255, 101, 101, 0.12);
+
+      background:
+        rgba(201, 94, 94, 0.12);
+
       font-size: 19px;
     }
 
-    .alert-copy strong {
-      display: block;
-      margin-bottom: 4px;
+    .alert-title {
+      margin-bottom: 3px;
+
+      color: #9A4747;
+
       font-size: 15px;
+      font-weight: 700;
     }
 
-    .alert-copy p {
+    .alert-text {
+      color: #7D6060;
+
       font-size: 13px;
       line-height: 1.45;
-      color: var(--muted);
-    }
-
-    /* ─────────────────────────────
-       SIGUIENTE
-       ───────────────────────────── */
-
-    .next-container {
-      padding: 12px 16px 0;
-    }
-
-    .next-card {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      padding: 14px;
-      border-radius: 20px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255, 123, 84, 0.16),
-          rgba(255, 255, 255, 0.055)
-        );
-      border: 1px solid rgba(255, 123, 84, 0.22);
-      cursor: pointer;
-    }
-
-    .next-icon {
-      width: 46px;
-      height: 46px;
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      border-radius: 16px;
-      background: rgba(255, 123, 84, 0.16);
-      font-size: 22px;
-    }
-
-    .next-content {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .next-label {
-      margin-bottom: 3px;
-      font-family: "Space Mono", monospace;
-      font-size: 9px;
-      letter-spacing: 1.7px;
-      text-transform: uppercase;
-      color: var(--coral);
-    }
-
-    .next-name {
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 1.3;
-    }
-
-    .next-status {
-      margin-top: 3px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .next-arrow {
-      color: var(--coral);
-      font-size: 23px;
     }
 
     /* ─────────────────────────────
        ITINERARIO
        ───────────────────────────── */
 
-    .itinerary-header {
+    .section-heading {
       display: flex;
       justify-content: space-between;
       align-items: end;
-      padding: 22px 16px 12px;
+
+      padding: 25px 16px 13px;
     }
 
-    .itinerary-header h2 {
-      font-size: 25px;
+    .section-heading h2 {
+      color: var(--text);
+
+      font-size: 27px;
       font-weight: 800;
-      letter-spacing: -0.5px;
+
+      letter-spacing: -0.7px;
     }
 
-    .itinerary-header span {
-      font-family: "Space Mono", monospace;
-      font-size: 10px;
+    .section-heading span {
       color: var(--muted);
+
+      font-family:
+        "Space Mono",
+        monospace;
+
+      font-size: 11px;
     }
 
-    .itinerary-list {
-      padding: 0 16px 20px;
+    .itinerary {
+      padding: 0 16px 24px;
     }
 
     .activity {
-      margin-bottom: 12px;
-      border-radius: 22px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      margin-bottom: 13px;
+
       overflow: hidden;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 23px;
+
+      background: var(--surface);
+
+      box-shadow: var(--shadow);
+
       cursor: pointer;
+
       transition:
-        transform 0.15s ease,
-        background 0.15s ease;
+        transform 0.16s ease,
+        box-shadow 0.16s ease;
     }
 
     .activity:active {
       transform: scale(0.985);
-      background: var(--surface-2);
+
+      box-shadow:
+        0 5px 18px rgba(45,52,57,0.07);
     }
 
     .activity.done {
-      opacity: 0.48;
+      opacity: 0.52;
     }
 
     .activity.skipped {
-      opacity: 0.3;
+      opacity: 0.34;
     }
 
-    .activity-main {
+    .activity-inner {
       display: grid;
-      grid-template-columns: 1fr 82px;
-      gap: 13px;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        94px;
+
+      gap: 14px;
       align-items: center;
-      padding: 15px;
+
+      padding: 16px;
     }
 
-    .activity-content {
+    .activity-info {
       min-width: 0;
     }
 
@@ -438,61 +619,83 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
+
       gap: 8px;
+
       margin-bottom: 9px;
     }
 
     .activity-time {
-      font-family: "Space Mono", monospace;
-      font-size: 13px;
+      color: var(--text);
+
+      font-family:
+        "Space Mono",
+        monospace;
+
+      font-size: 14px;
       font-weight: 700;
-      color: var(--white);
     }
 
     .activity-tag {
       display: inline-flex;
       align-items: center;
+
       gap: 5px;
-      padding: 4px 8px;
-      border-radius: 8px;
-      font-family: "Space Mono", monospace;
+
+      padding: 5px 8px;
+
+      border-radius: 9px;
+
+      font-family:
+        "Space Mono",
+        monospace;
+
       font-size: 9px;
+      font-weight: 700;
+
       letter-spacing: 0.7px;
       text-transform: uppercase;
     }
 
     .c-coral .activity-tag {
-      color: var(--coral);
-      background: rgba(255, 123, 84, 0.14);
+      color: #B85E47;
+      background: var(--coral-soft);
     }
 
     .c-gold .activity-tag {
-      color: var(--gold);
-      background: rgba(255, 184, 48, 0.14);
+      color: #976D24;
+      background: var(--gold-soft);
     }
 
     .c-mint .activity-tag {
-      color: var(--mint);
-      background: rgba(62, 207, 178, 0.14);
+      color: #337B68;
+      background: var(--mint-soft);
     }
 
     .c-sky .activity-tag {
-      color: var(--sky);
-      background: rgba(91, 164, 212, 0.14);
+      color: var(--primary);
+      background: var(--primary-soft);
     }
 
     .activity-title {
-      font-size: 18px;
+      color: var(--text);
+
+      font-size: 20px;
       font-weight: 800;
-      line-height: 1.26;
+
+      line-height: 1.25;
     }
 
     .activity-description {
       margin-top: 5px;
-      font-size: 13px;
-      line-height: 1.45;
+
       color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.45;
+
       overflow: hidden;
+
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -503,92 +706,157 @@
     }
 
     .activity-image {
-      width: 82px;
-      height: 82px;
+      width: 94px;
+      height: 94px;
+
       display: block;
+
       object-fit: cover;
-      border-radius: 17px;
-      background: var(--surface-2);
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 19px;
+
+      background: var(--surface-soft);
     }
 
     .activity-chevron {
       position: absolute;
-      right: 6px;
-      bottom: 6px;
-      width: 27px;
-      height: 27px;
+
+      right: 7px;
+      bottom: 7px;
+
+      width: 30px;
+      height: 30px;
+
       display: grid;
       place-items: center;
+
+      border:
+        1px solid
+        rgba(30,36,40,0.10);
+
       border-radius: 50%;
-      background: rgba(9, 19, 29, 0.86);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      font-size: 18px;
+
+      background:
+        rgba(255,255,255,0.92);
+
+      color: var(--text);
+
+      font-size: 20px;
+
+      box-shadow:
+        0 4px 12px rgba(45,52,57,0.13);
     }
 
-    /* TRASLADOS */
+    /* ─────────────────────────────
+       TRASLADOS
+       ───────────────────────────── */
 
     .transit {
       display: flex;
       gap: 11px;
       align-items: flex-start;
-      margin: 0 8px 12px;
-      padding: 10px 12px;
-      border-left: 2px solid rgba(91, 164, 212, 0.4);
+
+      margin:
+        0 7px 13px;
+
+      padding: 12px 13px;
+
+      border-left:
+        3px solid
+        rgba(69,126,158,0.48);
+
+      border-radius:
+        0 15px 15px 0;
+
+      background:
+        rgba(69,126,158,0.07);
     }
 
     .transit-icon {
       flex: 0 0 auto;
-      font-size: 17px;
+
+      font-size: 18px;
     }
 
-    .transit-content strong {
-      display: block;
-      margin-bottom: 2px;
+    .transit-title {
+      color: var(--primary);
+
+      font-size: 14px;
+      font-weight: 700;
+
+      line-height: 1.4;
+    }
+
+    .transit-description {
+      margin-top: 3px;
+
+      color: var(--muted);
+
       font-size: 13px;
       line-height: 1.4;
-      color: #B9DEF5;
     }
 
-    .transit-content p {
-      font-size: 12px;
-      line-height: 1.42;
-      color: var(--muted);
-    }
-
-    /* HOSPEDAJE */
+    /* ─────────────────────────────
+       HOSPEDAJE
+       ───────────────────────────── */
 
     .hotel-section {
-      margin-top: 20px;
+      margin-top: 23px;
     }
 
-    .hotel-heading {
-      margin-bottom: 10px;
-      font-family: "Space Mono", monospace;
-      font-size: 10px;
-      letter-spacing: 1.7px;
-      text-transform: uppercase;
+    .hotel-label {
+      margin-bottom: 11px;
+
       color: var(--muted);
+
+      font-family:
+        "Space Mono",
+        monospace;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
     }
 
     .hotel-card {
       display: flex;
-      gap: 13px;
+      gap: 14px;
       align-items: flex-start;
-      padding: 15px;
-      border-radius: 20px;
-      background: rgba(91, 164, 212, 0.08);
-      border: 1px solid rgba(91, 164, 212, 0.2);
+
+      padding: 17px;
+
+      border:
+        1px solid
+        rgba(69,126,158,0.20);
+
+      border-radius: 22px;
+
+      background: var(--surface-blue);
+
+      box-shadow: var(--shadow);
     }
 
     .hotel-icon {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
+
       display: grid;
       place-items: center;
+
       flex: 0 0 auto;
-      border-radius: 15px;
-      background: rgba(91, 164, 212, 0.14);
-      font-size: 21px;
+
+      border-radius: 16px;
+
+      background:
+        rgba(69,126,158,0.14);
+
+      font-size: 23px;
     }
 
     .hotel-content {
@@ -596,100 +864,148 @@
       flex: 1;
     }
 
-    .hotel-content strong {
-      display: block;
-      font-size: 16px;
+    .hotel-name {
+      color: var(--text);
+
+      font-size: 17px;
+      font-weight: 800;
+
       line-height: 1.35;
     }
 
-    .hotel-content p {
-      margin-top: 4px;
-      font-size: 12px;
-      line-height: 1.45;
+    .hotel-description {
+      margin-top: 5px;
+
       color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.45;
     }
 
-    .hotel-map-button {
-      margin-top: 11px;
-      padding: 9px 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(91, 164, 212, 0.3);
-      background: rgba(91, 164, 212, 0.12);
-      color: #B9DEF5;
-      font-size: 12px;
+    .hotel-button {
+      margin-top: 12px;
+      padding: 10px 14px;
+
+      border:
+        1px solid
+        rgba(69,126,158,0.28);
+
+      border-radius: 20px;
+
+      background:
+        rgba(69,126,158,0.11);
+
+      color: var(--primary);
+
+      font-size: 13px;
       font-weight: 700;
+
       cursor: pointer;
     }
 
     /* ─────────────────────────────
-       BOTTOM BAR PRINCIPAL
+       NAVEGACIÓN PRINCIPAL
        ───────────────────────────── */
 
-    .bottom-bar {
+    .bottom-navigation {
       position: fixed;
       z-index: 50;
+
       left: 0;
       right: 0;
       bottom: 0;
+
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+
+      grid-template-columns:
+        minmax(0,1fr)
+        auto
+        minmax(0,1fr);
+
       gap: 10px;
       align-items: center;
+
       padding:
-        11px
-        16px
+        11px 16px
         calc(11px + var(--safe-bottom));
-      background: rgba(9, 19, 29, 0.94);
-      border-top: 1px solid var(--border);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+
+      border-top:
+        1px solid
+        var(--border);
+
+      background:
+        rgba(249,248,245,0.96);
+
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+
+      box-shadow:
+        0 -10px 28px rgba(45,52,57,0.08);
     }
 
-    .bottom-button {
+    .nav-button {
       min-width: 0;
-      min-height: 50px;
-      padding: 10px 12px;
-      border-radius: 25px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--white);
-      font-size: 13px;
+      min-height: 52px;
+
+      padding: 11px 13px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 27px;
+
+      background: var(--surface);
+
+      color: var(--text);
+
+      font-size: 14px;
       font-weight: 700;
+
       white-space: nowrap;
+
       cursor: pointer;
     }
 
-    .bottom-button.primary {
-      background: var(--coral);
-      border-color: var(--coral);
+    .nav-button.primary {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
     }
 
-    .bottom-button:disabled {
-      opacity: 0.3;
+    .nav-button:disabled {
+      opacity: 0.30;
       cursor: default;
     }
 
-    .bottom-day {
-      min-width: 72px;
+    .nav-day {
+      min-width: 70px;
+
       text-align: center;
-      font-family: "Space Mono", monospace;
+
       color: var(--muted);
-      white-space: nowrap;
+
+      font-family:
+        "Space Mono",
+        monospace;
     }
 
-    .bottom-day span {
+    .nav-day span {
       display: block;
+
       margin-bottom: 3px;
+
       font-size: 9px;
-      text-transform: uppercase;
       letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
-    .bottom-day strong {
+    .nav-day strong {
       display: block;
-      color: var(--white);
+
+      color: var(--text);
+
       font-size: 15px;
-      line-height: 1.2;
     }
 
     /* ─────────────────────────────
@@ -699,13 +1015,22 @@
     .detail-view {
       position: fixed;
       z-index: 100;
+
       inset: 0;
+
       width: 100%;
       height: 100vh;
       height: 100dvh;
+
       overflow-y: auto;
       overflow-x: hidden;
-      background: var(--bg);
+
+      background:
+        linear-gradient(
+          to bottom,
+          #FAFAF8,
+          var(--bg)
+        );
 
       opacity: 0;
       visibility: hidden;
@@ -727,263 +1052,353 @@
 
     .detail-hero {
       position: relative;
-      min-height: 355px;
+
+      min-height: 370px;
+
       overflow: hidden;
     }
 
-    .detail-hero-image {
+    .detail-image {
       position: absolute;
       inset: 0;
+
       width: 100%;
       height: 100%;
+
       object-fit: cover;
     }
 
-    .detail-hero-overlay {
+    .detail-overlay {
       position: absolute;
       inset: 0;
+
       background:
         linear-gradient(
           to bottom,
-          rgba(0, 0, 0, 0.16),
-          rgba(9, 19, 29, 0.2) 38%,
-          rgba(9, 19, 29, 0.98) 100%
+          rgba(16,22,26,0.08),
+          rgba(16,22,26,0.24) 38%,
+          rgba(16,22,26,0.84) 100%
         );
     }
 
     .detail-top {
       position: absolute;
       z-index: 3;
+
       top: 0;
       left: 0;
       right: 0;
+
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       padding:
         calc(14px + var(--safe-top))
-        16px
-        0;
-    }
-
-    .detail-back,
-    .detail-share {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(0, 0, 0, 0.36);
-      color: white;
-      font-size: 19px;
-      cursor: pointer;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+        16px 0;
     }
 
     .detail-position {
-      padding: 9px 13px;
-      border-radius: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(0, 0, 0, 0.36);
-      font-family: "Space Mono", monospace;
+      padding: 10px 14px;
+
+      border:
+        1px solid
+        rgba(255,255,255,0.48);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255,255,255,0.26);
+
+      color: white;
+
+      font-family:
+        "Space Mono",
+        monospace;
+
       font-size: 10px;
-      color: rgba(255, 255, 255, 0.86);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      font-weight: 700;
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .detail-heading {
       position: absolute;
       z-index: 2;
+
       left: 19px;
       right: 19px;
-      bottom: 23px;
+      bottom: 25px;
     }
 
     .detail-time {
-      margin-bottom: 9px;
-      font-family: "Space Mono", monospace;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.84);
+      margin-bottom: 10px;
+
+      color:
+        rgba(255,255,255,0.88);
+
+      font-family:
+        "Space Mono",
+        monospace;
+
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .detail-tag {
-      display: inline-block;
-      margin-bottom: 10px;
-      padding: 5px 9px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.14);
-      font-family: "Space Mono", monospace;
+      display: inline-flex;
+
+      margin-bottom: 11px;
+      padding: 6px 10px;
+
+      border-radius: 9px;
+
+      background:
+        rgba(255,255,255,0.20);
+
+      color: white;
+
+      font-family:
+        "Space Mono",
+        monospace;
+
       font-size: 9px;
+      font-weight: 700;
+
       letter-spacing: 1px;
       text-transform: uppercase;
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .detail-title {
-      font-size: 32px;
+      color: white;
+
+      font-size: 34px;
       font-weight: 800;
+
       line-height: 1.08;
-      letter-spacing: -0.8px;
+      letter-spacing: -0.9px;
     }
 
     .detail-description {
-      margin-top: 7px;
-      font-size: 14px;
+      margin-top: 8px;
+
+      color:
+        rgba(255,255,255,0.80);
+
+      font-size: 15px;
       line-height: 1.5;
-      color: rgba(255, 255, 255, 0.76);
     }
 
     .detail-content {
       padding:
-        22px
-        16px
-        calc(132px + var(--safe-bottom));
+        22px 16px
+        calc(136px + var(--safe-bottom));
     }
 
-    /* ACCIONES */
+    /* Acciones */
 
     .detail-actions {
       display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
+      grid-template-columns:
+        1.3fr 1fr 1fr;
+
       gap: 9px;
-      margin-bottom: 28px;
+
+      margin-bottom: 30px;
     }
 
     .detail-action {
-      min-height: 64px;
+      min-height: 68px;
+
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+
+      gap: 5px;
+
       padding: 10px 7px;
-      border-radius: 19px;
-      border: 1px solid var(--border);
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 20px;
+
       background: var(--surface);
-      color: var(--white);
+
+      color: var(--text);
+
+      box-shadow: var(--shadow);
+
       cursor: pointer;
     }
 
     .detail-action.maps {
-      background: var(--sky);
-      border-color: var(--sky);
+      border-color: var(--primary);
+      background: var(--primary);
       color: white;
     }
 
     .detail-action.done {
+      border-color:
+        rgba(67,154,131,0.25);
+
+      background: var(--mint-soft);
       color: var(--mint);
-      border-color: rgba(62, 207, 178, 0.28);
-      background: rgba(62, 207, 178, 0.08);
     }
 
-    .detail-action span:first-child {
-      font-size: 20px;
+    .detail-action-icon {
+      font-size: 22px;
     }
 
-    .detail-action span:last-child {
-      font-size: 11px;
+    .detail-action-label {
+      font-size: 12px;
       font-weight: 700;
     }
 
-    /* SECCIONES */
+    /* Secciones */
 
     .detail-section {
-      margin-bottom: 28px;
+      margin-bottom: 29px;
     }
 
     .detail-section-label {
-      margin-bottom: 10px;
-      font-family: "Space Mono", monospace;
+      margin-bottom: 11px;
+
+      color: var(--muted);
+
+      font-family:
+        "Space Mono",
+        monospace;
+
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1.8px;
+
+      letter-spacing: 1.7px;
       text-transform: uppercase;
-      color: #A7B5C1;
     }
 
     .detail-box {
-      padding: 16px;
-      border-radius: 20px;
+      padding: 17px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 21px;
+
       background: var(--surface);
-      border: 1px solid var(--border);
+
+      box-shadow: var(--shadow);
     }
 
-    /* DIRECCIÓN */
-
-    .address-row {
+    .address-box {
       display: flex;
       gap: 13px;
       align-items: flex-start;
+
       cursor: pointer;
     }
 
-    .address-icon {
-      width: 42px;
-      height: 42px;
+    .box-icon {
+      width: 44px;
+      height: 44px;
+
       display: grid;
       place-items: center;
+
       flex: 0 0 auto;
-      border-radius: 14px;
-      background: var(--surface-2);
-      font-size: 20px;
+
+      border-radius: 15px;
+
+      background: var(--surface-soft);
+
+      font-size: 21px;
     }
 
     .address-main {
+      color: var(--text);
+
       font-size: 17px;
       font-weight: 700;
+
       line-height: 1.45;
     }
 
     .address-sub {
       margin-top: 5px;
-      font-family: "Space Mono", monospace;
+
+      color: var(--muted);
+
+      font-family:
+        "Space Mono",
+        monospace;
+
       font-size: 11px;
       line-height: 1.5;
-      color: var(--muted);
     }
 
-    .address-action {
+    .address-link {
       margin-top: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--sky);
-    }
 
-    /* TAREAS AGRUPADAS */
+      color: var(--primary);
+
+      font-size: 14px;
+      font-weight: 700;
+    }
 
     .task-list {
       display: flex;
       flex-direction: column;
-      gap: 0;
-      padding: 4px 16px;
-      border-radius: 20px;
+
+      padding: 4px 17px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 21px;
+
       background: var(--surface);
-      border: 1px solid var(--border);
+
+      box-shadow: var(--shadow);
     }
 
     .task-item {
       display: flex;
       gap: 12px;
       align-items: flex-start;
+
       padding: 16px 0;
+
+      color: var(--text-soft);
+
       font-size: 16px;
       line-height: 1.5;
-      color: var(--white);
     }
 
     .task-item + .task-item {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top:
+        1px solid
+        var(--border);
     }
 
     .task-bullet {
       width: 8px;
       height: 8px;
+
       flex: 0 0 auto;
+
       margin-top: 8px;
+
       border-radius: 50%;
-      background: var(--coral);
+
+      background: var(--primary);
     }
 
     .c-coral .task-bullet {
@@ -998,167 +1413,168 @@
       background: var(--mint);
     }
 
-    .c-sky .task-bullet {
-      background: var(--sky);
-    }
-
-    /* PRECIO */
-
     .price-box {
       display: flex;
       gap: 13px;
       align-items: center;
-      color: var(--gold);
-      border-color: rgba(255, 184, 48, 0.2);
-      background: rgba(255, 184, 48, 0.07);
-    }
 
-    .price-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      border-radius: 14px;
-      background: rgba(255, 184, 48, 0.11);
-      font-size: 20px;
+      border-color:
+        rgba(200,149,55,0.22);
+
+      background: var(--gold-soft);
     }
 
     .price-main {
+      color: #916720;
+
       font-size: 19px;
       font-weight: 800;
     }
 
     .price-secondary {
       margin-top: 4px;
-      font-size: 12px;
-      line-height: 1.45;
-      color: var(--muted);
-    }
 
-    /* ALERTA */
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.4;
+    }
 
     .detail-alert {
       display: flex;
       gap: 12px;
-      color: #FF9B9B;
-      background: rgba(255, 101, 101, 0.07);
-      border-color: rgba(255, 101, 101, 0.2);
-      line-height: 1.5;
+      align-items: flex-start;
+
+      border-color:
+        rgba(201,94,94,0.20);
+
+      background: var(--red-soft);
+
+      color: #914B4B;
+
       font-size: 15px;
+      line-height: 1.5;
     }
 
-    .detail-alert-icon {
-      flex: 0 0 auto;
-      font-size: 21px;
-    }
-
-    /* NAVEGACIÓN FIJA DEL DETALLE */
+    /* Navegación detalle */
 
     .detail-navigation {
       position: fixed;
       z-index: 120;
+
       left: 0;
       right: 0;
       bottom: 0;
+
       width: 100%;
 
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+
+      grid-template-columns:
+        minmax(0,1fr)
+        auto
+        minmax(0,1fr);
+
       gap: 10px;
       align-items: center;
 
       padding:
-        12px
-        16px
+        12px 16px
         calc(12px + var(--safe-bottom));
 
-      background: rgba(9, 19, 29, 0.97);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top:
+        1px solid
+        var(--border);
+
+      background:
+        rgba(249,248,245,0.97);
 
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
 
-      box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.28);
+      box-shadow:
+        0 -12px 30px rgba(45,52,57,0.10);
     }
 
-    .detail-navigation .bottom-button {
-      min-width: 0;
-      min-height: 54px;
-      padding: 10px 12px;
-      border-radius: 27px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--white);
-      font-size: 14px;
-      font-weight: 700;
-      white-space: nowrap;
+    .detail-navigation .nav-button {
+      min-height: 55px;
     }
 
-    .detail-navigation .bottom-button.primary {
-      background: var(--coral);
-      border-color: var(--coral);
-      color: white;
-    }
-
-    .detail-navigation .bottom-button:disabled {
-      opacity: 0.28;
+    .detail-navigation .nav-button:disabled {
+      opacity: 0.27;
       background: transparent;
-      border-color: rgba(255, 255, 255, 0.07);
     }
 
-    /* ESCRITORIO */
+    /* ─────────────────────────────
+       ESCRITORIO
+       ───────────────────────────── */
 
     @media (min-width: 700px) {
-      .app,
-      .bottom-bar,
-      .detail-view,
-      .detail-navigation {
-        max-width: 460px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .bottom-bar,
-      .detail-navigation {
-        left: 50%;
-        right: auto;
-        width: 460px;
-        transform: translateX(-50%);
-      }
-
       body {
         background:
           radial-gradient(
-            circle at 50% 0,
-            rgba(91, 164, 212, 0.13),
-            transparent 42%
+            circle at top,
+            rgba(69,126,158,0.13),
+            transparent 40%
           ),
-          var(--bg);
+          #E9E7E2;
+      }
+
+      .app,
+      .detail-view {
+        max-width: 470px;
+        margin: 0 auto;
+
+        background: var(--bg);
+
+        box-shadow:
+          0 0 48px rgba(45,52,57,0.13);
+      }
+
+      .bottom-navigation,
+      .detail-navigation {
+        left: 50%;
+        right: auto;
+
+        width: 470px;
+
+        transform:
+          translateX(-50%);
       }
     }
 
-    @media (max-width: 370px) {
-      .summary-grid {
+    /* ─────────────────────────────
+       CELULARES PEQUEÑOS
+       ───────────────────────────── */
+
+    @media (max-width: 380px) {
+      .hero-title {
+        font-size: 31px;
+      }
+
+      .glance-row {
         grid-template-columns: 1fr;
       }
 
-      .summary-card.full {
-        grid-column: auto;
-      }
+      .activity-inner {
+        grid-template-columns:
+          minmax(0,1fr)
+          78px;
 
-      .activity-main {
-        grid-template-columns: 1fr 72px;
-        gap: 10px;
+        gap: 11px;
       }
 
       .activity-image {
-        width: 72px;
-        height: 72px;
+        width: 78px;
+        height: 78px;
+      }
+
+      .activity-title {
+        font-size: 18px;
       }
 
       .detail-title {
-        font-size: 28px;
+        font-size: 29px;
       }
 
       .detail-actions {
@@ -1169,19 +1585,14 @@
         grid-column: 1 / -1;
       }
 
-      .detail-navigation {
-        padding-left: 10px;
-        padding-right: 10px;
-        gap: 7px;
-      }
-
-      .detail-navigation .bottom-button {
-        font-size: 12px;
+      .nav-button {
         padding-left: 8px;
         padding-right: 8px;
+
+        font-size: 12px;
       }
 
-      .bottom-day {
+      .nav-day {
         min-width: 62px;
       }
     }
@@ -1190,13 +1601,19 @@
 
 <body>
 
-  <main class="app" id="app">
+  <main
+    class="app"
+    id="app"
+  >
     <div class="loading">
       ⏳ Cargando Día 1...
     </div>
   </main>
 
-  <section class="detail-view" id="detailView">
+  <section
+    class="detail-view"
+    id="detailView"
+  >
     <div id="detailContent"></div>
   </section>
 
@@ -1208,11 +1625,20 @@
 
     let rows = [];
     let meta = {};
+
     let currentDetailOrder = null;
     let mainScrollPosition = 0;
 
+    /* ─────────────────────────────
+       UTILIDADES
+       ───────────────────────────── */
+
     function escapeHTML(value) {
-      return String(value == null ? "" : value)
+      return String(
+        value == null
+          ? ""
+          : value
+      )
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
@@ -1221,106 +1647,187 @@
     }
 
     function rowType(row) {
-      return String(row.tipo || "stop").toLowerCase();
-    }
-
-    function stateKey(order, state) {
-      return `roadtrip_day_${CURRENT_DAY}_${order}_${state}`;
-    }
-
-    function isDone(row) {
-      return localStorage.getItem(
-        stateKey(row.orden, "done")
-      ) === "1";
-    }
-
-    function isSkipped(row) {
-      return localStorage.getItem(
-        stateKey(row.orden, "skipped")
-      ) === "1";
-    }
-
-    function toggleDone(order) {
-      const row = getRow(order);
-
-      if (!row) {
-        return;
-      }
-
-      const doneKey = stateKey(order, "done");
-      const skipKey = stateKey(order, "skipped");
-
-      if (localStorage.getItem(doneKey) === "1") {
-        localStorage.removeItem(doneKey);
-      } else {
-        localStorage.setItem(doneKey, "1");
-        localStorage.removeItem(skipKey);
-      }
-
-      render();
-
-      if (currentDetailOrder != null) {
-        openDetail(currentDetailOrder, false);
-      }
-    }
-
-    function toggleSkipped(order) {
-      const row = getRow(order);
-
-      if (!row) {
-        return;
-      }
-
-      const skippedKey = stateKey(order, "skipped");
-      const doneKey = stateKey(order, "done");
-
-      if (localStorage.getItem(skippedKey) === "1") {
-        localStorage.removeItem(skippedKey);
-      } else {
-        localStorage.setItem(skippedKey, "1");
-        localStorage.removeItem(doneKey);
-      }
-
-      render();
-
-      if (currentDetailOrder != null) {
-        openDetail(currentDetailOrder, false);
-      }
+      return String(
+        row.tipo || "stop"
+      ).toLowerCase();
     }
 
     function getRow(order) {
       return rows.find(
-        row => String(row.orden) === String(order)
+        row =>
+          String(row.orden) ===
+          String(order)
       );
     }
 
     function getStops() {
       return rows.filter(
-        row => rowType(row) === "stop"
+        row =>
+          rowType(row) === "stop"
       );
     }
 
     function getNight() {
       return rows.find(
-        row => rowType(row) === "night"
+        row =>
+          rowType(row) === "night"
       );
     }
 
+    function getFirstAlert() {
+      return rows.find(
+        row =>
+          row.alerta
+      );
+    }
+
+    function stateKey(
+      order,
+      state
+    ) {
+      return (
+        "roadtrip_day_" +
+        CURRENT_DAY +
+        "_" +
+        order +
+        "_" +
+        state
+      );
+    }
+
+    function isDone(row) {
+      return (
+        localStorage.getItem(
+          stateKey(
+            row.orden,
+            "done"
+          )
+        ) === "1"
+      );
+    }
+
+    function isSkipped(row) {
+      return (
+        localStorage.getItem(
+          stateKey(
+            row.orden,
+            "skipped"
+          )
+        ) === "1"
+      );
+    }
+
+    function toggleDone(order) {
+      const row =
+        getRow(order);
+
+      if (!row) return;
+
+      const doneKey =
+        stateKey(order, "done");
+
+      const skippedKey =
+        stateKey(order, "skipped");
+
+      if (
+        localStorage.getItem(doneKey) ===
+        "1"
+      ) {
+        localStorage.removeItem(doneKey);
+      } else {
+        localStorage.setItem(
+          doneKey,
+          "1"
+        );
+
+        localStorage.removeItem(
+          skippedKey
+        );
+      }
+
+      render();
+
+      if (
+        currentDetailOrder !== null
+      ) {
+        openDetail(
+          currentDetailOrder,
+          false
+        );
+      }
+    }
+
+    function toggleSkipped(order) {
+      const row =
+        getRow(order);
+
+      if (!row) return;
+
+      const skippedKey =
+        stateKey(order, "skipped");
+
+      const doneKey =
+        stateKey(order, "done");
+
+      if (
+        localStorage.getItem(
+          skippedKey
+        ) === "1"
+      ) {
+        localStorage.removeItem(
+          skippedKey
+        );
+      } else {
+        localStorage.setItem(
+          skippedKey,
+          "1"
+        );
+
+        localStorage.removeItem(
+          doneKey
+        );
+      }
+
+      render();
+
+      if (
+        currentDetailOrder !== null
+      ) {
+        openDetail(
+          currentDetailOrder,
+          false
+        );
+      }
+    }
+
     function parseTime(value) {
-      const match = String(value || "")
-        .match(/(\d{1,2}):(\d{2})/);
+      const text =
+        String(value || "").trim();
+
+      const match =
+        text.match(
+          /(\d{1,2}):(\d{2})/
+        );
 
       if (!match) {
         return {
-          display: value || "Horario flexible",
+          display:
+            text ||
+            "Horario flexible",
+
           minutes: null
         };
       }
 
-      const originalHour = Number(match[1]);
-      const minutes = Number(match[2]);
+      const originalHour =
+        Number(match[1]);
 
-      let displayHour = originalHour % 12 || 12;
+      const minutes =
+        Number(match[2]);
+
+      const displayHour =
+        originalHour % 12 || 12;
+
       const suffix =
         originalHour >= 12
           ? "p.m."
@@ -1328,14 +1835,22 @@
 
       return {
         display:
-          `${displayHour}:${String(minutes).padStart(2, "0")} ${suffix}`,
+          displayHour +
+          ":" +
+          String(minutes)
+            .padStart(2, "0") +
+          " " +
+          suffix,
+
         minutes:
-          originalHour * 60 + minutes
+          originalHour * 60 +
+          minutes
       };
     }
 
     function currentMinutes() {
-      const now = new Date();
+      const now =
+        new Date();
 
       return (
         now.getHours() * 60 +
@@ -1343,111 +1858,16 @@
       );
     }
 
-    function getNextStop() {
-      const pending = getStops().filter(
-        row =>
-          !isDone(row) &&
-          !isSkipped(row)
-      );
-
-      const now = currentMinutes();
-
-      for (const row of pending) {
-        const end =
-          parseTime(row.hora_fin).minutes;
-
-        const start =
-          parseTime(row.hora_inicio).minutes;
-
-        const reference =
-          end !== null
-            ? end
-            : start;
-
-        if (
-          reference !== null &&
-          reference >= now
-        ) {
-          return row;
-        }
-      }
-
-      return pending[0] || null;
-    }
-
-    function getTimeStatus(row) {
-      const start =
-        parseTime(row.hora_inicio).minutes;
-
-      const end =
-        parseTime(row.hora_fin).minutes;
-
-      const now =
-        currentMinutes();
-
-      if (start === null) {
-        return "Horario flexible";
-      }
-
-      if (now < start) {
-        return (
-          `Faltan aproximadamente ` +
-          `${start - now} min`
-        );
-      }
-
-      if (
-        end !== null &&
-        now > end
-      ) {
-        return (
-          `Terminó hace aproximadamente ` +
-          `${now - end} min`
-        );
-      }
-
-      return "Corresponde realizarla ahora";
-    }
-
     function splitTasks(value) {
-      if (!value) {
-        return [];
-      }
+      if (!value) return [];
 
       return String(value)
         .split("|")
-        .map(item => item.trim())
+        .map(
+          item =>
+            item.trim()
+        )
         .filter(Boolean);
-    }
-
-    function heroImage() {
-      const next = getNextStop();
-
-      if (
-        next &&
-        next.imagen
-      ) {
-        return next.imagen;
-      }
-
-      const firstImage =
-        getStops().find(
-          row => row.imagen
-        );
-
-      return firstImage
-        ? firstImage.imagen
-        : "https://images.unsplash.com/photo-1502175353174-a7a70e73b362?w=1000&q=80";
-    }
-
-    function weatherText() {
-      const weatherRow = rows.find(
-        row => row.weather_display
-      );
-
-      return weatherRow
-        ? weatherRow.weather_display
-        : "Disponible cerca de la fecha del viaje";
     }
 
     function numberValue(value) {
@@ -1459,10 +1879,11 @@
         return null;
       }
 
-      const number = Number(
-        String(value)
-          .replace(",", ".")
-      );
+      const number =
+        Number(
+          String(value)
+            .replace(",", ".")
+        );
 
       return Number.isNaN(number)
         ? null
@@ -1470,11 +1891,16 @@
     }
 
     function formatMoney(number) {
-      return Math.round(number)
-        .toLocaleString("es-MX");
+      return Math
+        .round(number)
+        .toLocaleString(
+          "es-MX"
+        );
     }
 
-    function getCurrencyRate(currency) {
+    function getCurrencyRate(
+      currency
+    ) {
       const exchange =
         meta.exchange || {};
 
@@ -1497,129 +1923,164 @@
       return 0;
     }
 
-    function budgetText() {
-      const totals = {};
-      const maximumTotals = {};
-
-      let totalMXNMinimum = 0;
-      let totalMXNMaximum = 0;
-
-      rows.forEach(row => {
-        const currency =
-          String(row.moneda || "")
-            .toUpperCase()
-            .trim();
-
-        const minimum =
-          numberValue(row.precio_monto);
-
-        const maximum =
-          numberValue(row.precio_monto_max);
-
-        if (
-          !currency ||
-          minimum === null ||
-          minimum === 0
-        ) {
-          return;
-        }
-
-        totals[currency] =
-          (totals[currency] || 0) +
-          minimum;
-
-        maximumTotals[currency] =
-          (maximumTotals[currency] || 0) +
-          (
-            maximum !== null
-              ? maximum
-              : minimum
-          );
-      });
-
-      const currencies =
-        Object.keys(totals);
-
-      if (!currencies.length) {
-        return "Sin costos fijos capturados";
-      }
-
-      const originalLines =
-        currencies.map(currency => {
-          const minimum =
-            totals[currency];
-
-          const maximum =
-            maximumTotals[currency];
-
-          const rate =
-            getCurrencyRate(currency);
-
-          if (rate) {
-            totalMXNMinimum +=
-              minimum * rate;
-
-            totalMXNMaximum +=
-              maximum * rate;
-          }
-
-          if (maximum > minimum) {
-            return (
-              `$${formatMoney(minimum)}` +
-              `–$${formatMoney(maximum)} ` +
-              currency
-            );
-          }
-
-          return (
-            `$${formatMoney(minimum)} ` +
-            currency
-          );
-        });
-
-      let mxnText = "";
-
-      if (totalMXNMinimum > 0) {
-        mxnText =
-          totalMXNMaximum >
-          totalMXNMinimum
-            ? (
-              ` · ≈ $${formatMoney(totalMXNMinimum)}` +
-              `–$${formatMoney(totalMXNMaximum)} MXN`
-            )
-            : (
-              ` · ≈ $${formatMoney(totalMXNMinimum)} MXN`
-            );
-      }
-
-      return (
-        originalLines.join(" · ") +
-        mxnText
-      );
-    }
+    /* ─────────────────────────────
+       INFORMACIÓN GENERAL
+       ───────────────────────────── */
 
     function formatDate(value) {
-      const match = String(value || "")
-        .match(/(\d{4})-(\d{2})-(\d{2})/);
+      const match =
+        String(value || "")
+          .match(
+            /(\d{4})-(\d{2})-(\d{2})/
+          );
 
       if (!match) {
         return "Lunes 10 de agosto";
       }
 
-      const date = new Date(
-        Number(match[1]),
-        Number(match[2]) - 1,
-        Number(match[3])
-      );
+      const date =
+        new Date(
+          Number(match[1]),
+          Number(match[2]) - 1,
+          Number(match[3])
+        );
 
-      return new Intl.DateTimeFormat(
-        "es-MX",
-        {
-          weekday: "long",
-          day: "numeric",
-          month: "long"
+      return new Intl
+        .DateTimeFormat(
+          "es-MX",
+          {
+            weekday: "long",
+            day: "numeric",
+            month: "long"
+          }
+        )
+        .format(date);
+    }
+
+    function heroImage() {
+      const next =
+        getNextStop();
+
+      if (
+        next &&
+        next.imagen
+      ) {
+        return next.imagen;
+      }
+
+      const first =
+        getStops().find(
+          row =>
+            row.imagen
+        );
+
+      return first
+        ? first.imagen
+        : "https://images.unsplash.com/photo-1502175353174-a7a70e73b362?w=1000&q=80";
+    }
+
+    function weatherText() {
+      const weather =
+        rows.find(
+          row =>
+            row.weather_display
+        );
+
+      return weather
+        ? weather.weather_display
+        : "Disponible cerca del viaje";
+    }
+
+    function getNextStop() {
+      const pending =
+        getStops().filter(
+          row =>
+            !isDone(row) &&
+            !isSkipped(row)
+        );
+
+      const now =
+        currentMinutes();
+
+      for (
+        const row of pending
+      ) {
+        const end =
+          parseTime(
+            row.hora_fin
+          ).minutes;
+
+        const start =
+          parseTime(
+            row.hora_inicio
+          ).minutes;
+
+        const reference =
+          end !== null
+            ? end
+            : start;
+
+        if (
+          reference !== null &&
+          reference >= now
+        ) {
+          return row;
         }
-      ).format(date);
+      }
+
+      return pending[0] || null;
+    }
+
+    function getTimeStatus(row) {
+      const start =
+        parseTime(
+          row.hora_inicio
+        ).minutes;
+
+      const end =
+        parseTime(
+          row.hora_fin
+        ).minutes;
+
+      const now =
+        currentMinutes();
+
+      if (start === null) {
+        return "Horario flexible";
+      }
+
+      if (now < start) {
+        const minutes =
+          start - now;
+
+        if (minutes < 60) {
+          return (
+            "Empieza en " +
+            minutes +
+            " min"
+          );
+        }
+
+        return (
+          "Programada para " +
+          parseTime(
+            row.hora_inicio
+          ).display
+        );
+      }
+
+      if (
+        end !== null &&
+        now > end
+      ) {
+        return (
+          "Esta actividad ya pasó"
+        );
+      }
+
+      return (
+        "Corresponde hacerla ahora"
+      );
     }
 
     function mapsURL(row) {
@@ -1639,180 +2100,158 @@
       const row =
         getRow(order);
 
-      if (row) {
-        window.open(
-          mapsURL(row),
-          "_blank"
-        );
-      }
-    }
+      if (!row) return;
 
-    function getFirstAlert() {
-      return rows.find(
-        row => row.alerta
+      window.open(
+        mapsURL(row),
+        "_blank"
       );
     }
 
+    /* ─────────────────────────────
+       RENDER PRINCIPAL
+       ───────────────────────────── */
+
     function render() {
+      const stops =
+        getStops();
+
       const next =
         getNextStop();
 
       const night =
         getNight();
 
-      const firstAlert =
+      const alert =
         getFirstAlert();
-
-      const stops =
-        getStops();
 
       let html = "";
 
       html += `
-        <header class="day-header">
+        <header class="hero">
+
           <img
-            class="day-header-image"
+            class="hero-image"
             src="${escapeHTML(heroImage())}"
             alt=""
           >
 
-          <div class="day-header-overlay"></div>
+          <div class="hero-overlay"></div>
 
-          <div class="header-top">
+          <div class="hero-top">
+
             <button
-              class="header-icon-button"
+              class="round-button"
               type="button"
               disabled
               aria-label="Día anterior"
-              style="opacity:.35"
+              style="opacity:.45"
             >
               ‹
             </button>
 
-            <div class="day-counter">
+            <div class="hero-counter">
               Día 1 de 9
             </div>
 
             <button
-              class="header-icon-button"
+              class="round-button"
               type="button"
               onclick="loadData()"
               aria-label="Actualizar"
             >
               ↻
             </button>
+
           </div>
 
-          <div class="header-copy">
-            <span class="day-number">
-              Día 1
-            </span>
+          <div class="hero-content">
 
-            <div class="day-date">
+            <div class="hero-day">
+              Día 1
+            </div>
+
+            <div class="hero-date">
               ${escapeHTML(
-                formatDate(meta.fecha)
+                formatDate(
+                  meta.fecha
+                )
               )}
             </div>
 
-            <h1 class="day-title">
+            <h1 class="hero-title">
               ${escapeHTML(
                 meta.ciudad ||
                 "Llegada / SeaTac"
               )}
             </h1>
+
           </div>
+
         </header>
       `;
 
       html += `
-        <section class="summary">
-          <div class="summary-grid">
+        <section class="glance">
 
-            <article class="summary-card">
-              <div class="summary-icon">
+          <div class="glance-row">
+
+            <article class="glance-card">
+
+              <div class="glance-icon">
                 🌤️
               </div>
 
-              <div class="summary-label">
+              <div class="glance-label">
                 Clima
               </div>
 
-              <div class="summary-value small">
+              <div class="glance-value">
                 ${escapeHTML(
                   weatherText()
                 )}
               </div>
+
             </article>
 
-            <article class="summary-card">
-              <div class="summary-icon">
-                💸
+            <article class="glance-card">
+
+              <div class="glance-icon">
+                🛏️
               </div>
 
-              <div class="summary-label">
-                Presupuesto
+              <div class="glance-label">
+                Dormimos en
               </div>
 
-              <div class="summary-value small">
-                ${escapeHTML(
-                  budgetText()
-                )}
-              </div>
-            </article>
-
-            <article class="summary-card full">
-              <div class="summary-label">
-                Dónde dormimos
-              </div>
-
-              <div class="summary-value">
+              <div class="glance-value">
                 ${
                   night
                     ? escapeHTML(
-                      night.nombre ||
-                      night.direccion ||
-                      ""
-                    )
+                        night.nombre ||
+                        night.direccion ||
+                        "Hospedaje"
+                      )
                     : "Holiday Inn Express Sea-Tac"
                 }
               </div>
+
             </article>
 
           </div>
+
         </section>
       `;
 
-      if (firstAlert) {
-        html += `
-          <section class="alert-container">
-            <article class="alert-card">
-              <div class="alert-symbol">
-                ⚠️
-              </div>
-
-              <div class="alert-copy">
-                <strong>
-                  Importante hoy
-                </strong>
-
-                <p>
-                  ${escapeHTML(
-                    firstAlert.alerta
-                  )}
-                </p>
-              </div>
-            </article>
-          </section>
-        `;
-      }
-
       if (next) {
         html += `
-          <section class="next-container">
+          <section class="next-section">
+
             <article
               class="next-card"
               onclick="openDetail('${escapeHTML(next.orden)}')"
             >
+
               <div class="next-icon">
                 ${escapeHTML(
                   next.emoji || "📍"
@@ -1820,13 +2259,14 @@
               </div>
 
               <div class="next-content">
+
                 <div class="next-label">
-                  Sigue
+                  Lo que sigue
                 </div>
 
                 <div class="next-name">
                   ${escapeHTML(
-                    next.nombre
+                    next.nombre || ""
                   )}
                 </div>
 
@@ -1835,18 +2275,52 @@
                     getTimeStatus(next)
                   )}
                 </div>
+
               </div>
 
-              <div class="next-arrow">
+              <div class="next-chevron">
                 ›
               </div>
+
             </article>
+
+          </section>
+        `;
+      }
+
+      if (alert) {
+        html += `
+          <section class="alert-section">
+
+            <article class="alert-card">
+
+              <div class="alert-icon">
+                ⚠️
+              </div>
+
+              <div>
+
+                <div class="alert-title">
+                  Importante hoy
+                </div>
+
+                <div class="alert-text">
+                  ${escapeHTML(
+                    alert.alerta
+                  )}
+                </div>
+
+              </div>
+
+            </article>
+
           </section>
         `;
       }
 
       html += `
-        <div class="itinerary-header">
+        <div class="section-heading">
+
           <h2>
             Itinerario
           </h2>
@@ -1854,23 +2328,28 @@
           <span>
             ${stops.length} actividades
           </span>
+
         </div>
 
-        <section class="itinerary-list">
+        <section class="itinerary">
       `;
 
       rows.forEach(row => {
         const type =
           rowType(row);
 
-        if (type === "transit") {
+        if (
+          type === "transit"
+        ) {
           html +=
             renderTransit(row);
 
           return;
         }
 
-        if (type === "night") {
+        if (
+          type === "night"
+        ) {
           return;
         }
 
@@ -1883,87 +2362,95 @@
           renderHotel(night);
       }
 
-      html +=
-        "</section>";
-
       html += `
-        <nav class="bottom-bar">
+        </section>
+
+        <nav class="bottom-navigation">
+
           <button
-            class="bottom-button"
+            class="nav-button"
             disabled
           >
-            ← Día anterior
+            ← Anterior
           </button>
 
-          <div class="bottom-day">
+          <div class="nav-day">
             <span>Día</span>
             <strong>1 de 9</strong>
           </div>
 
           <button
-            class="bottom-button primary"
-            onclick="alert('En este prototipo solamente estamos probando el Día 1.')"
+            class="nav-button primary"
+            onclick="alert('En esta prueba solamente está activo el Día 1.')"
           >
             Día 2 →
           </button>
+
         </nav>
       `;
 
-      document.getElementById(
-        "app"
-      ).innerHTML = html;
+      document
+        .getElementById("app")
+        .innerHTML = html;
     }
 
     function renderActivity(row) {
-      const time =
-        parseTime(
-          row.hora_inicio
-        ).display;
-
       const color =
         row.color ||
         "c-coral";
 
       let classes =
-        `activity ${color}`;
+        "activity " +
+        color;
 
-      if (isDone(row)) {
-        classes +=
-          " done";
+      if (
+        isDone(row)
+      ) {
+        classes += " done";
       }
 
-      if (isSkipped(row)) {
-        classes +=
-          " skipped";
+      if (
+        isSkipped(row)
+      ) {
+        classes += " skipped";
       }
 
       const fallback =
-        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=300&q=70";
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&q=75";
 
       return `
         <article
           class="${classes}"
           onclick="openDetail('${escapeHTML(row.orden)}')"
         >
-          <div class="activity-main">
 
-            <div class="activity-content">
+          <div class="activity-inner">
+
+            <div class="activity-info">
 
               <div class="activity-meta">
+
                 <span class="activity-time">
-                  ${escapeHTML(time)}
+                  ${escapeHTML(
+                    parseTime(
+                      row.hora_inicio
+                    ).display
+                  )}
                 </span>
 
                 <span class="activity-tag">
+
                   ${escapeHTML(
                     row.emoji || "•"
                   )}
 
                   ${escapeHTML(
                     row.categoria ||
-                    "Parada"
+                    "Actividad"
                   )}
+
                 </span>
+
               </div>
 
               <div class="activity-title">
@@ -1972,15 +2459,22 @@
                 )}
               </div>
 
-              <div class="activity-description">
-                ${escapeHTML(
-                  row.descripcion || ""
-                )}
-              </div>
+              ${
+                row.descripcion
+                  ? `
+                    <div class="activity-description">
+                      ${escapeHTML(
+                        row.descripcion
+                      )}
+                    </div>
+                  `
+                  : ""
+              }
 
             </div>
 
             <div class="activity-media">
+
               <img
                 class="activity-image"
                 src="${escapeHTML(
@@ -1993,9 +2487,11 @@
               <span class="activity-chevron">
                 ›
               </span>
+
             </div>
 
           </div>
+
         </article>
       `;
     }
@@ -2003,33 +2499,37 @@
     function renderTransit(row) {
       return `
         <div class="transit">
+
           <div class="transit-icon">
             ${escapeHTML(
               row.emoji || "🚗"
             )}
           </div>
 
-          <div class="transit-content">
-            <strong>
+          <div>
+
+            <div class="transit-title">
               ${escapeHTML(
                 row.nombre ||
                 row.duracion ||
                 "Traslado"
               )}
-            </strong>
+            </div>
 
             ${
               row.descripcion
                 ? `
-                  <p>
+                  <div class="transit-description">
                     ${escapeHTML(
                       row.descripcion
                     )}
-                  </p>
+                  </div>
                 `
                 : ""
             }
+
           </div>
+
         </div>
       `;
     }
@@ -2037,11 +2537,13 @@
     function renderHotel(row) {
       return `
         <section class="hotel-section">
-          <div class="hotel-heading">
+
+          <div class="hotel-label">
             Dónde dormimos
           </div>
 
           <article class="hotel-card">
+
             <div class="hotel-icon">
               ${escapeHTML(
                 row.emoji || "🏨"
@@ -2049,33 +2551,49 @@
             </div>
 
             <div class="hotel-content">
-              <strong>
+
+              <div class="hotel-name">
                 ${escapeHTML(
                   row.nombre ||
                   "Alojamiento del día"
                 )}
-              </strong>
+              </div>
 
-              <p>
-                ${escapeHTML(
+              ${
+                (
                   row.descripcion ||
-                  row.direccion ||
-                  ""
-                )}
-              </p>
+                  row.direccion
+                )
+                  ? `
+                    <div class="hotel-description">
+                      ${escapeHTML(
+                        row.descripcion ||
+                        row.direccion
+                      )}
+                    </div>
+                  `
+                  : ""
+              }
 
               <button
-                class="hotel-map-button"
+                class="hotel-button"
                 type="button"
-                onclick="openMaps('${escapeHTML(row.orden)}')"
+                onclick="event.stopPropagation(); openMaps('${escapeHTML(row.orden)}')"
               >
                 Abrir en Maps
               </button>
+
             </div>
+
           </article>
+
         </section>
       `;
     }
+
+    /* ─────────────────────────────
+       DETALLE
+       ───────────────────────────── */
 
     function getPriceConversion(row) {
       const minimum =
@@ -2096,7 +2614,9 @@
           .trim();
 
       const rate =
-        getCurrencyRate(currency);
+        getCurrencyRate(
+          currency
+        );
 
       if (
         !rate ||
@@ -2105,10 +2625,10 @@
         return "";
       }
 
-      const mxnMinimum =
+      const minimumMXN =
         minimum * rate;
 
-      const mxnMaximum =
+      const maximumMXN =
         (
           maximum !== null
             ? maximum
@@ -2116,17 +2636,28 @@
         ) * rate;
 
       if (
-        mxnMaximum >
-        mxnMinimum
+        maximumMXN >
+        minimumMXN
       ) {
         return (
-          `Aprox. $${formatMoney(mxnMinimum)}` +
-          `–$${formatMoney(mxnMaximum)} MXN`
+          "Aprox. $" +
+          formatMoney(
+            minimumMXN
+          ) +
+          "–$" +
+          formatMoney(
+            maximumMXN
+          ) +
+          " MXN"
         );
       }
 
       return (
-        `Aprox. $${formatMoney(mxnMinimum)} MXN`
+        "Aprox. $" +
+        formatMoney(
+          minimumMXN
+        ) +
+        " MXN"
       );
     }
 
@@ -2137,9 +2668,7 @@
       const row =
         getRow(order);
 
-      if (!row) {
-        return;
-      }
+      if (!row) return;
 
       currentDetailOrder =
         order;
@@ -2165,6 +2694,11 @@
           ? stops[index + 1]
           : null;
 
+      const tasks =
+        splitTasks(
+          row.que_hacer
+        );
+
       const start =
         parseTime(
           row.hora_inicio
@@ -2177,11 +2711,6 @@
             ).display
           : "";
 
-      const taskItems =
-        splitTasks(
-          row.que_hacer
-        );
-
       const fallback =
         "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1000&q=80";
 
@@ -2190,13 +2719,14 @@
         row.precio ||
         "";
 
-      const priceConversion =
+      const conversion =
         getPriceConversion(row);
 
       let html = `
         <div class="detail-hero">
+
           <img
-            class="detail-hero-image"
+            class="detail-image"
             src="${escapeHTML(
               row.imagen ||
               fallback
@@ -2204,11 +2734,12 @@
             alt=""
           >
 
-          <div class="detail-hero-overlay"></div>
+          <div class="detail-overlay"></div>
 
           <div class="detail-top">
+
             <button
-              class="detail-back"
+              class="round-button"
               onclick="closeDetail()"
               aria-label="Regresar"
             >
@@ -2223,34 +2754,38 @@
             </div>
 
             <button
-              class="detail-share"
+              class="round-button"
               onclick="shareActivity('${escapeHTML(row.orden)}')"
               aria-label="Compartir"
             >
               ↗
             </button>
+
           </div>
 
           <div class="detail-heading">
+
             <div class="detail-time">
               ${escapeHTML(start)}
-
               ${
                 end
-                  ? ` – ${escapeHTML(end)}`
+                  ? " – " +
+                    escapeHTML(end)
                   : ""
               }
             </div>
 
             <div class="detail-tag">
+
               ${escapeHTML(
                 row.emoji || "•"
               )}
 
               ${escapeHTML(
                 row.categoria ||
-                "Parada"
+                "Actividad"
               )}
+
             </div>
 
             <h2 class="detail-title">
@@ -2270,7 +2805,9 @@
                 `
                 : ""
             }
+
           </div>
+
         </div>
 
         <div class="detail-content">
@@ -2281,19 +2818,24 @@
               class="detail-action maps"
               onclick="openMaps('${escapeHTML(row.orden)}')"
             >
-              <span>🗺️</span>
-              <span>Abrir Maps</span>
+              <span class="detail-action-icon">
+                🗺️
+              </span>
+
+              <span class="detail-action-label">
+                Abrir Maps
+              </span>
             </button>
 
             <button
               class="detail-action done"
               onclick="toggleDone('${escapeHTML(row.orden)}')"
             >
-              <span>
+              <span class="detail-action-icon">
                 ${isDone(row) ? "↩️" : "✅"}
               </span>
 
-              <span>
+              <span class="detail-action-label">
                 ${isDone(row) ? "Deshacer" : "Hecho"}
               </span>
             </button>
@@ -2302,11 +2844,11 @@
               class="detail-action"
               onclick="toggleSkipped('${escapeHTML(row.orden)}')"
             >
-              <span>
+              <span class="detail-action-icon">
                 ${isSkipped(row) ? "↩️" : "⏭️"}
               </span>
 
-              <span>
+              <span class="detail-action-label">
                 ${isSkipped(row) ? "No saltar" : "Saltar"}
               </span>
             </button>
@@ -2317,19 +2859,22 @@
       if (row.direccion) {
         html += `
           <section class="detail-section">
+
             <div class="detail-section-label">
               Dirección
             </div>
 
             <div
-              class="detail-box address-row"
+              class="detail-box address-box"
               onclick="openMaps('${escapeHTML(row.orden)}')"
             >
-              <div class="address-icon">
+
+              <div class="box-icon">
                 📍
               </div>
 
               <div>
+
                 <div class="address-main">
                   ${escapeHTML(
                     row.direccion
@@ -2348,39 +2893,51 @@
                     : ""
                 }
 
-                <div class="address-action">
+                <div class="address-link">
                   Abrir ubicación →
                 </div>
+
               </div>
+
             </div>
+
           </section>
         `;
       }
 
-      if (taskItems.length) {
+      if (tasks.length) {
         html += `
           <section class="detail-section">
+
             <div class="detail-section-label">
               Qué hacer aquí
             </div>
 
-            <div class="task-list ${escapeHTML(row.color || "c-coral")}">
+            <div
+              class="task-list ${escapeHTML(
+                row.color ||
+                "c-coral"
+              )}"
+            >
         `;
 
-        taskItems.forEach(task => {
+        tasks.forEach(task => {
           html += `
             <div class="task-item">
+
               <span class="task-bullet"></span>
 
               <span>
                 ${escapeHTML(task)}
               </span>
+
             </div>
           `;
         });
 
         html += `
             </div>
+
           </section>
         `;
       }
@@ -2388,25 +2945,30 @@
       if (price) {
         html += `
           <section class="detail-section">
+
             <div class="detail-section-label">
               Precio
             </div>
 
             <div class="detail-box price-box">
-              <div class="price-icon">
+
+              <div class="box-icon">
                 💰
               </div>
 
               <div>
+
                 <div class="price-main">
                   ${escapeHTML(price)}
                 </div>
 
                 ${
-                  priceConversion
+                  conversion
                     ? `
                       <div class="price-secondary">
-                        ${escapeHTML(priceConversion)}
+                        ${escapeHTML(
+                          conversion
+                        )}
                       </div>
                     `
                     : ""
@@ -2416,13 +2978,18 @@
                   row.precio_nota
                     ? `
                       <div class="price-secondary">
-                        ${escapeHTML(row.precio_nota)}
+                        ${escapeHTML(
+                          row.precio_nota
+                        )}
                       </div>
                     `
                     : ""
                 }
+
               </div>
+
             </div>
+
           </section>
         `;
       }
@@ -2430,12 +2997,14 @@
       if (row.alerta) {
         html += `
           <section class="detail-section">
+
             <div class="detail-section-label">
               Importante
             </div>
 
             <div class="detail-box detail-alert">
-              <span class="detail-alert-icon">
+
+              <span>
                 ⚠️
               </span>
 
@@ -2444,7 +3013,9 @@
                   row.alerta
                 )}
               </span>
+
             </div>
+
           </section>
         `;
       }
@@ -2455,7 +3026,7 @@
         <nav class="detail-navigation">
 
           <button
-            class="bottom-button"
+            class="nav-button"
             ${
               previous
                 ? `onclick="openDetail('${escapeHTML(previous.orden)}')"`
@@ -2465,16 +3036,22 @@
             ← Anterior
           </button>
 
-          <div class="bottom-day">
-            <span>Actividad</span>
+          <div class="nav-day">
+
+            <span>
+              Actividad
+            </span>
 
             <strong>
-              ${index + 1} de ${stops.length}
+              ${index + 1}
+              de
+              ${stops.length}
             </strong>
+
           </div>
 
           <button
-            class="bottom-button primary"
+            class="nav-button primary"
             ${
               next
                 ? `onclick="openDetail('${escapeHTML(next.orden)}')"`
@@ -2487,17 +3064,19 @@
         </nav>
       `;
 
-      document.getElementById(
-        "detailContent"
-      ).innerHTML = html;
+      document
+        .getElementById(
+          "detailContent"
+        )
+        .innerHTML = html;
 
-      const detailView =
+      const view =
         document.getElementById(
           "detailView"
         );
 
       if (
-        !detailView.classList.contains(
+        !view.classList.contains(
           "open"
         )
       ) {
@@ -2505,7 +3084,7 @@
           window.scrollY;
       }
 
-      detailView.classList.add(
+      view.classList.add(
         "open"
       );
 
@@ -2513,21 +3092,20 @@
         "hidden";
 
       if (resetScroll) {
-        detailView.scrollTop = 0;
+        view.scrollTop = 0;
       }
     }
 
     function closeDetail() {
-      currentDetailOrder = null;
+      currentDetailOrder =
+        null;
 
-      const detailView =
-        document.getElementById(
+      document
+        .getElementById(
           "detailView"
-        );
-
-      detailView.classList.remove(
-        "open"
-      );
+        )
+        .classList
+        .remove("open");
 
       document.body.style.overflow =
         "";
@@ -2542,9 +3120,7 @@
       const row =
         getRow(order);
 
-      if (!row) {
-        return;
-      }
+      if (!row) return;
 
       const text = [
         row.nombre ||
@@ -2552,7 +3128,7 @@
 
         row.hora_inicio
           ? (
-            `Hora: ` +
+            "Hora: " +
             parseTime(
               row.hora_inicio
             ).display
@@ -2565,23 +3141,27 @@
         .join("\n");
 
       if (navigator.share) {
-        navigator.share({
-          title:
-            row.nombre ||
-            "Actividad",
+        navigator
+          .share({
+            title:
+              row.nombre ||
+              "Actividad",
 
-          text,
+            text,
 
-          url:
-            mapsURL(row)
-        }).catch(() => {});
+            url:
+              mapsURL(row)
+          })
+          .catch(() => {});
       } else if (
         navigator.clipboard &&
         navigator.clipboard.writeText
       ) {
         navigator.clipboard
           .writeText(
-            `${text}\n${mapsURL(row)}`
+            text +
+            "\n" +
+            mapsURL(row)
           )
           .then(() => {
             alert(
@@ -2596,19 +3176,31 @@
       }
     }
 
+    /* ─────────────────────────────
+       CARGA
+       ───────────────────────────── */
+
     function loadData() {
-      document.getElementById(
-        "app"
-      ).innerHTML =
-        `<div class="loading">⏳ Cargando Día 1...</div>`;
+      document
+        .getElementById(
+          "app"
+        )
+        .innerHTML = `
+          <div class="loading">
+            ⏳ Cargando Día 1...
+          </div>
+        `;
 
       fetch(
-        `${API_URL}?format=json&day=${CURRENT_DAY}`
+        API_URL +
+        "?format=json&day=" +
+        CURRENT_DAY
       )
         .then(response => {
           if (!response.ok) {
             throw new Error(
-              `Error HTTP ${response.status}`
+              "Error HTTP " +
+              response.status
             );
           }
 
@@ -2616,12 +3208,17 @@
         })
         .then(data => {
           rows =
-            Array.isArray(data?.rows)
+            Array.isArray(
+              data && data.rows
+            )
               ? data.rows
               : [];
 
           meta =
-            data?.meta || {};
+            data &&
+            data.meta
+              ? data.meta
+              : {};
 
           if (!rows.length) {
             throw new Error(
@@ -2632,21 +3229,25 @@
           render();
         })
         .catch(error => {
-          document.getElementById(
-            "app"
-          ).innerHTML = `
-            <div class="error">
-              <strong>
-                No se pudo cargar el Día 1.
-              </strong>
+          document
+            .getElementById(
+              "app"
+            )
+            .innerHTML = `
+              <div class="error">
 
-              <br><br>
+                <strong>
+                  No se pudo cargar el Día 1.
+                </strong>
 
-              ${escapeHTML(
-                error.message
-              )}
-            </div>
-          `;
+                <br><br>
+
+                ${escapeHTML(
+                  error.message
+                )}
+
+              </div>
+            `;
         });
     }
 
