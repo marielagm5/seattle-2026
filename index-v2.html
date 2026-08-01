@@ -8,22 +8,14 @@
     content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
   >
 
-  <title>Road Trip · Día 1</title>
+  <title>Road Trip · Seattle y Canadá 2026</title>
 
-  <meta name="theme-color" content="#F6F7F3">
+  <meta name="theme-color" content="#F7F7F3">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap"
@@ -40,7 +32,7 @@
     }
 
     :root {
-      --page: #EEF0EC;
+      --page: #ECEFEA;
       --background: #F7F7F3;
       --surface: #FFFFFF;
       --surface-soft: #F0F2EE;
@@ -53,6 +45,7 @@
 
       --primary: #202321;
       --blue: #6395B3;
+      --blue-dark: #4C7891;
       --blue-soft: #E2EFF6;
 
       --lime: #DFFF59;
@@ -118,7 +111,11 @@
 
     body {
       padding-bottom:
-        calc(94px + var(--safe-bottom));
+        calc(96px + var(--safe-bottom));
+    }
+
+    body.detail-open {
+      overflow: hidden;
     }
 
     button,
@@ -156,14 +153,11 @@
       display: block;
     }
 
-    /* ─────────────────────────────
-       APP
-       ───────────────────────────── */
+    /* APP */
 
     .app {
       width: 100%;
       min-height: 100vh;
-
       background: var(--background);
     }
 
@@ -176,11 +170,14 @@
       border-radius: 24px;
 
       background: var(--surface);
-
       box-shadow: var(--shadow);
 
       font-size: 16px;
       line-height: 1.55;
+    }
+
+    .loading {
+      text-align: center;
     }
 
     .error {
@@ -188,21 +185,15 @@
       background: var(--danger-soft);
     }
 
-    /* ─────────────────────────────
-       HERO
-       ───────────────────────────── */
+    /* HERO */
 
     .hero {
       position: relative;
-
       min-height: 350px;
-
       overflow: hidden;
 
       background: #B6C6CF;
-
-      border-radius:
-        0 0 38px 38px;
+      border-radius: 0 0 38px 38px;
 
       box-shadow: var(--shadow-strong);
     }
@@ -278,7 +269,7 @@
     }
 
     .hero-icon-button:disabled {
-      opacity: 0.42;
+      opacity: 0.35;
       cursor: default;
     }
 
@@ -315,7 +306,6 @@
     .hero-day {
       display: inline-flex;
       align-items: center;
-
       gap: 6px;
 
       margin-bottom: 11px;
@@ -324,7 +314,6 @@
       border-radius: 12px;
 
       background: var(--lime);
-
       color: #252A23;
 
       font-size: 11px;
@@ -346,16 +335,11 @@
     }
 
     .hero-title {
-      max-width: 92%;
+      max-width: 94%;
 
       color: white;
 
-      font-size: clamp(
-        34px,
-        9vw,
-        43px
-      );
-
+      font-size: clamp(34px, 9vw, 43px);
       font-weight: 800;
 
       line-height: 1.03;
@@ -366,12 +350,84 @@
         rgba(0, 0, 0, 0.22);
     }
 
-    /* ─────────────────────────────
-       CONTENIDO GENERAL
-       ───────────────────────────── */
+    /* SELECTOR DE DÍAS */
+
+    .day-selector {
+      display: flex;
+      gap: 8px;
+
+      padding: 18px 16px 2px;
+
+      overflow-x: auto;
+      scrollbar-width: none;
+
+      scroll-snap-type: x mandatory;
+    }
+
+    .day-selector::-webkit-scrollbar {
+      display: none;
+    }
+
+    .day-chip {
+      flex: 0 0 auto;
+
+      min-width: 75px;
+      padding: 10px 12px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 16px;
+
+      background: var(--surface);
+
+      color: var(--text);
+
+      box-shadow: var(--shadow-small);
+
+      scroll-snap-align: center;
+    }
+
+    .day-chip strong {
+      display: block;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .day-chip span {
+      display: block;
+
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .day-chip.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+    }
+
+    .day-chip.active span {
+      color:
+        rgba(255, 255, 255, 0.74);
+    }
+
+    .day-chip.trip-today {
+      box-shadow:
+        0 0 0 3px
+        rgba(223, 255, 89, 0.70);
+    }
+
+    /* CONTENIDO */
 
     .main-content {
-      padding-top: 18px;
+      padding-top: 14px;
     }
 
     .section-padding {
@@ -379,72 +435,128 @@
       padding-right: 16px;
     }
 
-    /* ─────────────────────────────
-       VISTA RÁPIDA
-       ───────────────────────────── */
+    /* CLIMA */
 
-    .quick-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      gap: 11px;
-    }
-
-    .quick-card {
-      min-width: 0;
-
-      padding: 16px;
+    .weather-card {
+      padding: 17px;
 
       border:
         1px solid
         var(--border);
 
-      border-radius: 23px;
+      border-radius: 25px;
 
-      background: var(--surface);
+      background:
+        linear-gradient(
+          135deg,
+          #FFFFFF,
+          #F3F8FA
+        );
 
       box-shadow: var(--shadow-small);
     }
 
-    .quick-icon {
-      width: 44px;
-      height: 44px;
+    .weather-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .weather-icon {
+      width: 58px;
+      height: 58px;
 
       display: grid;
       place-items: center;
 
-      margin-bottom: 12px;
+      flex: 0 0 auto;
 
-      border-radius: 15px;
+      border-radius: 19px;
 
-      background: var(--surface-soft);
+      background: var(--blue-soft);
 
-      font-size: 22px;
+      font-size: 29px;
     }
 
-    .quick-label {
-      margin-bottom: 6px;
+    .weather-copy {
+      flex: 1;
+      min-width: 0;
+    }
 
+    .weather-topline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .weather-label {
       color: var(--muted);
 
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
 
       text-transform: uppercase;
     }
 
-    .quick-value {
-      color: var(--text);
+    .country-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
 
-      font-size: 15px;
-      font-weight: 700;
+      flex: 0 0 auto;
 
-      line-height: 1.42;
+      padding: 6px 9px;
+
+      border-radius: 12px;
+
+      background: var(--surface-soft);
     }
 
-    /* ─────────────────────────────
-       LO QUE SIGUE
-       ───────────────────────────── */
+    .country-flag {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .country-name {
+      color: var(--text-soft);
+
+      font-size: 10px;
+      font-weight: 700;
+
+      white-space: nowrap;
+    }
+
+    .weather-value {
+      margin-top: 7px;
+
+      color: var(--text);
+
+      font-size: 18px;
+      font-weight: 800;
+
+      line-height: 1.35;
+    }
+
+    .weather-rain {
+      margin-top: 6px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .weather-note {
+      margin-top: 6px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* LO QUE SIGUE */
 
     .next-section {
       margin-top: 13px;
@@ -464,7 +576,6 @@
       min-height: 154px;
 
       overflow: hidden;
-
       padding: 17px;
 
       border:
@@ -509,7 +620,6 @@
       border-radius: 9px;
 
       background: var(--lime);
-
       color: #343A2E;
 
       font-size: 10px;
@@ -541,7 +651,6 @@
 
     .next-media {
       position: relative;
-
       min-height: 120px;
     }
 
@@ -580,9 +689,7 @@
         rgba(0, 0, 0, 0.18);
     }
 
-    /* ─────────────────────────────
-       ALERTA
-       ───────────────────────────── */
+    /* ALERTA */
 
     .alert-section {
       margin-top: 13px;
@@ -637,9 +744,7 @@
       line-height: 1.48;
     }
 
-    /* ─────────────────────────────
-       ENCABEZADO ITINERARIO
-       ───────────────────────────── */
+    /* ITINERARIO */
 
     .itinerary-heading {
       display: flex;
@@ -668,14 +773,12 @@
       font-weight: 600;
     }
 
-    /* ─────────────────────────────
-       ACTIVIDADES
-       ───────────────────────────── */
-
     .itinerary-list {
       padding:
         0 16px 28px;
     }
+
+    /* ACTIVIDAD */
 
     .activity-card {
       margin-bottom: 14px;
@@ -757,7 +860,6 @@
     .activity-tag {
       display: inline-flex;
       align-items: center;
-
       gap: 5px;
 
       padding: 6px 9px;
@@ -817,7 +919,6 @@
 
     .activity-media {
       position: relative;
-
       min-height: 116px;
     }
 
@@ -858,9 +959,7 @@
         rgba(0, 0, 0, 0.18);
     }
 
-    /* ─────────────────────────────
-       TRASLADOS
-       ───────────────────────────── */
+    /* TRASLADO */
 
     .transit-card {
       display: flex;
@@ -886,12 +985,11 @@
 
     .transit-icon {
       flex: 0 0 auto;
-
       font-size: 20px;
     }
 
     .transit-title {
-      color: #4C7891;
+      color: var(--blue-dark);
 
       font-size: 15px;
       font-weight: 800;
@@ -908,9 +1006,7 @@
       line-height: 1.45;
     }
 
-    /* ─────────────────────────────
-       HOTEL
-       ───────────────────────────── */
+    /* HOTEL */
 
     .hotel-section {
       margin-top: 26px;
@@ -928,8 +1024,6 @@
     }
 
     .hotel-card {
-      position: relative;
-
       display: grid;
       grid-template-columns:
         56px minmax(0, 1fr);
@@ -996,15 +1090,13 @@
       background:
         rgba(99, 149, 179, 0.11);
 
-      color: #4C7891;
+      color: var(--blue-dark);
 
       font-size: 13px;
       font-weight: 800;
     }
 
-    /* ─────────────────────────────
-       NAVEGACIÓN PRINCIPAL
-       ───────────────────────────── */
+    /* NAVEGACIÓN PRINCIPAL */
 
     .bottom-navigation {
       position: fixed;
@@ -1055,7 +1147,6 @@
       border-radius: 27px;
 
       background: var(--surface);
-
       color: var(--text);
 
       font-size: 14px;
@@ -1077,7 +1168,6 @@
 
     .nav-position {
       min-width: 70px;
-
       text-align: center;
     }
 
@@ -1103,9 +1193,7 @@
       font-weight: 800;
     }
 
-    /* ─────────────────────────────
-       DETALLE FULLSCREEN
-       ───────────────────────────── */
+    /* DETALLE FULLSCREEN */
 
     .detail-view {
       position: fixed;
@@ -1149,7 +1237,6 @@
       position: relative;
 
       min-height: 400px;
-
       overflow: hidden;
 
       border-radius:
@@ -1240,7 +1327,6 @@
     .detail-tag {
       display: inline-flex;
       align-items: center;
-
       gap: 5px;
 
       margin-bottom: 12px;
@@ -1265,12 +1351,7 @@
     .detail-title {
       color: white;
 
-      font-size: clamp(
-        32px,
-        9vw,
-        42px
-      );
-
+      font-size: clamp(32px, 9vw, 42px);
       font-weight: 800;
 
       line-height: 1.06;
@@ -1293,8 +1374,6 @@
         calc(138px + var(--safe-bottom));
     }
 
-    /* ACCIONES */
-
     .detail-actions {
       display: grid;
       grid-template-columns:
@@ -1314,7 +1393,6 @@
       justify-content: center;
 
       gap: 6px;
-
       padding: 10px 7px;
 
       border:
@@ -1324,7 +1402,6 @@
       border-radius: 21px;
 
       background: var(--surface);
-
       color: var(--text);
 
       box-shadow: var(--shadow-small);
@@ -1352,8 +1429,6 @@
       font-size: 12px;
       font-weight: 800;
     }
-
-    /* SECCIONES DETALLE */
 
     .detail-section {
       margin-bottom: 30px;
@@ -1427,7 +1502,7 @@
     .address-link {
       margin-top: 10px;
 
-      color: #4C7891;
+      color: var(--blue-dark);
 
       font-size: 14px;
       font-weight: 800;
@@ -1471,7 +1546,6 @@
       height: 8px;
 
       flex: 0 0 auto;
-
       margin-top: 8px;
 
       border-radius: 50%;
@@ -1527,14 +1601,11 @@
         rgba(200, 95, 95, 0.18);
 
       background: var(--danger-soft);
-
       color: #914A4A;
 
       font-size: 15px;
       line-height: 1.52;
     }
-
-    /* NAVEGACIÓN DETALLE */
 
     .detail-navigation {
       position: fixed;
@@ -1572,30 +1643,9 @@
         rgba(38, 45, 41, 0.10);
     }
 
-    .detail-navigation .nav-button {
-      min-height: 56px;
-    }
-
-    /* ─────────────────────────────
-       ESCRITORIO
-       ───────────────────────────── */
+    /* ESCRITORIO */
 
     @media (min-width: 720px) {
-      body {
-        background:
-          radial-gradient(
-            circle at 25% 0%,
-            rgba(223, 255, 89, 0.20),
-            transparent 26%
-          ),
-          radial-gradient(
-            circle at 78% 0%,
-            rgba(99, 149, 179, 0.17),
-            transparent 30%
-          ),
-          var(--page);
-      }
-
       .app,
       .detail-view {
         width: 100%;
@@ -1623,17 +1673,15 @@
       }
     }
 
-    /* ─────────────────────────────
-       MÓVILES PEQUEÑOS
-       ───────────────────────────── */
+    /* MÓVILES PEQUEÑOS */
 
     @media (max-width: 385px) {
       .hero {
         min-height: 325px;
       }
 
-      .quick-grid {
-        grid-template-columns: 1fr;
+      .country-name {
+        display: none;
       }
 
       .next-card,
@@ -1677,19 +1725,13 @@
 
 <body>
 
-  <main
-    class="app"
-    id="app"
-  >
+  <main class="app" id="app">
     <div class="loading">
-      ⏳ Cargando Día 1...
+      ⏳ Cargando itinerario...
     </div>
   </main>
 
-  <section
-    class="detail-view"
-    id="detailView"
-  >
+  <section class="detail-view" id="detailView">
     <div id="detailContent"></div>
   </section>
 
@@ -1697,10 +1739,113 @@
     const API_URL =
       "https://script.google.com/macros/s/AKfycbxRjW3k_a-b7btvbmVVbdarfJIUSf4Q3erwqGJf0V6PnFFnOjg1WryzXJmh2Lqywlq6Jg/exec";
 
-    const CURRENT_DAY = 1;
+    const TRIP_DAYS = {
+      1: {
+        date: "2026-08-10",
+        shortDate: "10 AGO",
+        city: "SeaTac",
+        latitude: 47.4447,
+        longitude: -122.3138,
+        timezone: "America/Los_Angeles",
+        flag: "🇺🇸",
+        country: "Estados Unidos"
+      },
+
+      2: {
+        date: "2026-08-11",
+        shortDate: "11 AGO",
+        city: "Seattle",
+        latitude: 47.6062,
+        longitude: -122.3321,
+        timezone: "America/Los_Angeles",
+        flag: "🇺🇸",
+        country: "Estados Unidos"
+      },
+
+      3: {
+        date: "2026-08-12",
+        shortDate: "12 AGO",
+        city: "Seattle",
+        latitude: 47.6062,
+        longitude: -122.3321,
+        timezone: "America/Los_Angeles",
+        flag: "🇺🇸",
+        country: "Estados Unidos"
+      },
+
+      4: {
+        date: "2026-08-13",
+        shortDate: "13 AGO",
+        city: "Portland",
+        latitude: 45.5152,
+        longitude: -122.6784,
+        timezone: "America/Los_Angeles",
+        flag: "🇺🇸",
+        country: "Estados Unidos"
+      },
+
+      5: {
+        date: "2026-08-14",
+        shortDate: "14 AGO",
+        city: "Victoria",
+        latitude: 48.4284,
+        longitude: -123.3656,
+        timezone: "America/Vancouver",
+        flag: "🇨🇦",
+        country: "Canadá"
+      },
+
+      6: {
+        date: "2026-08-15",
+        shortDate: "15 AGO",
+        city: "Whistler",
+        latitude: 50.1163,
+        longitude: -122.9574,
+        timezone: "America/Vancouver",
+        flag: "🇨🇦",
+        country: "Canadá"
+      },
+
+      7: {
+        date: "2026-08-16",
+        shortDate: "16 AGO",
+        city: "Vancouver",
+        latitude: 49.2827,
+        longitude: -123.1207,
+        timezone: "America/Vancouver",
+        flag: "🇨🇦",
+        country: "Canadá"
+      },
+
+      8: {
+        date: "2026-08-17",
+        shortDate: "17 AGO",
+        city: "Vancouver",
+        latitude: 49.2827,
+        longitude: -123.1207,
+        timezone: "America/Vancouver",
+        flag: "🇨🇦 → 🇺🇸",
+        country: "Canadá a EE. UU."
+      },
+
+      9: {
+        date: "2026-08-18",
+        shortDate: "18 AGO",
+        city: "Olympia",
+        latitude: 47.0379,
+        longitude: -122.9007,
+        timezone: "America/Los_Angeles",
+        flag: "🇺🇸",
+        country: "Estados Unidos"
+      }
+    };
+
+    let currentDay =
+      getAutomaticTripDay();
 
     let rows = [];
     let meta = {};
+    let weatherData = null;
 
     let currentDetailOrder = null;
     let mainScrollPosition = 0;
@@ -1716,6 +1861,87 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+    }
+
+    function localDateString(date) {
+      const year =
+        date.getFullYear();
+
+      const month =
+        String(
+          date.getMonth() + 1
+        ).padStart(2, "0");
+
+      const day =
+        String(
+          date.getDate()
+        ).padStart(2, "0");
+
+      return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+      );
+    }
+
+    function getAutomaticTripDay() {
+      const today =
+        localDateString(
+          new Date()
+        );
+
+      for (
+        let day = 1;
+        day <= 9;
+        day++
+      ) {
+        if (
+          TRIP_DAYS[day].date ===
+          today
+        ) {
+          return day;
+        }
+      }
+
+      if (
+        today <
+        TRIP_DAYS[1].date
+      ) {
+        return 1;
+      }
+
+      if (
+        today >
+        TRIP_DAYS[9].date
+      ) {
+        return 9;
+      }
+
+      return 1;
+    }
+
+    function actualTripDay() {
+      const today =
+        localDateString(
+          new Date()
+        );
+
+      for (
+        let day = 1;
+        day <= 9;
+        day++
+      ) {
+        if (
+          TRIP_DAYS[day].date ===
+          today
+        ) {
+          return day;
+        }
+      }
+
+      return null;
     }
 
     function rowType(row) {
@@ -1735,14 +1961,16 @@
     function getStops() {
       return rows.filter(
         row =>
-          rowType(row) === "stop"
+          rowType(row) ===
+          "stop"
       );
     }
 
     function getNight() {
       return rows.find(
         row =>
-          rowType(row) === "night"
+          rowType(row) ===
+          "night"
       );
     }
 
@@ -1759,7 +1987,7 @@
     ) {
       return (
         "roadtrip_v2_day_" +
-        CURRENT_DAY +
+        currentDay +
         "_" +
         order +
         "_" +
@@ -1793,9 +2021,7 @@
       const row =
         getRow(order);
 
-      if (!row) {
-        return;
-      }
+      if (!row) return;
 
       const doneKey =
         stateKey(
@@ -1826,6 +2052,12 @@
         localStorage.removeItem(
           skippedKey
         );
+
+        if (
+          navigator.vibrate
+        ) {
+          navigator.vibrate(40);
+        }
       }
 
       render();
@@ -1844,9 +2076,7 @@
       const row =
         getRow(order);
 
-      if (!row) {
-        return;
-      }
+      if (!row) return;
 
       const skippedKey =
         stateKey(
@@ -1893,7 +2123,9 @@
 
     function parseTime(value) {
       const text =
-        String(value || "").trim();
+        String(
+          value || ""
+        ).trim();
 
       const match =
         text.match(
@@ -1910,11 +2142,28 @@
         };
       }
 
-      const originalHour =
+      let originalHour =
         Number(match[1]);
 
       const minutes =
         Number(match[2]);
+
+      const lowerText =
+        text.toLowerCase();
+
+      if (
+        lowerText.includes("pm") &&
+        originalHour !== 12
+      ) {
+        originalHour += 12;
+      }
+
+      if (
+        lowerText.includes("am") &&
+        originalHour === 12
+      ) {
+        originalHour = 0;
+      }
 
       const displayHour =
         originalHour % 12 || 12;
@@ -1997,19 +2246,25 @@
       const exchange =
         meta.exchange || {};
 
-      if (currency === "USD") {
+      if (
+        currency === "USD"
+      ) {
         return Number(
           exchange.USD_MXN || 0
         );
       }
 
-      if (currency === "CAD") {
+      if (
+        currency === "CAD"
+      ) {
         return Number(
           exchange.CAD_MXN || 0
         );
       }
 
-      if (currency === "MXN") {
+      if (
+        currency === "MXN"
+      ) {
         return 1;
       }
 
@@ -2017,14 +2272,17 @@
     }
 
     function formatDate(value) {
+      const source =
+        value ||
+        TRIP_DAYS[currentDay].date;
+
       const match =
-        String(value || "")
-          .match(
-            /(\d{4})-(\d{2})-(\d{2})/
-          );
+        String(source).match(
+          /(\d{4})-(\d{2})-(\d{2})/
+        );
 
       if (!match) {
-        return "Lunes 10 de agosto";
+        return source;
       }
 
       const date =
@@ -2053,6 +2311,19 @@
             !isDone(row) &&
             !isSkipped(row)
         );
+
+      if (!pending.length) {
+        return null;
+      }
+
+      const todayDay =
+        actualTripDay();
+
+      if (
+        todayDay !== currentDay
+      ) {
+        return pending[0];
+      }
 
       const now =
         currentMinutes();
@@ -2083,10 +2354,29 @@
         }
       }
 
-      return pending[0] || null;
+      return pending[0];
     }
 
     function getTimeStatus(row) {
+      const todayDay =
+        actualTripDay();
+
+      if (
+        todayDay !== currentDay
+      ) {
+        const time =
+          parseTime(
+            row.hora_inicio
+          ).display;
+
+        return (
+          time ===
+          "Horario flexible"
+            ? time
+            : "A las " + time
+        );
+      }
+
       const start =
         parseTime(
           row.hora_inicio
@@ -2166,18 +2456,6 @@
         : "https://images.unsplash.com/photo-1502175353174-a7a70e73b362?w=1200&q=85";
     }
 
-    function weatherText() {
-      const weather =
-        rows.find(
-          row =>
-            row.weather_display
-        );
-
-      return weather
-        ? weather.weather_display
-        : "Disponible cerca de la fecha del viaje";
-    }
-
     function mapsURL(row) {
       const query =
         row.maps_query ||
@@ -2205,6 +2483,406 @@
       );
     }
 
+    /* CLIMA */
+
+    function weatherDescription(code) {
+      const descriptions = {
+        0: "Despejado",
+        1: "Mayormente despejado",
+        2: "Parcialmente nublado",
+        3: "Nublado",
+        45: "Con niebla",
+        48: "Con niebla",
+        51: "Llovizna ligera",
+        53: "Llovizna",
+        55: "Llovizna intensa",
+        61: "Lluvia ligera",
+        63: "Lluvia",
+        65: "Lluvia intensa",
+        71: "Nieve ligera",
+        73: "Nieve",
+        75: "Nieve intensa",
+        80: "Chubascos ligeros",
+        81: "Chubascos",
+        82: "Chubascos intensos",
+        95: "Tormenta",
+        96: "Tormenta con granizo",
+        99: "Tormenta intensa"
+      };
+
+      return (
+        descriptions[code] ||
+        "Condiciones variables"
+      );
+    }
+
+    function weatherIcon(code) {
+      if (code === 0) return "☀️";
+
+      if (
+        code === 1 ||
+        code === 2
+      ) {
+        return "🌤️";
+      }
+
+      if (code === 3) {
+        return "☁️";
+      }
+
+      if (
+        code === 45 ||
+        code === 48
+      ) {
+        return "🌫️";
+      }
+
+      if (
+        [
+          51, 53, 55,
+          61, 63, 65,
+          80, 81, 82
+        ].includes(code)
+      ) {
+        return "🌧️";
+      }
+
+      if (
+        [71, 73, 75]
+          .includes(code)
+      ) {
+        return "🌨️";
+      }
+
+      if (
+        [95, 96, 99]
+          .includes(code)
+      ) {
+        return "⛈️";
+      }
+
+      return "🌤️";
+    }
+
+    function fetchWeather() {
+      const config =
+        TRIP_DAYS[currentDay];
+
+      weatherData = {
+        loading: true,
+        available: false
+      };
+
+      const dailyVariables = [
+        "weather_code",
+        "temperature_2m_max",
+        "temperature_2m_min",
+        "precipitation_probability_max"
+      ].join(",");
+
+      const currentVariables = [
+        "temperature_2m",
+        "apparent_temperature",
+        "weather_code"
+      ].join(",");
+
+      const url =
+        "https://api.open-meteo.com/v1/forecast" +
+        "?latitude=" +
+        config.latitude +
+        "&longitude=" +
+        config.longitude +
+        "&daily=" +
+        dailyVariables +
+        "&current=" +
+        currentVariables +
+        "&temperature_unit=celsius" +
+        "&timezone=" +
+        encodeURIComponent(
+          config.timezone
+        ) +
+        "&forecast_days=16";
+
+      return fetch(url)
+        .then(response => {
+          if (
+            !response.ok
+          ) {
+            throw new Error(
+              "No se pudo consultar el clima."
+            );
+          }
+
+          return response.json();
+        })
+        .then(data => {
+          const dates =
+            data.daily &&
+            Array.isArray(
+              data.daily.time
+            )
+              ? data.daily.time
+              : [];
+
+          const index =
+            dates.indexOf(
+              config.date
+            );
+
+          if (
+            index === -1
+          ) {
+            weatherData = {
+              loading: false,
+              available: false,
+              message:
+                "Pronóstico disponible más cerca de la fecha"
+            };
+
+            return;
+          }
+
+          weatherData = {
+            loading: false,
+            available: true,
+
+            code:
+              data.daily
+                .weather_code[index],
+
+            maximum:
+              Math.round(
+                data.daily
+                  .temperature_2m_max[index]
+              ),
+
+            minimum:
+              Math.round(
+                data.daily
+                  .temperature_2m_min[index]
+              ),
+
+            rain:
+              Math.round(
+                data.daily
+                  .precipitation_probability_max[index] ||
+                0
+              ),
+
+            current:
+              data.current &&
+              typeof data.current
+                .temperature_2m ===
+                "number"
+                ? Math.round(
+                    data.current
+                      .temperature_2m
+                  )
+                : null,
+
+            apparent:
+              data.current &&
+              typeof data.current
+                .apparent_temperature ===
+                "number"
+                ? Math.round(
+                    data.current
+                      .apparent_temperature
+                  )
+                : null
+          };
+        })
+        .catch(() => {
+          weatherData = {
+            loading: false,
+            available: false,
+            message:
+              "No se pudo actualizar el pronóstico"
+          };
+        });
+    }
+
+    function weatherMainText() {
+      if (
+        !weatherData ||
+        weatherData.loading
+      ) {
+        return (
+          "Consultando pronóstico..."
+        );
+      }
+
+      if (
+        !weatherData.available
+      ) {
+        return (
+          weatherData.message ||
+          "Pronóstico no disponible"
+        );
+      }
+
+      return (
+        weatherDescription(
+          weatherData.code
+        ) +
+        " · " +
+        weatherData.maximum +
+        "° / " +
+        weatherData.minimum +
+        "°"
+      );
+    }
+
+    function weatherSecondaryText() {
+      if (
+        !weatherData ||
+        !weatherData.available
+      ) {
+        return "";
+      }
+
+      const todayDay =
+        actualTripDay();
+
+      if (
+        todayDay === currentDay &&
+        weatherData.current !== null
+      ) {
+        let text =
+          "Ahora " +
+          weatherData.current +
+          "°";
+
+        if (
+          weatherData.apparent !== null
+        ) {
+          text +=
+            " · Sensación " +
+            weatherData.apparent +
+            "°";
+        }
+
+        text +=
+          " · " +
+          weatherData.rain +
+          "% lluvia";
+
+        return text;
+      }
+
+      return (
+        weatherData.rain +
+        "% de probabilidad de lluvia"
+      );
+    }
+
+    /* NAVEGACIÓN ENTRE DÍAS */
+
+    function loadDay(day) {
+      const newDay =
+        Math.max(
+          1,
+          Math.min(
+            9,
+            Number(day) || 1
+          )
+        );
+
+      currentDay =
+        newDay;
+
+      rows = [];
+      meta = {};
+      weatherData = null;
+
+      closeDetail(false);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "auto"
+      });
+
+      loadData();
+    }
+
+    function renderDaySelector() {
+      const todayDay =
+        actualTripDay();
+
+      let html =
+        '<div class="day-selector" id="daySelector">';
+
+      for (
+        let day = 1;
+        day <= 9;
+        day++
+      ) {
+        let classes =
+          "day-chip";
+
+        if (
+          day === currentDay
+        ) {
+          classes +=
+            " active";
+        }
+
+        if (
+          day === todayDay
+        ) {
+          classes +=
+            " trip-today";
+        }
+
+        html +=
+          '<button class="' +
+          classes +
+          '" data-day="' +
+          day +
+          '" onclick="loadDay(' +
+          day +
+          ')">' +
+          "<strong>" +
+          escapeHTML(
+            TRIP_DAYS[day]
+              .shortDate
+          ) +
+          "</strong>" +
+          "<span>Día " +
+          day +
+          "</span>" +
+          "</button>";
+      }
+
+      html += "</div>";
+
+      return html;
+    }
+
+    function scrollActiveDay() {
+      const selector =
+        document.getElementById(
+          "daySelector"
+        );
+
+      if (!selector) return;
+
+      const active =
+        selector.querySelector(
+          ".day-chip.active"
+        );
+
+      if (!active) return;
+
+      active.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center"
+      });
+    }
+
+    /* RENDER PRINCIPAL */
+
     function render() {
       const stops =
         getStops();
@@ -2217,6 +2895,21 @@
 
       const alert =
         getFirstAlert();
+
+      const config =
+        TRIP_DAYS[currentDay];
+
+      const previousDay =
+        Math.max(
+          1,
+          currentDay - 1
+        );
+
+      const nextDay =
+        Math.min(
+          9,
+          currentDay + 1
+        );
 
       let html = "";
 
@@ -2236,14 +2929,15 @@
             <button
               class="hero-icon-button"
               type="button"
-              disabled
+              onclick="loadDay(${previousDay})"
               aria-label="Día anterior"
+              ${currentDay === 1 ? "disabled" : ""}
             >
               ‹
             </button>
 
             <div class="hero-count">
-              Día 1 de 9
+              Día ${currentDay} de 9
             </div>
 
             <button
@@ -2260,13 +2954,14 @@
           <div class="hero-content">
 
             <div class="hero-day">
-              ✦ Día 1
+              ✦ Día ${currentDay}
             </div>
 
             <div class="hero-date">
               ${escapeHTML(
                 formatDate(
-                  meta.fecha
+                  meta.fecha ||
+                  config.date
                 )
               )}
             </div>
@@ -2274,65 +2969,80 @@
             <h1 class="hero-title">
               ${escapeHTML(
                 meta.ciudad ||
-                "Llegada / SeaTac"
+                config.city
               )}
             </h1>
 
           </div>
 
         </header>
-      `;
 
-      html += `
+        ${renderDaySelector()}
+
         <div class="main-content">
 
           <section class="section-padding">
 
-            <div class="quick-grid">
+            <article class="weather-card">
 
-              <article class="quick-card">
+              <div class="weather-main">
 
-                <div class="quick-icon">
-                  🌤️
-                </div>
-
-                <div class="quick-label">
-                  Clima
-                </div>
-
-                <div class="quick-value">
-                  ${escapeHTML(
-                    weatherText()
-                  )}
-                </div>
-
-              </article>
-
-              <article class="quick-card">
-
-                <div class="quick-icon">
-                  🛏️
-                </div>
-
-                <div class="quick-label">
-                  Dormimos en
-                </div>
-
-                <div class="quick-value">
+                <div class="weather-icon">
                   ${
-                    night
-                      ? escapeHTML(
-                          night.nombre ||
-                          night.direccion ||
-                          "Hospedaje"
+                    weatherData &&
+                    weatherData.available
+                      ? weatherIcon(
+                          weatherData.code
                         )
-                      : "Holiday Inn Express Sea-Tac"
+                      : "🌤️"
                   }
                 </div>
 
-              </article>
+                <div class="weather-copy">
 
-            </div>
+                  <div class="weather-topline">
+
+                    <div class="weather-label">
+                      Clima · ${escapeHTML(config.city)}
+                    </div>
+
+                    <div class="country-chip">
+
+                      <span class="country-flag">
+                        ${config.flag}
+                      </span>
+
+                      <span class="country-name">
+                        ${escapeHTML(config.country)}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  <div class="weather-value">
+                    ${escapeHTML(
+                      weatherMainText()
+                    )}
+                  </div>
+
+                  ${
+                    weatherSecondaryText()
+                      ? `
+                        <div class="weather-rain">
+                          💧 ${escapeHTML(
+                            weatherSecondaryText()
+                          )}
+                        </div>
+                      `
+                      : ""
+                  }
+
+                </div>
+
+              </div>
+
+            </article>
 
           </section>
       `;
@@ -2472,21 +3182,23 @@
 
           <button
             class="nav-button"
-            disabled
+            onclick="loadDay(${previousDay})"
+            ${currentDay === 1 ? "disabled" : ""}
           >
-            ← Anterior
+            ← Día ${previousDay}
           </button>
 
           <div class="nav-position">
             <span>Día</span>
-            <strong>1 de 9</strong>
+            <strong>${currentDay} de 9</strong>
           </div>
 
           <button
             class="nav-button primary"
-            onclick="alert('Esta prueba solamente contiene el Día 1.')"
+            onclick="loadDay(${nextDay})"
+            ${currentDay === 9 ? "disabled" : ""}
           >
-            Día 2 →
+            Día ${nextDay} →
           </button>
 
         </nav>
@@ -2495,6 +3207,11 @@
       document
         .getElementById("app")
         .innerHTML = html;
+
+      setTimeout(
+        scrollActiveDay,
+        100
+      );
     }
 
     function renderActivity(row) {
@@ -2762,6 +3479,8 @@
       );
     }
 
+    /* DETALLE */
+
     function openDetail(
       order,
       resetScroll = true
@@ -2797,7 +3516,7 @@
           ? stops[index + 1]
           : null;
 
-      const tasks =
+      const taskItems =
         splitTasks(
           row.que_hacer
         );
@@ -3009,7 +3728,7 @@
       }
 
       if (
-        tasks.length
+        taskItems.length
       ) {
         html += `
           <section class="detail-section">
@@ -3026,7 +3745,7 @@
             >
         `;
 
-        tasks.forEach(task => {
+        taskItems.forEach(task => {
           html += `
             <div class="task-item">
 
@@ -3195,8 +3914,9 @@
         "open"
       );
 
-      document.body.style.overflow =
-        "hidden";
+      document.body.classList.add(
+        "detail-open"
+      );
 
       if (
         resetScroll
@@ -3205,7 +3925,9 @@
       }
     }
 
-    function closeDetail() {
+    function closeDetail(
+      restoreScroll = true
+    ) {
       currentDetailOrder =
         null;
 
@@ -3218,13 +3940,18 @@
         "open"
       );
 
-      document.body.style.overflow =
-        "";
-
-      window.scrollTo(
-        0,
-        mainScrollPosition
+      document.body.classList.remove(
+        "detail-open"
       );
+
+      if (
+        restoreScroll
+      ) {
+        window.scrollTo(
+          0,
+          mainScrollPosition
+        );
+      }
     }
 
     function shareActivity(order) {
@@ -3291,6 +4018,8 @@
       }
     }
 
+    /* CARGA DE DATOS */
+
     function loadData() {
       document
         .getElementById(
@@ -3298,28 +4027,41 @@
         )
         .innerHTML = `
           <div class="loading">
-            ⏳ Cargando Día 1...
+            ⏳ Cargando Día ${currentDay}...
           </div>
         `;
 
-      fetch(
-        API_URL +
-        "?format=json&day=" +
-        CURRENT_DAY
-      )
-        .then(response => {
-          if (
-            !response.ok
-          ) {
-            throw new Error(
-              "Error HTTP " +
-              response.status
-            );
-          }
+      const itineraryRequest =
+        fetch(
+          API_URL +
+          "?format=json&day=" +
+          currentDay
+        )
+          .then(response => {
+            if (
+              !response.ok
+            ) {
+              throw new Error(
+                "Error HTTP " +
+                response.status
+              );
+            }
 
-          return response.json();
-        })
-        .then(data => {
+            return response.json();
+          });
+
+      const weatherRequest =
+        fetchWeather();
+
+      Promise
+        .all([
+          itineraryRequest,
+          weatherRequest
+        ])
+        .then(results => {
+          const data =
+            results[0];
+
           rows =
             Array.isArray(
               data &&
@@ -3338,7 +4080,9 @@
             !rows.length
           ) {
             throw new Error(
-              "El API no devolvió actividades para el Día 1."
+              "El API no devolvió actividades para el Día " +
+              currentDay +
+              "."
             );
           }
 
@@ -3353,7 +4097,7 @@
               <div class="error">
 
                 <strong>
-                  No se pudo cargar el Día 1.
+                  No se pudo cargar el Día ${currentDay}.
                 </strong>
 
                 <br><br>
