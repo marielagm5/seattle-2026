@@ -10,15 +10,23 @@
 
   <title>Road Trip · Día 1</title>
 
-  <meta name="theme-color" content="#F6F5F2">
+  <meta name="theme-color" content="#F6F7F3">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="default"
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
   >
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
 
@@ -32,36 +40,44 @@
     }
 
     :root {
-      --bg: #F6F5F2;
+      --page: #EEF0EC;
+      --background: #F7F7F3;
       --surface: #FFFFFF;
-      --surface-soft: #F0EEE9;
-      --surface-blue: #EDF5F9;
+      --surface-soft: #F0F2EE;
+      --surface-blue: #EAF3F8;
 
-      --text: #1E2428;
-      --text-soft: #4E5A62;
-      --muted: #7B858C;
-      --border: rgba(30, 36, 40, 0.10);
+      --text: #202321;
+      --text-soft: #505853;
+      --muted: #7E8781;
+      --border: rgba(32, 35, 33, 0.09);
 
-      --primary: #457E9E;
-      --primary-soft: #DDECF4;
+      --primary: #202321;
+      --blue: #6395B3;
+      --blue-soft: #E2EFF6;
 
-      --coral: #E77C60;
-      --coral-soft: #FBE7E1;
+      --lime: #DFFF59;
+      --lime-soft: #F2FBCB;
 
-      --gold: #C89537;
-      --gold-soft: #FFF3D9;
+      --coral: #EF8063;
+      --coral-soft: #FCE8E1;
 
-      --mint: #439A83;
-      --mint-soft: #DFF2ED;
+      --gold: #D69A32;
+      --gold-soft: #FFF3D7;
 
-      --red: #C95E5E;
-      --red-soft: #FCE8E8;
+      --green: #4B9C84;
+      --green-soft: #E1F3ED;
+
+      --danger: #C85F5F;
+      --danger-soft: #FBEAEA;
+
+      --shadow-small:
+        0 5px 18px rgba(38, 45, 41, 0.07);
 
       --shadow:
-        0 10px 30px rgba(45, 52, 57, 0.08);
+        0 12px 34px rgba(38, 45, 41, 0.09);
 
       --shadow-strong:
-        0 18px 44px rgba(45, 52, 57, 0.15);
+        0 22px 50px rgba(38, 45, 41, 0.16);
 
       --safe-top:
         env(safe-area-inset-top);
@@ -77,16 +93,24 @@
 
       background:
         radial-gradient(
-          circle at top right,
-          rgba(69, 126, 158, 0.10),
-          transparent 34%
+          circle at 15% 0%,
+          rgba(223, 255, 89, 0.18),
+          transparent 25%
         ),
-        var(--bg);
+        radial-gradient(
+          circle at 95% 5%,
+          rgba(99, 149, 179, 0.14),
+          transparent 30%
+        ),
+        var(--page);
 
       color: var(--text);
 
       font-family:
         "Sora",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
         sans-serif;
 
       overflow-x: hidden;
@@ -97,8 +121,16 @@
         calc(94px + var(--safe-bottom));
     }
 
-    button {
-      font: inherit;
+    button,
+    input,
+    select,
+    textarea {
+      font-family:
+        "Sora",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
     }
 
     button,
@@ -107,13 +139,21 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    button {
+      cursor: pointer;
+    }
+
     button:focus-visible,
     article:focus-visible {
       outline:
         3px solid
-        rgba(69, 126, 158, 0.28);
+        rgba(99, 149, 179, 0.30);
 
-      outline-offset: 2px;
+      outline-offset: 3px;
+    }
+
+    img {
+      display: block;
     }
 
     /* ─────────────────────────────
@@ -123,16 +163,19 @@
     .app {
       width: 100%;
       min-height: 100vh;
+
+      background: var(--background);
     }
 
     .loading,
     .error {
       margin: 24px 16px;
-      padding: 20px;
+      padding: 22px;
+
+      border: 1px solid var(--border);
+      border-radius: 24px;
 
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 22px;
 
       box-shadow: var(--shadow);
 
@@ -141,8 +184,8 @@
     }
 
     .error {
-      color: var(--red);
-      background: var(--red-soft);
+      color: var(--danger);
+      background: var(--danger-soft);
     }
 
     /* ─────────────────────────────
@@ -152,14 +195,14 @@
     .hero {
       position: relative;
 
-      min-height: 300px;
+      min-height: 350px;
 
       overflow: hidden;
 
-      border-radius:
-        0 0 32px 32px;
+      background: #B6C6CF;
 
-      background: #CDD5D9;
+      border-radius:
+        0 0 38px 38px;
 
       box-shadow: var(--shadow-strong);
     }
@@ -174,8 +217,8 @@
       object-fit: cover;
 
       filter:
-        brightness(0.74)
-        saturate(0.96);
+        brightness(0.78)
+        saturate(1.02);
     }
 
     .hero-overlay {
@@ -185,223 +228,256 @@
       background:
         linear-gradient(
           to bottom,
-          rgba(16, 22, 26, 0.08),
-          rgba(16, 22, 26, 0.22) 38%,
-          rgba(16, 22, 26, 0.82) 100%
+          rgba(14, 19, 17, 0.04),
+          rgba(14, 19, 17, 0.14) 34%,
+          rgba(14, 19, 17, 0.84) 100%
         );
     }
 
     .hero-top {
       position: relative;
-      z-index: 2;
+      z-index: 3;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
       padding:
-        calc(14px + var(--safe-top))
-        16px 0;
+        calc(16px + var(--safe-top))
+        17px
+        0;
     }
 
-    .round-button {
+    .hero-icon-button {
       width: 46px;
       height: 46px;
 
       display: grid;
       place-items: center;
 
-      border: 1px solid rgba(255,255,255,0.55);
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.48);
+
       border-radius: 50%;
 
-      background: rgba(255,255,255,0.30);
+      background:
+        rgba(255, 255, 255, 0.24);
 
       color: white;
 
-      font-size: 21px;
+      font-size: 22px;
+      font-weight: 600;
 
-      cursor: pointer;
-
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
 
       box-shadow:
-        0 8px 20px rgba(0,0,0,0.12);
+        0 8px 24px
+        rgba(0, 0, 0, 0.13);
     }
 
-    .hero-counter {
+    .hero-icon-button:disabled {
+      opacity: 0.42;
+      cursor: default;
+    }
+
+    .hero-count {
       padding: 10px 15px;
 
-      border: 1px solid rgba(255,255,255,0.48);
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.46);
+
       border-radius: 24px;
 
-      background: rgba(255,255,255,0.26);
+      background:
+        rgba(255, 255, 255, 0.23);
 
       color: white;
 
-      font-family:
-        "Space Mono",
-        monospace;
-
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
 
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
     }
 
     .hero-content {
       position: absolute;
       z-index: 2;
 
-      left: 18px;
-      right: 18px;
-      bottom: 21px;
+      left: 19px;
+      right: 19px;
+      bottom: 25px;
     }
 
     .hero-day {
       display: inline-flex;
+      align-items: center;
 
-      margin-bottom: 8px;
-      padding: 6px 10px;
+      gap: 6px;
 
-      border-radius: 10px;
+      margin-bottom: 11px;
+      padding: 7px 11px;
 
-      background: var(--coral);
+      border-radius: 12px;
 
-      color: white;
+      background: var(--lime);
 
-      font-family:
-        "Space Mono",
-        monospace;
+      color: #252A23;
 
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 800;
 
-      letter-spacing: 1.7px;
       text-transform: uppercase;
     }
 
     .hero-date {
-      margin-bottom: 5px;
+      margin-bottom: 7px;
 
-      color: rgba(255,255,255,0.88);
+      color:
+        rgba(255, 255, 255, 0.90);
 
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
 
       text-transform: capitalize;
     }
 
     .hero-title {
+      max-width: 92%;
+
       color: white;
 
-      font-size: 35px;
+      font-size: clamp(
+        34px,
+        9vw,
+        43px
+      );
+
       font-weight: 800;
 
-      line-height: 1.05;
-      letter-spacing: -1px;
+      line-height: 1.03;
+      letter-spacing: -1.3px;
 
       text-shadow:
-        0 8px 24px rgba(0,0,0,0.20);
+        0 8px 26px
+        rgba(0, 0, 0, 0.22);
     }
 
     /* ─────────────────────────────
-       INFORMACIÓN RÁPIDA
+       CONTENIDO GENERAL
        ───────────────────────────── */
 
-    .glance {
-      padding: 18px 16px 0;
+    .main-content {
+      padding-top: 18px;
     }
 
-    .glance-row {
+    .section-padding {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    /* ─────────────────────────────
+       VISTA RÁPIDA
+       ───────────────────────────── */
+
+    .quick-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
 
-      gap: 10px;
+      gap: 11px;
     }
 
-    .glance-card {
+    .quick-card {
       min-width: 0;
-
-      padding: 15px;
-
-      border: 1px solid var(--border);
-      border-radius: 21px;
-
-      background: var(--surface);
-
-      box-shadow: var(--shadow);
-    }
-
-    .glance-icon {
-      width: 42px;
-      height: 42px;
-
-      display: grid;
-      place-items: center;
-
-      margin-bottom: 11px;
-
-      border-radius: 14px;
-
-      background: var(--surface-soft);
-
-      font-size: 21px;
-    }
-
-    .glance-label {
-      margin-bottom: 5px;
-
-      color: var(--muted);
-
-      font-family:
-        "Space Mono",
-        monospace;
-
-      font-size: 10px;
-
-      letter-spacing: 1.3px;
-      text-transform: uppercase;
-    }
-
-    .glance-value {
-      color: var(--text);
-
-      font-size: 15px;
-      font-weight: 700;
-
-      line-height: 1.4;
-    }
-
-    /* ─────────────────────────────
-       SIGUIENTE ACTIVIDAD
-       ───────────────────────────── */
-
-    .next-section {
-      padding: 12px 16px 0;
-    }
-
-    .next-card {
-      display: grid;
-      grid-template-columns: 54px minmax(0, 1fr) auto;
-
-      gap: 13px;
-      align-items: center;
 
       padding: 16px;
 
       border:
         1px solid
-        rgba(69, 126, 158, 0.24);
+        var(--border);
 
-      border-radius: 22px;
+      border-radius: 23px;
+
+      background: var(--surface);
+
+      box-shadow: var(--shadow-small);
+    }
+
+    .quick-icon {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 12px;
+
+      border-radius: 15px;
+
+      background: var(--surface-soft);
+
+      font-size: 22px;
+    }
+
+    .quick-label {
+      margin-bottom: 6px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 700;
+
+      text-transform: uppercase;
+    }
+
+    .quick-value {
+      color: var(--text);
+
+      font-size: 15px;
+      font-weight: 700;
+
+      line-height: 1.42;
+    }
+
+    /* ─────────────────────────────
+       LO QUE SIGUE
+       ───────────────────────────── */
+
+    .next-section {
+      margin-top: 13px;
+    }
+
+    .next-card {
+      position: relative;
+
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1fr)
+        104px;
+
+      gap: 15px;
+      align-items: stretch;
+
+      min-height: 154px;
+
+      overflow: hidden;
+
+      padding: 17px;
+
+      border:
+        1px solid
+        rgba(32, 35, 33, 0.09);
+
+      border-radius: 27px;
 
       background:
         linear-gradient(
           135deg,
-          var(--primary-soft),
-          #FFFFFF
+          var(--lime-soft),
+          #FFFFFF 72%
         );
 
       box-shadow: var(--shadow);
@@ -409,72 +485,107 @@
       cursor: pointer;
     }
 
-    .next-icon {
-      width: 54px;
-      height: 54px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 18px;
-
-      background:
-        rgba(69, 126, 158, 0.14);
-
-      font-size: 25px;
+    .next-card:active {
+      transform: scale(0.99);
     }
 
     .next-content {
       min-width: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .next-label {
-      margin-bottom: 4px;
+      display: inline-flex;
+      align-items: center;
 
-      color: var(--primary);
+      width: fit-content;
 
-      font-family:
-        "Space Mono",
-        monospace;
+      margin-bottom: 9px;
+      padding: 6px 9px;
+
+      border-radius: 9px;
+
+      background: var(--lime);
+
+      color: #343A2E;
 
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 800;
 
-      letter-spacing: 1.4px;
       text-transform: uppercase;
     }
 
     .next-name {
       color: var(--text);
 
-      font-size: 18px;
+      font-size: 21px;
       font-weight: 800;
 
-      line-height: 1.25;
+      line-height: 1.20;
+      letter-spacing: -0.4px;
     }
 
-    .next-status {
-      margin-top: 4px;
+    .next-time {
+      margin-top: 8px;
 
       color: var(--text-soft);
 
       font-size: 14px;
+      font-weight: 600;
 
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
-    .next-chevron {
-      color: var(--primary);
+    .next-media {
+      position: relative;
 
-      font-size: 27px;
+      min-height: 120px;
+    }
+
+    .next-image {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      border-radius: 21px;
+
+      background: var(--surface-soft);
+    }
+
+    .next-arrow {
+      position: absolute;
+
+      right: 8px;
+      bottom: 8px;
+
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: var(--primary);
+      color: white;
+
+      font-size: 22px;
+
+      box-shadow:
+        0 6px 15px
+        rgba(0, 0, 0, 0.18);
     }
 
     /* ─────────────────────────────
-       ALERTA COMPACTA
+       ALERTA
        ───────────────────────────── */
 
     .alert-section {
-      padding: 12px 16px 0;
+      margin-top: 13px;
     }
 
     .alert-card {
@@ -486,83 +597,88 @@
 
       border:
         1px solid
-        rgba(201, 94, 94, 0.20);
+        rgba(200, 95, 95, 0.17);
 
-      border-radius: 19px;
+      border-radius: 20px;
 
-      background: var(--red-soft);
+      background: var(--danger-soft);
     }
 
     .alert-icon {
-      width: 39px;
-      height: 39px;
+      width: 40px;
+      height: 40px;
 
       display: grid;
       place-items: center;
 
       flex: 0 0 auto;
 
-      border-radius: 13px;
+      border-radius: 14px;
 
       background:
-        rgba(201, 94, 94, 0.12);
+        rgba(200, 95, 95, 0.11);
 
-      font-size: 19px;
+      font-size: 20px;
     }
 
     .alert-title {
       margin-bottom: 3px;
 
-      color: #9A4747;
+      color: #994A4A;
 
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .alert-text {
-      color: #7D6060;
+      color: #755F5F;
 
       font-size: 13px;
-      line-height: 1.45;
+      line-height: 1.48;
     }
 
     /* ─────────────────────────────
-       ITINERARIO
+       ENCABEZADO ITINERARIO
        ───────────────────────────── */
 
-    .section-heading {
+    .itinerary-heading {
       display: flex;
-      justify-content: space-between;
       align-items: end;
+      justify-content: space-between;
 
-      padding: 25px 16px 13px;
+      padding:
+        29px
+        16px
+        14px;
     }
 
-    .section-heading h2 {
+    .itinerary-heading h2 {
       color: var(--text);
 
-      font-size: 27px;
+      font-size: 30px;
       font-weight: 800;
 
-      letter-spacing: -0.7px;
+      letter-spacing: -0.9px;
     }
 
-    .section-heading span {
+    .itinerary-count {
       color: var(--muted);
 
-      font-family:
-        "Space Mono",
-        monospace;
-
-      font-size: 11px;
+      font-size: 13px;
+      font-weight: 600;
     }
 
-    .itinerary {
-      padding: 0 16px 24px;
+    /* ─────────────────────────────
+       ACTIVIDADES
+       ───────────────────────────── */
+
+    .itinerary-list {
+      padding:
+        0 16px 28px;
     }
 
-    .activity {
-      margin-bottom: 13px;
+    .activity-card {
+      margin-bottom: 14px;
 
       overflow: hidden;
 
@@ -570,11 +686,11 @@
         1px solid
         var(--border);
 
-      border-radius: 23px;
+      border-radius: 27px;
 
       background: var(--surface);
 
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-small);
 
       cursor: pointer;
 
@@ -583,57 +699,59 @@
         box-shadow 0.16s ease;
     }
 
-    .activity:active {
-      transform: scale(0.985);
+    .activity-card:active {
+      transform: scale(0.987);
 
       box-shadow:
-        0 5px 18px rgba(45,52,57,0.07);
+        0 4px 16px
+        rgba(38, 45, 41, 0.06);
     }
 
-    .activity.done {
+    .activity-card.done {
       opacity: 0.52;
     }
 
-    .activity.skipped {
-      opacity: 0.34;
+    .activity-card.skipped {
+      opacity: 0.33;
     }
 
     .activity-inner {
       display: grid;
-
       grid-template-columns:
         minmax(0, 1fr)
-        94px;
+        104px;
 
-      gap: 14px;
-      align-items: center;
+      gap: 15px;
+      align-items: stretch;
+
+      min-height: 148px;
 
       padding: 16px;
     }
 
-    .activity-info {
+    .activity-copy {
       min-width: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .activity-meta {
+    .activity-topline {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
 
       gap: 8px;
 
-      margin-bottom: 9px;
+      margin-bottom: 11px;
     }
 
     .activity-time {
       color: var(--text);
 
-      font-family:
-        "Space Mono",
-        monospace;
-
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 800;
     }
 
     .activity-tag {
@@ -642,39 +760,34 @@
 
       gap: 5px;
 
-      padding: 5px 8px;
+      padding: 6px 9px;
 
-      border-radius: 9px;
+      border-radius: 10px;
 
-      font-family:
-        "Space Mono",
-        monospace;
+      font-size: 10px;
+      font-weight: 800;
 
-      font-size: 9px;
-      font-weight: 700;
-
-      letter-spacing: 0.7px;
       text-transform: uppercase;
     }
 
     .c-coral .activity-tag {
-      color: #B85E47;
+      color: #B45943;
       background: var(--coral-soft);
     }
 
     .c-gold .activity-tag {
-      color: #976D24;
+      color: #96671E;
       background: var(--gold-soft);
     }
 
     .c-mint .activity-tag {
-      color: #337B68;
-      background: var(--mint-soft);
+      color: #337A66;
+      background: var(--green-soft);
     }
 
     .c-sky .activity-tag {
-      color: var(--primary);
-      background: var(--primary-soft);
+      color: #4E7D98;
+      background: var(--blue-soft);
     }
 
     .activity-title {
@@ -683,16 +796,17 @@
       font-size: 20px;
       font-weight: 800;
 
-      line-height: 1.25;
+      line-height: 1.23;
+      letter-spacing: -0.4px;
     }
 
     .activity-description {
-      margin-top: 5px;
+      margin-top: 7px;
 
       color: var(--muted);
 
       font-size: 14px;
-      line-height: 1.45;
+      line-height: 1.48;
 
       overflow: hidden;
 
@@ -703,21 +817,17 @@
 
     .activity-media {
       position: relative;
+
+      min-height: 116px;
     }
 
     .activity-image {
-      width: 94px;
-      height: 94px;
-
-      display: block;
+      width: 100%;
+      height: 100%;
 
       object-fit: cover;
 
-      border:
-        1px solid
-        var(--border);
-
-      border-radius: 19px;
+      border-radius: 21px;
 
       background: var(--surface-soft);
     }
@@ -725,87 +835,85 @@
     .activity-chevron {
       position: absolute;
 
-      right: 7px;
-      bottom: 7px;
+      right: 8px;
+      bottom: 8px;
 
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
 
       display: grid;
       place-items: center;
 
-      border:
-        1px solid
-        rgba(30,36,40,0.10);
-
       border-radius: 50%;
 
       background:
-        rgba(255,255,255,0.92);
+        rgba(32, 35, 33, 0.88);
 
-      color: var(--text);
+      color: white;
 
-      font-size: 20px;
+      font-size: 22px;
 
       box-shadow:
-        0 4px 12px rgba(45,52,57,0.13);
+        0 5px 15px
+        rgba(0, 0, 0, 0.18);
     }
 
     /* ─────────────────────────────
        TRASLADOS
        ───────────────────────────── */
 
-    .transit {
+    .transit-card {
       display: flex;
-      gap: 11px;
+      gap: 12px;
       align-items: flex-start;
 
       margin:
-        0 7px 13px;
+        1px 5px 14px;
 
-      padding: 12px 13px;
+      padding:
+        13px 14px;
 
       border-left:
-        3px solid
-        rgba(69,126,158,0.48);
+        4px solid
+        var(--blue);
 
       border-radius:
-        0 15px 15px 0;
+        0 17px 17px 0;
 
       background:
-        rgba(69,126,158,0.07);
+        rgba(99, 149, 179, 0.08);
     }
 
     .transit-icon {
       flex: 0 0 auto;
 
-      font-size: 18px;
+      font-size: 20px;
     }
 
     .transit-title {
-      color: var(--primary);
+      color: #4C7891;
 
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 800;
 
       line-height: 1.4;
     }
 
     .transit-description {
-      margin-top: 3px;
+      margin-top: 4px;
 
       color: var(--muted);
 
       font-size: 13px;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     /* ─────────────────────────────
-       HOSPEDAJE
+       HOTEL
        ───────────────────────────── */
 
     .hotel-section {
-      margin-top: 23px;
+      margin-top: 26px;
     }
 
     .hotel-label {
@@ -813,19 +921,19 @@
 
       color: var(--muted);
 
-      font-family:
-        "Space Mono",
-        monospace;
+      font-size: 12px;
+      font-weight: 800;
 
-      font-size: 11px;
-      font-weight: 700;
-
-      letter-spacing: 1.6px;
       text-transform: uppercase;
     }
 
     .hotel-card {
-      display: flex;
+      position: relative;
+
+      display: grid;
+      grid-template-columns:
+        56px minmax(0, 1fr);
+
       gap: 14px;
       align-items: flex-start;
 
@@ -833,35 +941,28 @@
 
       border:
         1px solid
-        rgba(69,126,158,0.20);
+        rgba(99, 149, 179, 0.18);
 
-      border-radius: 22px;
+      border-radius: 24px;
 
       background: var(--surface-blue);
 
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-small);
     }
 
     .hotel-icon {
-      width: 48px;
-      height: 48px;
+      width: 56px;
+      height: 56px;
 
       display: grid;
       place-items: center;
 
-      flex: 0 0 auto;
-
-      border-radius: 16px;
+      border-radius: 18px;
 
       background:
-        rgba(69,126,158,0.14);
+        rgba(99, 149, 179, 0.13);
 
-      font-size: 23px;
-    }
-
-    .hotel-content {
-      min-width: 0;
-      flex: 1;
+      font-size: 25px;
     }
 
     .hotel-name {
@@ -879,7 +980,7 @@
       color: var(--muted);
 
       font-size: 13px;
-      line-height: 1.45;
+      line-height: 1.47;
     }
 
     .hotel-button {
@@ -888,19 +989,17 @@
 
       border:
         1px solid
-        rgba(69,126,158,0.28);
+        rgba(99, 149, 179, 0.24);
 
-      border-radius: 20px;
+      border-radius: 19px;
 
       background:
-        rgba(69,126,158,0.11);
+        rgba(99, 149, 179, 0.11);
 
-      color: var(--primary);
+      color: #4C7891;
 
       font-size: 13px;
-      font-weight: 700;
-
-      cursor: pointer;
+      font-weight: 800;
     }
 
     /* ─────────────────────────────
@@ -909,18 +1008,17 @@
 
     .bottom-navigation {
       position: fixed;
-      z-index: 50;
+      z-index: 60;
 
       left: 0;
       right: 0;
       bottom: 0;
 
       display: grid;
-
       grid-template-columns:
-        minmax(0,1fr)
+        minmax(0, 1fr)
         auto
-        minmax(0,1fr);
+        minmax(0, 1fr);
 
       gap: 10px;
       align-items: center;
@@ -934,13 +1032,14 @@
         var(--border);
 
       background:
-        rgba(249,248,245,0.96);
+        rgba(250, 250, 247, 0.95);
 
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
 
       box-shadow:
-        0 -10px 28px rgba(45,52,57,0.08);
+        0 -10px 28px
+        rgba(38, 45, 41, 0.08);
     }
 
     .nav-button {
@@ -960,11 +1059,9 @@
       color: var(--text);
 
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
 
       white-space: nowrap;
-
-      cursor: pointer;
     }
 
     .nav-button.primary {
@@ -974,38 +1071,36 @@
     }
 
     .nav-button:disabled {
-      opacity: 0.30;
+      opacity: 0.27;
       cursor: default;
     }
 
-    .nav-day {
+    .nav-position {
       min-width: 70px;
 
       text-align: center;
+    }
+
+    .nav-position span {
+      display: block;
 
       color: var(--muted);
 
-      font-family:
-        "Space Mono",
-        monospace;
-    }
+      font-size: 10px;
+      font-weight: 700;
 
-    .nav-day span {
-      display: block;
-
-      margin-bottom: 3px;
-
-      font-size: 9px;
-      letter-spacing: 1px;
       text-transform: uppercase;
     }
 
-    .nav-day strong {
+    .nav-position strong {
       display: block;
+
+      margin-top: 3px;
 
       color: var(--text);
 
       font-size: 15px;
+      font-weight: 800;
     }
 
     /* ─────────────────────────────
@@ -1028,8 +1123,8 @@
       background:
         linear-gradient(
           to bottom,
-          #FAFAF8,
-          var(--bg)
+          #FAFBF8,
+          var(--background)
         );
 
       opacity: 0;
@@ -1053,9 +1148,12 @@
     .detail-hero {
       position: relative;
 
-      min-height: 370px;
+      min-height: 400px;
 
       overflow: hidden;
+
+      border-radius:
+        0 0 36px 36px;
     }
 
     .detail-image {
@@ -1075,9 +1173,9 @@
       background:
         linear-gradient(
           to bottom,
-          rgba(16,22,26,0.08),
-          rgba(16,22,26,0.24) 38%,
-          rgba(16,22,26,0.84) 100%
+          rgba(14, 19, 17, 0.04),
+          rgba(14, 19, 17, 0.16) 35%,
+          rgba(14, 19, 17, 0.88) 100%
         );
     }
 
@@ -1090,12 +1188,13 @@
       right: 0;
 
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
 
       padding:
-        calc(14px + var(--safe-top))
-        16px 0;
+        calc(16px + var(--safe-top))
+        17px
+        0;
     }
 
     .detail-position {
@@ -1103,91 +1202,86 @@
 
       border:
         1px solid
-        rgba(255,255,255,0.48);
+        rgba(255, 255, 255, 0.46);
 
-      border-radius: 24px;
+      border-radius: 23px;
 
       background:
-        rgba(255,255,255,0.26);
+        rgba(255, 255, 255, 0.23);
 
       color: white;
 
-      font-family:
-        "Space Mono",
-        monospace;
-
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
 
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
     }
 
     .detail-heading {
       position: absolute;
       z-index: 2;
 
-      left: 19px;
-      right: 19px;
-      bottom: 25px;
+      left: 20px;
+      right: 20px;
+      bottom: 27px;
     }
 
     .detail-time {
       margin-bottom: 10px;
 
       color:
-        rgba(255,255,255,0.88);
+        rgba(255, 255, 255, 0.90);
 
-      font-family:
-        "Space Mono",
-        monospace;
-
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
     }
 
     .detail-tag {
       display: inline-flex;
+      align-items: center;
 
-      margin-bottom: 11px;
-      padding: 6px 10px;
+      gap: 5px;
 
-      border-radius: 9px;
+      margin-bottom: 12px;
+      padding: 7px 10px;
+
+      border-radius: 10px;
 
       background:
-        rgba(255,255,255,0.20);
+        rgba(255, 255, 255, 0.20);
 
       color: white;
 
-      font-family:
-        "Space Mono",
-        monospace;
+      font-size: 10px;
+      font-weight: 800;
 
-      font-size: 9px;
-      font-weight: 700;
-
-      letter-spacing: 1px;
       text-transform: uppercase;
 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .detail-title {
       color: white;
 
-      font-size: 34px;
+      font-size: clamp(
+        32px,
+        9vw,
+        42px
+      );
+
       font-weight: 800;
 
-      line-height: 1.08;
-      letter-spacing: -0.9px;
+      line-height: 1.06;
+      letter-spacing: -1px;
     }
 
     .detail-description {
-      margin-top: 8px;
+      margin-top: 9px;
 
       color:
-        rgba(255,255,255,0.80);
+        rgba(255, 255, 255, 0.82);
 
       font-size: 15px;
       line-height: 1.5;
@@ -1196,30 +1290,30 @@
     .detail-content {
       padding:
         22px 16px
-        calc(136px + var(--safe-bottom));
+        calc(138px + var(--safe-bottom));
     }
 
-    /* Acciones */
+    /* ACCIONES */
 
     .detail-actions {
       display: grid;
       grid-template-columns:
-        1.3fr 1fr 1fr;
+        1.25fr 1fr 1fr;
 
       gap: 9px;
 
-      margin-bottom: 30px;
+      margin-bottom: 31px;
     }
 
     .detail-action {
-      min-height: 68px;
+      min-height: 72px;
 
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
 
-      gap: 5px;
+      gap: 6px;
 
       padding: 10px 7px;
 
@@ -1227,15 +1321,13 @@
         1px solid
         var(--border);
 
-      border-radius: 20px;
+      border-radius: 21px;
 
       background: var(--surface);
 
       color: var(--text);
 
-      box-shadow: var(--shadow);
-
-      cursor: pointer;
+      box-shadow: var(--shadow-small);
     }
 
     .detail-action.maps {
@@ -1246,25 +1338,25 @@
 
     .detail-action.done {
       border-color:
-        rgba(67,154,131,0.25);
+        rgba(75, 156, 132, 0.23);
 
-      background: var(--mint-soft);
-      color: var(--mint);
+      background: var(--green-soft);
+      color: #347A68;
     }
 
     .detail-action-icon {
-      font-size: 22px;
+      font-size: 23px;
     }
 
     .detail-action-label {
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
-    /* Secciones */
+    /* SECCIONES DETALLE */
 
     .detail-section {
-      margin-bottom: 29px;
+      margin-bottom: 30px;
     }
 
     .detail-section-label {
@@ -1272,14 +1364,9 @@
 
       color: var(--muted);
 
-      font-family:
-        "Space Mono",
-        monospace;
+      font-size: 12px;
+      font-weight: 800;
 
-      font-size: 11px;
-      font-weight: 700;
-
-      letter-spacing: 1.7px;
       text-transform: uppercase;
     }
 
@@ -1290,35 +1377,33 @@
         1px solid
         var(--border);
 
-      border-radius: 21px;
+      border-radius: 23px;
 
       background: var(--surface);
 
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-small);
     }
 
     .address-box {
       display: flex;
-      gap: 13px;
+      gap: 14px;
       align-items: flex-start;
-
-      cursor: pointer;
     }
 
-    .box-icon {
-      width: 44px;
-      height: 44px;
+    .detail-icon {
+      width: 46px;
+      height: 46px;
 
       display: grid;
       place-items: center;
 
       flex: 0 0 auto;
 
-      border-radius: 15px;
+      border-radius: 16px;
 
       background: var(--surface-soft);
 
-      font-size: 21px;
+      font-size: 22px;
     }
 
     .address-main {
@@ -1327,7 +1412,7 @@
       font-size: 17px;
       font-weight: 700;
 
-      line-height: 1.45;
+      line-height: 1.46;
     }
 
     .address-sub {
@@ -1335,38 +1420,31 @@
 
       color: var(--muted);
 
-      font-family:
-        "Space Mono",
-        monospace;
-
-      font-size: 11px;
-      line-height: 1.5;
+      font-size: 12px;
+      line-height: 1.48;
     }
 
     .address-link {
       margin-top: 10px;
 
-      color: var(--primary);
+      color: #4C7891;
 
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .task-list {
-      display: flex;
-      flex-direction: column;
-
-      padding: 4px 17px;
+      padding: 3px 17px;
 
       border:
         1px solid
         var(--border);
 
-      border-radius: 21px;
+      border-radius: 23px;
 
       background: var(--surface);
 
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-small);
     }
 
     .task-item {
@@ -1374,12 +1452,12 @@
       gap: 12px;
       align-items: flex-start;
 
-      padding: 16px 0;
+      padding: 17px 0;
 
       color: var(--text-soft);
 
       font-size: 16px;
-      line-height: 1.5;
+      line-height: 1.52;
     }
 
     .task-item + .task-item {
@@ -1398,7 +1476,7 @@
 
       border-radius: 50%;
 
-      background: var(--primary);
+      background: var(--blue);
     }
 
     .c-coral .task-bullet {
@@ -1410,34 +1488,34 @@
     }
 
     .c-mint .task-bullet {
-      background: var(--mint);
+      background: var(--green);
     }
 
     .price-box {
       display: flex;
-      gap: 13px;
+      gap: 14px;
       align-items: center;
 
       border-color:
-        rgba(200,149,55,0.22);
+        rgba(214, 154, 50, 0.19);
 
       background: var(--gold-soft);
     }
 
     .price-main {
-      color: #916720;
+      color: #8F631A;
 
       font-size: 19px;
       font-weight: 800;
     }
 
     .price-secondary {
-      margin-top: 4px;
+      margin-top: 5px;
 
       color: var(--muted);
 
       font-size: 13px;
-      line-height: 1.4;
+      line-height: 1.43;
     }
 
     .detail-alert {
@@ -1446,17 +1524,17 @@
       align-items: flex-start;
 
       border-color:
-        rgba(201,94,94,0.20);
+        rgba(200, 95, 95, 0.18);
 
-      background: var(--red-soft);
+      background: var(--danger-soft);
 
-      color: #914B4B;
+      color: #914A4A;
 
       font-size: 15px;
-      line-height: 1.5;
+      line-height: 1.52;
     }
 
-    /* Navegación detalle */
+    /* NAVEGACIÓN DETALLE */
 
     .detail-navigation {
       position: fixed;
@@ -1466,14 +1544,11 @@
       right: 0;
       bottom: 0;
 
-      width: 100%;
-
       display: grid;
-
       grid-template-columns:
-        minmax(0,1fr)
+        minmax(0, 1fr)
         auto
-        minmax(0,1fr);
+        minmax(0, 1fr);
 
       gap: 10px;
       align-items: center;
@@ -1487,48 +1562,53 @@
         var(--border);
 
       background:
-        rgba(249,248,245,0.97);
+        rgba(250, 250, 247, 0.97);
 
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      backdrop-filter: blur(23px);
+      -webkit-backdrop-filter: blur(23px);
 
       box-shadow:
-        0 -12px 30px rgba(45,52,57,0.10);
+        0 -12px 32px
+        rgba(38, 45, 41, 0.10);
     }
 
     .detail-navigation .nav-button {
-      min-height: 55px;
-    }
-
-    .detail-navigation .nav-button:disabled {
-      opacity: 0.27;
-      background: transparent;
+      min-height: 56px;
     }
 
     /* ─────────────────────────────
        ESCRITORIO
        ───────────────────────────── */
 
-    @media (min-width: 700px) {
+    @media (min-width: 720px) {
       body {
         background:
           radial-gradient(
-            circle at top,
-            rgba(69,126,158,0.13),
-            transparent 40%
+            circle at 25% 0%,
+            rgba(223, 255, 89, 0.20),
+            transparent 26%
           ),
-          #E9E7E2;
+          radial-gradient(
+            circle at 78% 0%,
+            rgba(99, 149, 179, 0.17),
+            transparent 30%
+          ),
+          var(--page);
       }
 
       .app,
       .detail-view {
-        max-width: 470px;
-        margin: 0 auto;
+        width: 100%;
+        max-width: 510px;
 
-        background: var(--bg);
+        margin-left: auto;
+        margin-right: auto;
+
+        background: var(--background);
 
         box-shadow:
-          0 0 48px rgba(45,52,57,0.13);
+          0 0 55px
+          rgba(38, 45, 41, 0.13);
       }
 
       .bottom-navigation,
@@ -1536,7 +1616,7 @@
         left: 50%;
         right: auto;
 
-        width: 470px;
+        width: 510px;
 
         transform:
           translateX(-50%);
@@ -1544,37 +1624,33 @@
     }
 
     /* ─────────────────────────────
-       CELULARES PEQUEÑOS
+       MÓVILES PEQUEÑOS
        ───────────────────────────── */
 
-    @media (max-width: 380px) {
-      .hero-title {
-        font-size: 31px;
+    @media (max-width: 385px) {
+      .hero {
+        min-height: 325px;
       }
 
-      .glance-row {
+      .quick-grid {
         grid-template-columns: 1fr;
       }
 
+      .next-card,
       .activity-inner {
         grid-template-columns:
-          minmax(0,1fr)
-          78px;
+          minmax(0, 1fr)
+          88px;
 
         gap: 11px;
       }
 
-      .activity-image {
-        width: 78px;
-        height: 78px;
+      .next-name {
+        font-size: 19px;
       }
 
       .activity-title {
         font-size: 18px;
-      }
-
-      .detail-title {
-        font-size: 29px;
       }
 
       .detail-actions {
@@ -1592,8 +1668,8 @@
         font-size: 12px;
       }
 
-      .nav-day {
-        min-width: 62px;
+      .nav-position {
+        min-width: 59px;
       }
     }
   </style>
@@ -1628,10 +1704,6 @@
 
     let currentDetailOrder = null;
     let mainScrollPosition = 0;
-
-    /* ─────────────────────────────
-       UTILIDADES
-       ───────────────────────────── */
 
     function escapeHTML(value) {
       return String(
@@ -1686,7 +1758,7 @@
       state
     ) {
       return (
-        "roadtrip_day_" +
+        "roadtrip_v2_day_" +
         CURRENT_DAY +
         "_" +
         order +
@@ -1721,19 +1793,30 @@
       const row =
         getRow(order);
 
-      if (!row) return;
+      if (!row) {
+        return;
+      }
 
       const doneKey =
-        stateKey(order, "done");
+        stateKey(
+          order,
+          "done"
+        );
 
       const skippedKey =
-        stateKey(order, "skipped");
+        stateKey(
+          order,
+          "skipped"
+        );
 
       if (
-        localStorage.getItem(doneKey) ===
-        "1"
+        localStorage.getItem(
+          doneKey
+        ) === "1"
       ) {
-        localStorage.removeItem(doneKey);
+        localStorage.removeItem(
+          doneKey
+        );
       } else {
         localStorage.setItem(
           doneKey,
@@ -1761,13 +1844,21 @@
       const row =
         getRow(order);
 
-      if (!row) return;
+      if (!row) {
+        return;
+      }
 
       const skippedKey =
-        stateKey(order, "skipped");
+        stateKey(
+          order,
+          "skipped"
+        );
 
       const doneKey =
-        stateKey(order, "done");
+        stateKey(
+          order,
+          "done"
+        );
 
       if (
         localStorage.getItem(
@@ -1859,7 +1950,9 @@
     }
 
     function splitTasks(value) {
-      if (!value) return [];
+      if (!value) {
+        return [];
+      }
 
       return String(value)
         .split("|")
@@ -1923,10 +2016,6 @@
       return 0;
     }
 
-    /* ─────────────────────────────
-       INFORMACIÓN GENERAL
-       ───────────────────────────── */
-
     function formatDate(value) {
       const match =
         String(value || "")
@@ -1955,40 +2044,6 @@
           }
         )
         .format(date);
-    }
-
-    function heroImage() {
-      const next =
-        getNextStop();
-
-      if (
-        next &&
-        next.imagen
-      ) {
-        return next.imagen;
-      }
-
-      const first =
-        getStops().find(
-          row =>
-            row.imagen
-        );
-
-      return first
-        ? first.imagen
-        : "https://images.unsplash.com/photo-1502175353174-a7a70e73b362?w=1000&q=80";
-    }
-
-    function weatherText() {
-      const weather =
-        rows.find(
-          row =>
-            row.weather_display
-        );
-
-      return weather
-        ? weather.weather_display
-        : "Disponible cerca del viaje";
     }
 
     function getNextStop() {
@@ -2045,24 +2100,30 @@
       const now =
         currentMinutes();
 
-      if (start === null) {
+      if (
+        start === null
+      ) {
         return "Horario flexible";
       }
 
-      if (now < start) {
-        const minutes =
+      if (
+        now < start
+      ) {
+        const remaining =
           start - now;
 
-        if (minutes < 60) {
+        if (
+          remaining < 60
+        ) {
           return (
             "Empieza en " +
-            minutes +
+            remaining +
             " min"
           );
         }
 
         return (
-          "Programada para " +
+          "A las " +
           parseTime(
             row.hora_inicio
           ).display
@@ -2083,6 +2144,40 @@
       );
     }
 
+    function heroImage() {
+      const next =
+        getNextStop();
+
+      if (
+        next &&
+        next.imagen
+      ) {
+        return next.imagen;
+      }
+
+      const first =
+        getStops().find(
+          row =>
+            row.imagen
+        );
+
+      return first
+        ? first.imagen
+        : "https://images.unsplash.com/photo-1502175353174-a7a70e73b362?w=1200&q=85";
+    }
+
+    function weatherText() {
+      const weather =
+        rows.find(
+          row =>
+            row.weather_display
+        );
+
+      return weather
+        ? weather.weather_display
+        : "Disponible cerca de la fecha del viaje";
+    }
+
     function mapsURL(row) {
       const query =
         row.maps_query ||
@@ -2100,17 +2195,15 @@
       const row =
         getRow(order);
 
-      if (!row) return;
+      if (!row) {
+        return;
+      }
 
       window.open(
         mapsURL(row),
         "_blank"
       );
     }
-
-    /* ─────────────────────────────
-       RENDER PRINCIPAL
-       ───────────────────────────── */
 
     function render() {
       const stops =
@@ -2141,21 +2234,20 @@
           <div class="hero-top">
 
             <button
-              class="round-button"
+              class="hero-icon-button"
               type="button"
               disabled
               aria-label="Día anterior"
-              style="opacity:.45"
             >
               ‹
             </button>
 
-            <div class="hero-counter">
+            <div class="hero-count">
               Día 1 de 9
             </div>
 
             <button
-              class="round-button"
+              class="hero-icon-button"
               type="button"
               onclick="loadData()"
               aria-label="Actualizar"
@@ -2168,7 +2260,7 @@
           <div class="hero-content">
 
             <div class="hero-day">
-              Día 1
+              ✦ Día 1
             </div>
 
             <div class="hero-date">
@@ -2192,71 +2284,67 @@
       `;
 
       html += `
-        <section class="glance">
+        <div class="main-content">
 
-          <div class="glance-row">
+          <section class="section-padding">
 
-            <article class="glance-card">
+            <div class="quick-grid">
 
-              <div class="glance-icon">
-                🌤️
-              </div>
+              <article class="quick-card">
 
-              <div class="glance-label">
-                Clima
-              </div>
+                <div class="quick-icon">
+                  🌤️
+                </div>
 
-              <div class="glance-value">
-                ${escapeHTML(
-                  weatherText()
-                )}
-              </div>
+                <div class="quick-label">
+                  Clima
+                </div>
 
-            </article>
+                <div class="quick-value">
+                  ${escapeHTML(
+                    weatherText()
+                  )}
+                </div>
 
-            <article class="glance-card">
+              </article>
 
-              <div class="glance-icon">
-                🛏️
-              </div>
+              <article class="quick-card">
 
-              <div class="glance-label">
-                Dormimos en
-              </div>
+                <div class="quick-icon">
+                  🛏️
+                </div>
 
-              <div class="glance-value">
-                ${
-                  night
-                    ? escapeHTML(
-                        night.nombre ||
-                        night.direccion ||
-                        "Hospedaje"
-                      )
-                    : "Holiday Inn Express Sea-Tac"
-                }
-              </div>
+                <div class="quick-label">
+                  Dormimos en
+                </div>
 
-            </article>
+                <div class="quick-value">
+                  ${
+                    night
+                      ? escapeHTML(
+                          night.nombre ||
+                          night.direccion ||
+                          "Hospedaje"
+                        )
+                      : "Holiday Inn Express Sea-Tac"
+                  }
+                </div>
 
-          </div>
+              </article>
 
-        </section>
+            </div>
+
+          </section>
       `;
 
       if (next) {
         html += `
-          <section class="next-section">
+          <section class="section-padding next-section">
 
             <article
               class="next-card"
               onclick="openDetail('${escapeHTML(next.orden)}')"
             >
-
-              <div class="next-icon">
-                ${escapeHTML(
-                  next.emoji || "📍"
-                )}
-              </div>
 
               <div class="next-content">
 
@@ -2270,7 +2358,7 @@
                   )}
                 </div>
 
-                <div class="next-status">
+                <div class="next-time">
                   ${escapeHTML(
                     getTimeStatus(next)
                   )}
@@ -2278,8 +2366,21 @@
 
               </div>
 
-              <div class="next-chevron">
-                ›
+              <div class="next-media">
+
+                <img
+                  class="next-image"
+                  src="${escapeHTML(
+                    next.imagen ||
+                    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500&q=80"
+                  )}"
+                  alt=""
+                >
+
+                <span class="next-arrow">
+                  ›
+                </span>
+
               </div>
 
             </article>
@@ -2290,7 +2391,7 @@
 
       if (alert) {
         html += `
-          <section class="alert-section">
+          <section class="section-padding alert-section">
 
             <article class="alert-card">
 
@@ -2319,19 +2420,19 @@
       }
 
       html += `
-        <div class="section-heading">
+          <div class="itinerary-heading">
 
-          <h2>
-            Itinerario
-          </h2>
+            <h2>
+              Itinerario
+            </h2>
 
-          <span>
-            ${stops.length} actividades
-          </span>
+            <div class="itinerary-count">
+              ${stops.length} actividades
+            </div>
 
-        </div>
+          </div>
 
-        <section class="itinerary">
+          <section class="itinerary-list">
       `;
 
       rows.forEach(row => {
@@ -2363,7 +2464,9 @@
       }
 
       html += `
-        </section>
+          </section>
+
+        </div>
 
         <nav class="bottom-navigation">
 
@@ -2374,14 +2477,14 @@
             ← Anterior
           </button>
 
-          <div class="nav-day">
+          <div class="nav-position">
             <span>Día</span>
             <strong>1 de 9</strong>
           </div>
 
           <button
             class="nav-button primary"
-            onclick="alert('En esta prueba solamente está activo el Día 1.')"
+            onclick="alert('Esta prueba solamente contiene el Día 1.')"
           >
             Día 2 →
           </button>
@@ -2400,23 +2503,25 @@
         "c-coral";
 
       let classes =
-        "activity " +
+        "activity-card " +
         color;
 
       if (
         isDone(row)
       ) {
-        classes += " done";
+        classes +=
+          " done";
       }
 
       if (
         isSkipped(row)
       ) {
-        classes += " skipped";
+        classes +=
+          " skipped";
       }
 
       const fallback =
-        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&q=75";
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500&q=80";
 
       return `
         <article
@@ -2426,9 +2531,9 @@
 
           <div class="activity-inner">
 
-            <div class="activity-info">
+            <div class="activity-copy">
 
-              <div class="activity-meta">
+              <div class="activity-topline">
 
                 <span class="activity-time">
                   ${escapeHTML(
@@ -2498,7 +2603,7 @@
 
     function renderTransit(row) {
       return `
-        <div class="transit">
+        <div class="transit-card">
 
           <div class="transit-icon">
             ${escapeHTML(
@@ -2550,7 +2655,7 @@
               )}
             </div>
 
-            <div class="hotel-content">
+            <div>
 
               <div class="hotel-name">
                 ${escapeHTML(
@@ -2590,10 +2695,6 @@
         </section>
       `;
     }
-
-    /* ─────────────────────────────
-       DETALLE
-       ───────────────────────────── */
 
     function getPriceConversion(row) {
       const minimum =
@@ -2668,7 +2769,9 @@
       const row =
         getRow(order);
 
-      if (!row) return;
+      if (!row) {
+        return;
+      }
 
       currentDetailOrder =
         order;
@@ -2712,7 +2815,7 @@
           : "";
 
       const fallback =
-        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1000&q=80";
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=85";
 
       const price =
         row.precio_display ||
@@ -2739,7 +2842,7 @@
           <div class="detail-top">
 
             <button
-              class="round-button"
+              class="hero-icon-button"
               onclick="closeDetail()"
               aria-label="Regresar"
             >
@@ -2747,14 +2850,11 @@
             </button>
 
             <div class="detail-position">
-              Actividad
-              ${index + 1}
-              de
-              ${stops.length}
+              ${index + 1} de ${stops.length}
             </div>
 
             <button
-              class="round-button"
+              class="hero-icon-button"
               onclick="shareActivity('${escapeHTML(row.orden)}')"
               aria-label="Compartir"
             >
@@ -2767,6 +2867,7 @@
 
             <div class="detail-time">
               ${escapeHTML(start)}
+
               ${
                 end
                   ? " – " +
@@ -2823,7 +2924,7 @@
               </span>
 
               <span class="detail-action-label">
-                Abrir Maps
+                Maps
               </span>
             </button>
 
@@ -2856,7 +2957,9 @@
           </div>
       `;
 
-      if (row.direccion) {
+      if (
+        row.direccion
+      ) {
         html += `
           <section class="detail-section">
 
@@ -2865,11 +2968,11 @@
             </div>
 
             <div
-              class="detail-box address-box"
+              class="detail-box address-box clickable"
               onclick="openMaps('${escapeHTML(row.orden)}')"
             >
 
-              <div class="box-icon">
+              <div class="detail-icon">
                 📍
               </div>
 
@@ -2905,7 +3008,9 @@
         `;
       }
 
-      if (tasks.length) {
+      if (
+        tasks.length
+      ) {
         html += `
           <section class="detail-section">
 
@@ -2942,7 +3047,9 @@
         `;
       }
 
-      if (price) {
+      if (
+        price
+      ) {
         html += `
           <section class="detail-section">
 
@@ -2952,7 +3059,7 @@
 
             <div class="detail-box price-box">
 
-              <div class="box-icon">
+              <div class="detail-icon">
                 💰
               </div>
 
@@ -2994,7 +3101,9 @@
         `;
       }
 
-      if (row.alerta) {
+      if (
+        row.alerta
+      ) {
         html += `
           <section class="detail-section">
 
@@ -3036,16 +3145,14 @@
             ← Anterior
           </button>
 
-          <div class="nav-day">
+          <div class="nav-position">
 
             <span>
               Actividad
             </span>
 
             <strong>
-              ${index + 1}
-              de
-              ${stops.length}
+              ${index + 1} de ${stops.length}
             </strong>
 
           </div>
@@ -3091,7 +3198,9 @@
       document.body.style.overflow =
         "hidden";
 
-      if (resetScroll) {
+      if (
+        resetScroll
+      ) {
         view.scrollTop = 0;
       }
     }
@@ -3100,12 +3209,14 @@
       currentDetailOrder =
         null;
 
-      document
-        .getElementById(
+      const view =
+        document.getElementById(
           "detailView"
-        )
-        .classList
-        .remove("open");
+        );
+
+      view.classList.remove(
+        "open"
+      );
 
       document.body.style.overflow =
         "";
@@ -3120,7 +3231,9 @@
       const row =
         getRow(order);
 
-      if (!row) return;
+      if (!row) {
+        return;
+      }
 
       const text = [
         row.nombre ||
@@ -3140,7 +3253,9 @@
         .filter(Boolean)
         .join("\n");
 
-      if (navigator.share) {
+      if (
+        navigator.share
+      ) {
         navigator
           .share({
             title:
@@ -3176,10 +3291,6 @@
       }
     }
 
-    /* ─────────────────────────────
-       CARGA
-       ───────────────────────────── */
-
     function loadData() {
       document
         .getElementById(
@@ -3197,7 +3308,9 @@
         CURRENT_DAY
       )
         .then(response => {
-          if (!response.ok) {
+          if (
+            !response.ok
+          ) {
             throw new Error(
               "Error HTTP " +
               response.status
@@ -3209,7 +3322,8 @@
         .then(data => {
           rows =
             Array.isArray(
-              data && data.rows
+              data &&
+              data.rows
             )
               ? data.rows
               : [];
@@ -3220,7 +3334,9 @@
               ? data.meta
               : {};
 
-          if (!rows.length) {
+          if (
+            !rows.length
+          ) {
             throw new Error(
               "El API no devolvió actividades para el Día 1."
             );
