@@ -44,6 +44,7 @@
       --border: rgba(32, 35, 33, 0.09);
 
       --primary: #202321;
+
       --blue: #6395B3;
       --blue-dark: #4C7891;
       --blue-soft: #E2EFF6;
@@ -152,8 +153,6 @@
     img {
       display: block;
     }
-
-    /* APP */
 
     .app {
       width: 100%;
@@ -424,8 +423,6 @@
         rgba(223, 255, 89, 0.70);
     }
 
-    /* CONTENIDO */
-
     .main-content {
       padding-top: 14px;
     }
@@ -552,11 +549,11 @@
 
       color: var(--muted);
 
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1.4;
     }
 
-    /* LO QUE SIGUE */
+    /* SIGUIENTE */
 
     .next-section {
       margin-top: 13px;
@@ -959,37 +956,84 @@
         rgba(0, 0, 0, 0.18);
     }
 
-    /* TRASLADO */
+    /* TRASLADOS */
 
     .transit-card {
-      display: flex;
+      display: grid;
+      grid-template-columns:
+        44px minmax(0, 1fr) auto;
+
       gap: 12px;
-      align-items: flex-start;
+      align-items: center;
 
-      margin:
-        1px 5px 14px;
+      margin: 2px 5px 14px;
+      padding: 14px;
 
-      padding:
-        13px 14px;
+      border:
+        1px solid
+        rgba(99, 149, 179, 0.16);
 
       border-left:
-        4px solid
-        var(--blue);
+        4px solid var(--blue);
 
       border-radius:
-        0 17px 17px 0;
+        0 20px 20px 0;
 
       background:
         rgba(99, 149, 179, 0.08);
     }
 
     .transit-icon {
-      flex: 0 0 auto;
-      font-size: 20px;
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 15px;
+
+      background:
+        rgba(99, 149, 179, 0.13);
+
+      font-size: 22px;
+    }
+
+    .transit-copy {
+      min-width: 0;
+    }
+
+    .transit-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      gap: 7px;
+
+      margin-bottom: 5px;
+    }
+
+    .transit-duration {
+      color: var(--blue-dark);
+
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .transit-mode {
+      padding: 4px 7px;
+
+      border-radius: 8px;
+
+      background: var(--surface);
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 700;
     }
 
     .transit-title {
-      color: var(--blue-dark);
+      color: var(--text);
 
       font-size: 15px;
       font-weight: 800;
@@ -998,12 +1042,41 @@
     }
 
     .transit-description {
-      margin-top: 4px;
+      margin-top: 3px;
 
       color: var(--muted);
 
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.45;
+    }
+
+    .transit-map-button {
+      min-width: 58px;
+      min-height: 54px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      gap: 3px;
+      padding: 7px;
+
+      border:
+        1px solid
+        rgba(99, 149, 179, 0.24);
+
+      border-radius: 17px;
+
+      background: var(--surface);
+      color: var(--blue-dark);
+
+      font-size: 18px;
+    }
+
+    .transit-map-button span {
+      font-size: 10px;
+      font-weight: 800;
     }
 
     /* HOTEL */
@@ -1096,7 +1169,7 @@
       font-weight: 800;
     }
 
-    /* NAVEGACIÓN PRINCIPAL */
+    /* BARRA INFERIOR */
 
     .bottom-navigation {
       position: fixed;
@@ -1193,7 +1266,7 @@
       font-weight: 800;
     }
 
-    /* DETALLE FULLSCREEN */
+    /* DETALLE */
 
     .detail-view {
       position: fixed;
@@ -1643,8 +1716,6 @@
         rgba(38, 45, 41, 0.10);
     }
 
-    /* ESCRITORIO */
-
     @media (min-width: 720px) {
       .app,
       .detail-view {
@@ -1673,8 +1744,6 @@
       }
     }
 
-    /* MÓVILES PEQUEÑOS */
-
     @media (max-width: 385px) {
       .hero {
         min-height: 325px;
@@ -1699,6 +1768,23 @@
 
       .activity-title {
         font-size: 18px;
+      }
+
+      .transit-card {
+        grid-template-columns:
+          40px minmax(0, 1fr) 52px;
+
+        gap: 9px;
+        padding: 12px;
+      }
+
+      .transit-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .transit-map-button {
+        min-width: 50px;
       }
 
       .detail-actions {
@@ -1765,9 +1851,9 @@
       3: {
         date: "2026-08-12",
         shortDate: "12 AGO",
-        city: "Seattle",
-        latitude: 47.6062,
-        longitude: -122.3321,
+        city: "Bainbridge / Centralia",
+        latitude: 47.6262,
+        longitude: -122.5212,
         timezone: "America/Los_Angeles",
         flag: "🇺🇸",
         country: "Estados Unidos"
@@ -1820,7 +1906,7 @@
       8: {
         date: "2026-08-17",
         shortDate: "17 AGO",
-        city: "Vancouver",
+        city: "Vancouver / Washington",
         latitude: 49.2827,
         longitude: -123.1207,
         timezone: "America/Vancouver",
@@ -1831,7 +1917,7 @@
       9: {
         date: "2026-08-18",
         shortDate: "18 AGO",
-        city: "Olympia",
+        city: "Washington",
         latitude: 47.0379,
         longitude: -122.9007,
         timezone: "America/Los_Angeles",
@@ -1845,7 +1931,9 @@
 
     let rows = [];
     let meta = {};
+
     let weatherData = null;
+    let weatherUpdatedAt = null;
 
     let currentDetailOrder = null;
     let mainScrollPosition = 0;
@@ -1981,10 +2069,7 @@
       );
     }
 
-    function stateKey(
-      order,
-      state
-    ) {
+    function stateKey(order, state) {
       return (
         "roadtrip_v2_day_" +
         currentDay +
@@ -2240,9 +2325,7 @@
         );
     }
 
-    function getCurrencyRate(
-      currency
-    ) {
+    function getCurrencyRate(currency) {
       const exchange =
         meta.exchange || {};
 
@@ -2483,6 +2566,242 @@
       );
     }
 
+    /* TRASLADOS */
+
+    function transportInfo(row) {
+      const text = [
+        row.categoria,
+        row.nombre,
+        row.descripcion,
+        row.emoji
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      if (
+        text.includes("camin") ||
+        text.includes("walking") ||
+        text.includes("🚶")
+      ) {
+        return {
+          icon: "🚶",
+          label: "Caminando",
+          mode: "walking"
+        };
+      }
+
+      if (
+        text.includes("tren") ||
+        text.includes("rail") ||
+        text.includes("monorriel") ||
+        text.includes("metro") ||
+        text.includes("🚈") ||
+        text.includes("🚝") ||
+        text.includes("🚆")
+      ) {
+        return {
+          icon: "🚈",
+          label: "Transporte público",
+          mode: "transit"
+        };
+      }
+
+      if (
+        text.includes("ferry") ||
+        text.includes("bote") ||
+        text.includes("aquabus") ||
+        text.includes("⛴") ||
+        text.includes("🛥")
+      ) {
+        return {
+          icon: "⛴️",
+          label: "Ferry",
+          mode: "transit"
+        };
+      }
+
+      if (
+        text.includes("shuttle") ||
+        text.includes("van") ||
+        text.includes("🚐")
+      ) {
+        return {
+          icon: "🚐",
+          label: "Shuttle",
+          mode: "driving"
+        };
+      }
+
+      return {
+        icon: "🚗",
+        label: "En auto",
+        mode: "driving"
+      };
+    }
+
+    function transitDuration(row) {
+      if (
+        row.duracion
+      ) {
+        return String(
+          row.duracion
+        )
+          .replace(/^~/, "")
+          .trim();
+      }
+
+      const start =
+        parseTime(
+          row.hora_inicio
+        ).minutes;
+
+      const end =
+        parseTime(
+          row.hora_fin
+        ).minutes;
+
+      if (
+        start === null ||
+        end === null
+      ) {
+        return "Tiempo por confirmar";
+      }
+
+      let minutes =
+        end - start;
+
+      if (
+        minutes < 0
+      ) {
+        minutes +=
+          24 * 60;
+      }
+
+      if (
+        minutes >= 60
+      ) {
+        const hours =
+          Math.floor(
+            minutes / 60
+          );
+
+        const remainder =
+          minutes % 60;
+
+        return remainder
+          ? (
+            hours +
+            " h " +
+            remainder +
+            " min"
+          )
+          : (
+            hours +
+            " h"
+          );
+      }
+
+      return (
+        minutes +
+        " min"
+      );
+    }
+
+    function transitDestination(row) {
+      if (
+        row.maps_query
+      ) {
+        return row.maps_query;
+      }
+
+      if (
+        row.direccion
+      ) {
+        return row.direccion;
+      }
+
+      const name =
+        String(
+          row.nombre || ""
+        );
+
+      if (
+        name.includes("→")
+      ) {
+        return name
+          .split("→")
+          .pop()
+          .trim();
+      }
+
+      return name;
+    }
+
+    function transitOrigin(row) {
+      const name =
+        String(
+          row.nombre || ""
+        );
+
+      if (
+        name.includes("→")
+      ) {
+        return name
+          .split("→")[0]
+          .trim();
+      }
+
+      return "";
+    }
+
+    function transitMapsURL(row) {
+      const transport =
+        transportInfo(row);
+
+      const destination =
+        transitDestination(row);
+
+      const origin =
+        transitOrigin(row);
+
+      let url =
+        "https://www.google.com/maps/dir/?api=1" +
+        "&destination=" +
+        encodeURIComponent(
+          destination
+        ) +
+        "&travelmode=" +
+        encodeURIComponent(
+          transport.mode
+        );
+
+      if (
+        origin
+      ) {
+        url +=
+          "&origin=" +
+          encodeURIComponent(
+            origin
+          );
+      }
+
+      return url;
+    }
+
+    function openTransitMaps(order) {
+      const row =
+        getRow(order);
+
+      if (!row) {
+        return;
+      }
+
+      window.open(
+        transitMapsURL(row),
+        "_blank"
+      );
+    }
+
     /* CLIMA */
 
     function weatherDescription(code) {
@@ -2517,7 +2836,11 @@
     }
 
     function weatherIcon(code) {
-      if (code === 0) return "☀️";
+      if (
+        code === 0
+      ) {
+        return "☀️";
+      }
 
       if (
         code === 1 ||
@@ -2526,7 +2849,9 @@
         return "🌤️";
       }
 
-      if (code === 3) {
+      if (
+        code === 3
+      ) {
         return "☁️";
       }
 
@@ -2572,6 +2897,9 @@
         loading: true,
         available: false
       };
+
+      weatherUpdatedAt =
+        null;
 
       const dailyVariables = [
         "weather_code",
@@ -2691,6 +3019,9 @@
                   )
                 : null
           };
+
+          weatherUpdatedAt =
+            new Date();
         })
         .catch(() => {
           weatherData = {
@@ -2699,6 +3030,9 @@
             message:
               "No se pudo actualizar el pronóstico"
           };
+
+          weatherUpdatedAt =
+            null;
         });
     }
 
@@ -2776,7 +3110,27 @@
       );
     }
 
-    /* NAVEGACIÓN ENTRE DÍAS */
+    function weatherUpdatedText() {
+      if (
+        !weatherUpdatedAt
+      ) {
+        return "";
+      }
+
+      return (
+        "Actualizado " +
+        weatherUpdatedAt
+          .toLocaleTimeString(
+            "es-MX",
+            {
+              hour: "numeric",
+              minute: "2-digit"
+            }
+          )
+      );
+    }
+
+    /* NAVEGACIÓN */
 
     function loadDay(day) {
       const newDay =
@@ -2794,6 +3148,7 @@
       rows = [];
       meta = {};
       weatherData = null;
+      weatherUpdatedAt = null;
 
       closeDetail(false);
 
@@ -2854,7 +3209,8 @@
           "</button>";
       }
 
-      html += "</div>";
+      html +=
+        "</div>";
 
       return html;
     }
@@ -2865,14 +3221,18 @@
           "daySelector"
         );
 
-      if (!selector) return;
+      if (!selector) {
+        return;
+      }
 
       const active =
         selector.querySelector(
           ".day-chip.active"
         );
 
-      if (!active) return;
+      if (!active) {
+        return;
+      }
 
       active.scrollIntoView({
         behavior: "smooth",
@@ -3038,6 +3398,18 @@
                       : ""
                   }
 
+                  ${
+                    weatherUpdatedText()
+                      ? `
+                        <div class="weather-note">
+                          ${escapeHTML(
+                            weatherUpdatedText()
+                          )}
+                        </div>
+                      `
+                      : ""
+                  }
+
                 </div>
 
               </div>
@@ -3047,7 +3419,9 @@
           </section>
       `;
 
-      if (next) {
+      if (
+        next
+      ) {
         html += `
           <section class="section-padding next-section">
 
@@ -3099,7 +3473,9 @@
         `;
       }
 
-      if (alert) {
+      if (
+        alert
+      ) {
         html += `
           <section class="section-padding alert-section">
 
@@ -3168,7 +3544,9 @@
           renderActivity(row);
       });
 
-      if (night) {
+      if (
+        night
+      ) {
         html +=
           renderHotel(night);
       }
@@ -3319,22 +3697,39 @@
     }
 
     function renderTransit(row) {
+      const transport =
+        transportInfo(row);
+
+      const duration =
+        transitDuration(row);
+
       return `
-        <div class="transit-card">
+        <article class="transit-card">
 
           <div class="transit-icon">
-            ${escapeHTML(
-              row.emoji || "🚗"
-            )}
+            ${transport.icon}
           </div>
 
-          <div>
+          <div class="transit-copy">
+
+            <div class="transit-meta">
+
+              <strong class="transit-duration">
+                ${escapeHTML(duration)}
+              </strong>
+
+              <span class="transit-mode">
+                ${escapeHTML(
+                  transport.label
+                )}
+              </span>
+
+            </div>
 
             <div class="transit-title">
               ${escapeHTML(
                 row.nombre ||
-                row.duracion ||
-                "Traslado"
+                "Siguiente destino"
               )}
             </div>
 
@@ -3352,7 +3747,17 @@
 
           </div>
 
-        </div>
+          <button
+            class="transit-map-button"
+            type="button"
+            onclick="event.stopPropagation(); openTransitMaps('${escapeHTML(row.orden)}')"
+            aria-label="Ver ruta en Maps"
+          >
+            🗺️
+            <span>Ruta</span>
+          </button>
+
+        </article>
       `;
     }
 
@@ -3478,8 +3883,6 @@
         " MXN"
       );
     }
-
-    /* DETALLE */
 
     function openDetail(
       order,
@@ -4018,8 +4421,6 @@
       }
     }
 
-    /* CARGA DE DATOS */
-
     function loadData() {
       document
         .getElementById(
@@ -4035,7 +4436,9 @@
         fetch(
           API_URL +
           "?format=json&day=" +
-          currentDay
+          currentDay +
+          "&t=" +
+          Date.now()
         )
           .then(response => {
             if (
