@@ -1,4 +1,4 @@
-const CACHE_NAME = "roadtrip-shell-v2.2";
+const CACHE_NAME = "roadtrip-shell-v2.3";
 
 const APP_SHELL = [
   "./",
@@ -36,49 +36,47 @@ self.addEventListener("fetch", event => {
 
   const url = new URL(event.request.url);
 
-  // API y clima: red primero; caché si no hay conexión.
+  // Apps Script y clima: red primero.
   if (
     url.hostname.includes("script.google.com") ||
     url.hostname.includes("script.googleusercontent.com") ||
     url.hostname.includes("api.open-meteo.com")
   ) {
     event.respondWith(
-      fetch(event.request).catch(() =>
-        caches.match(event.request)
-      )
+      fetch(event.request).catch(() => caches.match(event.request))
     );
 
     return;
   }
 
-  // HTML: buscar primero la versión nueva.
+  // Páginas HTML: buscar siempre la versión más reciente.
   if (event.request.mode === "navigate") {
     event.respondWith(
       fetch(event.request)
         .then(response => {
-          const copy = response.clone();
+          if (response.ok) {
+            const copy = response.clone();
 
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put("./index-v2.html", copy);
-          });
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put("./index-v2.html", copy).catch(() => {});
+            });
+          }
 
           return response;
         })
-        .catch(() =>
-          caches.match("./index-v2.html")
-        )
+        .catch(() => caches.match("./index-v2.html"))
     );
 
     return;
   }
 
-  // Imágenes: reutilizar las ya descargadas.
-  if (event.request.destination === "image") {
-    event.respondWith(
-      caches.match(event.request).then(cached => {
-        if (cached) return cached;
+  // JS, manifest e imágenes: caché primero, red como respaldo.
+  event.respondWith(
+    caches.match(event.request).then(cached => {
+      if (cached) return cached;
 
-        return fetch(event.request).then(response => {
+      return fetch(event.request)
+        .then(response => {
           if (response.ok) {
             const copy = response.clone();
 
@@ -88,29 +86,13 @@ self.addEventListener("fetch", event => {
           }
 
           return response;
-        });
-      })
-    );
-
-    return;
-  }
-
-  // JS, manifest y otros archivos.
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      const networkRequest = fetch(event.request).then(response => {
-        if (response.ok) {
-          const copy = response.clone();
-
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, copy).catch(() => {});
+        })
+        .catch(() => {
+          return new Response("", {
+            status: 503,
+            statusText: "Sin conexión"
           });
-        }
-
-        return response;
-      });
-
-      return cached || networkRequest;
+        });
     })
   );
 });
