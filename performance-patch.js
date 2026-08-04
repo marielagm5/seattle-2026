@@ -470,5 +470,3 @@
     installSaverButton();
   }
 })();
-
-Add performance patch
