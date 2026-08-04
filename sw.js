@@ -1,79 +1,99 @@
-const CACHE_NAME = 'roadtrip-v1';
-const DATA_CACHE = 'roadtrip-data-v1';
+const CACHE_NAME = "roadtrip-shell-v2.1";
 
-const STATIC_FILES = [
-  '/seattle-2026/',
-  '/seattle-2026/index.html',
-  '/seattle-2026/manifest.json'
+const APP_SHELL = [
+  "./",
+  "./index-v2.html",
+  "./manifest.json",
+  "./performance-patch.js"
 ];
 
-// Instalar: cachear archivos estáticos
-self.addEventListener('install', event => {
+self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_FILES))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
-// Activar: limpiar caches viejos
-self.addEventListener('activate', event => {
+self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
         keys
-          .filter(k => k !== CACHE_NAME && k !== DATA_CACHE)
-          .map(k => caches.delete(k))
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
       )
-    )
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// Fetch: estrategia mixta
-self.addEventListener('fetch', event => {
-  const url = event.request.url;
+self.addEventListener("fetch", event => {
 
-  // Datos de la API: Network first, fallback a cache
-  if (url.includes('script.google.com')) {
+  if (event.request.method !== "GET") return;
+
+  const url = new URL(event.request.url);
+
+  // API y clima: siempre intenta traer información nueva
+  if (
+    url.hostname.includes("script.google.com") ||
+    url.hostname.includes("script.googleusercontent.com") ||
+    url.hostname.includes("api.open-meteo.com")
+  ) {
+
     event.respondWith(
       fetch(event.request)
-        .then(response => {
-          const clone = response.clone();
-          caches.open(DATA_CACHE).then(cache => cache.put(event.request, clone));
-          return response;
-        })
         .catch(() => caches.match(event.request))
     );
+
     return;
   }
 
-  // Fuentes de Google Fonts: cache first
-  if (url.includes('fonts.googleapis.com') || url.includes('fonts.gstatic.com')) {
-    event.respondWith(
-      caches.match(event.request).then(cached => cached || fetch(event.request))
-    );
-    return;
-  }
+  // Imágenes
+  if (event.request.destination === "image") {
 
-  // Imágenes de Unsplash: cache first, sin error si falla
-  if (url.includes('unsplash.com')) {
     event.respondWith(
-      caches.match(event.request).then(cached => {
-        if (cached) return cached;
-        return fetch(event.request)
-          .then(response => {
-            const clone = response.clone();
-            caches.open(CACHE_NAME).then(c => c.put(event.request, clone));
-            return response;
-          })
-          .catch(() => new Response('', { status: 408 }));
+
+      caches.match(event.request).then(cache => {
+
+        if (cache) return cache;
+
+        return fetch(event.request).then(response => {
+
+          if (response.ok) {
+
+            const copy = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(c =>
+                c.put(event.request, copy)
+              );
+
+          }
+
+          return response;
+
+        });
+
       })
+
     );
+
     return;
+
   }
 
-  // Todo lo demás: cache first, luego red
+  // HTML, CSS y JS
   event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request))
+
+    caches.match(event.request).then(cache => {
+
+      return (
+        cache ||
+        fetch(event.request)
+      );
+
+    })
+
   );
+
 });
