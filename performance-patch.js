@@ -2,7 +2,7 @@
   "use strict";
 
   const VERSION = "roadtrip-perf-2.1";
-  const API_TTL = 12 * 60 * 60 * 1000;
+ const API_TTL = 5 * 60 * 1000;
   const WEATHER_TTL = 30 * 60 * 1000;
   const DATA_SAVER_KEY = "roadtrip_data_saver";
 
