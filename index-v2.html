@@ -11,6 +11,7 @@
 
   <link rel="manifest" href="./manifest.json">
   <script src="./performance-patch.js?v=31"></script>
+  <!-- HTML horario fix v32 -->
   <script src="./shopping-hours.js?v=24"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,7 +138,66 @@
     function toggleDone(order){const row=getRow(order);if(!row)return;const doneKey=stateKey(order,"done"),skippedKey=stateKey(order,"skipped");if(localStorage.getItem(doneKey)==="1")localStorage.removeItem(doneKey);else{localStorage.setItem(doneKey,"1");localStorage.removeItem(skippedKey);if(navigator.vibrate)navigator.vibrate(40)}render();if(currentDetailOrder!==null)openDetail(currentDetailOrder,false)}
     function toggleSkipped(order){const row=getRow(order);if(!row)return;const skippedKey=stateKey(order,"skipped"),doneKey=stateKey(order,"done");if(localStorage.getItem(skippedKey)==="1")localStorage.removeItem(skippedKey);else{localStorage.setItem(skippedKey,"1");localStorage.removeItem(doneKey)}render();if(currentDetailOrder!==null)openDetail(currentDetailOrder,false)}
 
-    function parseTime(value){const text=String(value||"").trim(),match=text.match(/(\d{1,2}):(\d{2})/);if(!match)return{display:text||"Horario flexible",minutes:null};let hour=Number(match[1]),minutes=Number(match[2]),lower=text.toLowerCase();if(lower.includes("pm")&&hour!==12)hour+=12;if(lower.includes("am")&&hour===12)hour=0;return{display:(hour%12||12)+":"+String(minutes).padStart(2,"0")+" "+(hour>=12?"p.m.":"a.m."),minutes:hour*60+minutes}}
+    function parseTime(value){
+      const text=String(value??"").trim();
+
+      if(!text){
+        return{display:"Horario flexible",minutes:null};
+      }
+
+      /*
+        Google Sheets puede devolver horas como:
+        "5:15 p.m."
+        "5:15:00 p.m."
+        "17:15"
+        "1899-12-30T17:15:00.000Z"
+
+        Antes solo detectábamos "pm" / "am".
+        Si Sheets mandaba "p.m." / "a.m.", la app lo leía como mañana.
+      */
+      const lower=text.toLowerCase();
+      const meridiem=lower
+        .replace(/\./g,"")
+        .replace(/\s+/g,"");
+
+      const hasPM=meridiem.includes("pm");
+      const hasAM=meridiem.includes("am");
+
+      const matches=[...text.matchAll(/(\d{1,2}):(\d{2})/g)];
+
+      if(!matches.length){
+        return{display:text,minutes:null};
+      }
+
+      // Si llega una fecha ISO, usamos la última hora encontrada.
+      const match=matches[matches.length-1];
+
+      let hour=Number(match[1]);
+      const minutes=Number(match[2]);
+
+      if(hasPM && hour<12){
+        hour+=12;
+      }
+
+      if(hasAM && hour===12){
+        hour=0;
+      }
+
+      // Sin a.m./p.m., una hora 13–23 se interpreta naturalmente como formato 24 h.
+      if(hour<0 || hour>23 || minutes<0 || minutes>59){
+        return{display:text,minutes:null};
+      }
+
+      return{
+        display:
+          (hour%12||12)+
+          ":"+
+          String(minutes).padStart(2,"0")+
+          " "+
+          (hour>=12?"p.m.":"a.m."),
+        minutes:hour*60+minutes
+      };
+    }
     function currentMinutes(){const now=new Date();return now.getHours()*60+now.getMinutes()}
     function splitTasks(value){return value?String(value).split("|").map(item=>item.trim()).filter(Boolean):[]}
     function numberValue(value){if(value===null||value===undefined||value==="")return null;const n=Number(String(value).replace(",","."));return Number.isNaN(n)?null:n}
