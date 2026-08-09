@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <link rel="manifest" href="./manifest.json">
-  <script src="./performance-patch.js?v=23"></script>
+  <script src="./performance-patch.js?v=31"></script>
   <script src="./shopping-hours.js?v=24"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -230,7 +230,7 @@
     function weatherMainText(){if(!weatherData||weatherData.loading)return"Consultando clima...";if(!weatherData.available)return weatherData.message||"Clima no disponible";return weatherDescription(weatherData.code)+" · "+weatherData.maximum+"° / "+weatherData.minimum+"°"}
     function weatherUpdatedText(){if(!weatherUpdatedAt)return"";return"Actualizado "+weatherUpdatedAt.toLocaleTimeString("es-MX",{hour:"numeric",minute:"2-digit"})}
 
-    function loadDay(day){currentDay=Math.max(1,Math.min(9,Number(day)||1));rows=[];meta={};weatherData=null;weatherUpdatedAt=null;closeDetail(false);window.scrollTo({top:0,behavior:"auto"});loadData(false)}
+    function loadDay(day){currentDay=Math.max(1,Math.min(9,Number(day)||1));rows=[];meta={};weatherData=null;weatherUpdatedAt=null;closeDetail(false);window.scrollTo({top:0,behavior:"auto"});loadData(true)}
     function renderDaySelector(){const todayDay=actualTripDay();let html='<div class="day-selector" id="daySelector">';for(let day=1;day<=9;day++){let classes="day-chip";if(day===currentDay)classes+=" active";if(day===todayDay)classes+=" trip-today";html+='<button class="'+classes+'" data-day="'+day+'" onclick="loadDay('+day+')"><strong>'+escapeHTML(TRIP_DAYS[day].shortDate)+'</strong><span>Día '+day+"</span></button>"}return html+"</div>"}
     function scrollActiveDay(){const selector=document.getElementById("daySelector");if(!selector)return;const active=selector.querySelector(".day-chip.active");if(active)active.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"})}
 
@@ -418,7 +418,7 @@
     function loadData(force=false){
       document.getElementById("app").innerHTML=`<div class="loading">⏳ Cargando Día ${currentDay}...</div>`;
       const itineraryURL=API_URL+"?format=json&day="+currentDay+(force?"&t="+Date.now():"");
-      const itineraryRequest=fetch(itineraryURL,force?{cache:"reload"}:undefined).then(response=>{if(!response.ok)throw new Error("Error HTTP "+response.status);return response.json()});
+      const itineraryRequest=fetch(itineraryURL,force?{cache:"no-store"}:undefined).then(response=>{if(!response.ok)throw new Error("Error HTTP "+response.status);return response.json()});
       const weatherRequest=fetchWeather(force);
 
       Promise.all([itineraryRequest,weatherRequest]).then(results=>{
@@ -432,7 +432,7 @@
       });
     }
 
-    loadData(false);
+    loadData(true);
   </script>
 </body>
 </html>
